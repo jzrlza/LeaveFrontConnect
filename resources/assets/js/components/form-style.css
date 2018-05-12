@@ -1,0 +1,29 @@
+.form-inp {
+  text-align: left;
+  max-width: 500px;
+  margin: 255 auto;
+}
+.txtinp {
+  color: #555;
+}
+.form-inp .form-inp-heading,
+.form-inp .checkbox {
+  margin-bottom: 10px;
+}
+.form-inp .checkbox {
+  font-weight: normal;
+}
+.form-inp .form-control:focus {
+  z-index: 2;
+}
+.form-inp .form-control {
+  margin-bottom: 8px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}

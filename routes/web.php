@@ -1,0 +1,38 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+// Route::get('/home', function () {
+//     echo "this is home";
+// });
+
+Route::get('/login', 'Controller@login')->name('login');
+Route::get('/home/{id}', 'Controller@home')->name('homeid');
+Route::any('/', 'HomeController@index');
+Route::get('/vue/{vue_capture?}', function () {
+ return view('vue.index');
+})->where('vue_capture', '[\/\w\.-]*');
+
+Route::get('/admin-users', 'AdminUserController@index')->name('admin-users');
+Route::get('/admin-print-report', 'AdminUserController@temp_print')->name('admin-print-report');
+Route::get('/super-profile', 'AdminUserController@super_profile')->name('super-profile');
+Route::get('/super-assign-tasks', 'AdminUserController@super_assign')->name('super-assign-tasks');
+Route::get('/super-approve-leaves', 'AdminUserController@super_approve')->name('super-approve-leaves');
+Route::get('/super-check', 'AdminUserController@super_check')->name('super-check');
+Route::get('/sub-profile', 'AdminUserController@sub_profile')->name('sub-profile');
+Route::get('/sub-accept-tasks', 'AdminUserController@sub_tasks')->name('sub-accept-tasks');
+Route::get('/sub-accept-requests', 'AdminUserController@sub_requests')->name('sub-accept-requests');
+Route::get('/sub-check', 'AdminUserController@sub_check')->name('sub-check');
