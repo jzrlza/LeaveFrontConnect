@@ -45,10 +45,27 @@ export default {
           dataKey:'approved'
         }
       ]
+
+
       var doc = new jsPDF()
+
       doc.text("Leave Requests Throughout System", 65, 10);
+
       doc.autoTable(columns, this.leaves)
+      //doc.text("Hello World", 1, 1);
       doc.save('report.pdf')
+/*
+       var doc = new jsPDF('p','pt', 'a4', true);
+      var header = [1,2,3,4];
+      doc.table(10, 10, $('#test').get(0), this.table, {
+      left:10,
+      top:10,
+      bottom: 10,
+      width: 170,
+      autoSize:false,
+      printHeaders: true
+      });
+      doc.save('sample-file.pdf');*/
     }
   },
   data () {
