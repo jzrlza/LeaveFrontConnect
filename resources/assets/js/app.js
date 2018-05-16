@@ -6,6 +6,7 @@
  */
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Login from './components/Login'
 import HelloWorld from './components/HelloWorld'
 import AdminUsers from './components/AdminUsers'
@@ -19,7 +20,9 @@ import SubAcceptTasks from './components/SubAcceptTasks'
 import SubAcceptRequests from './components/SubAcceptRequests'
 import SubCheck from './components/SubCheck'
 //require('./bootstrap');
+
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 import VueRouteLaravel from 'vue-route-laravel'
 Vue.use(Router)
 
@@ -92,6 +95,7 @@ const router = new Router({
 const queryString = require('query-string')
 //window.Vue = require('vue');
 //window.VueRouter = require('vue-router');
+Vue.use(VueAxios, axios)
 var config = {
     baseroute: '/api/route/',
     axios: axios,
