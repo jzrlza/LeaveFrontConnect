@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 
-class LeaveRequestController
+class LeaveRequestController extends Controller
 {
 
 }
