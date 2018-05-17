@@ -19,7 +19,6 @@ export default {
     Useradd
   }, 
   props: ['users'],
-// CONNECT THIS TO BACKEND
 methods: {
     assignTask () {
       alert('unused')
@@ -41,68 +40,15 @@ methods: {
     data () {
       return {
         users: [],
-        /*
-       users: [
-          {
-          'username':'super1',
-          'department':'Engineering',
-          'type':'Supervisor',
-          'supervisor':null
-          },
-          {
-          'username':'sub1',
-          'department':'Engineering',
-          'type':'Subordinate',
-          'supervisor':'super1'
-          },
-          {
-          'username':'sub2',
-          'department':'Engineering',
-          'type':'Subordinate',
-          'supervisor':null
-          }
-
-        ],*/
+        
         useradd: {
           name: '',
           dept_id: 1,
           type: 'Supervisor',
           super_id: null
         },
-        departments:[],/*
-        departments:[
-        {
-          dept_id:1,
-          dept_name:'Engineering'
-        },
-        {
-          dept_id:2,
-          dept_name:'Agriculture'
-        },
-        {
-          dept_id:3,
-          dept_name:'Science'
-        },
-        {
-          dept_id:4,
-          dept_name:'Law and Ethics'
-        },
-        {
-          dept_id:5,
-          dept_name:'Fashion'
-        },
-        {
-          dept_id:6,
-          dept_name:'Zoology'
-        },
-        {
-          dept_id:7,
-          dept_name:'Industry'
-        },
-        {
-          dept_id:8,
-          dept_name:'Fishery'
-        }]*/
+        departments:[]
+       
       }
     },
     mounted(){

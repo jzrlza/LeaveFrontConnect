@@ -4,39 +4,6 @@
 <h2 class="form-inp-heading">Select Assigned Tasks</h2>
   <task  v-for="task in tasks" v-bind:task="task" :key="task"></task>
 
-<!--
-  
-  <div v-for="a_task in tasks" :key="a_task">
-    <div class="form-control" v-show="!isEditing">
-    <div class='header'>{{ a_task.title }} </div>
-    <div class='meta'>Due Date : {{ a_task.deadline_date }} {{ a_task.deadline_time }}</div>
-
-    <div class='ui bottom attached red basic button' v-on:click="showAcceptForm">
-        Accept Task
-      </div>
-    </div>
-
-    <div class="form-control" v-show="isEditing">
-      <div class='ui form'>
-        <div class='field'>
-          <label>Title</label>
-          <input type='text' >
-        </div>
-        <div class='field'>
-          <label>Project</label>
-          <input type='text' >
-        </div>
-        <div class='ui two button attached buttons'>
-          <button class='ui basic green solid button' v-on:click="hideForm"> Change this for backend
-            Accept
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-   -->
-
    <br>
  </div>
 
@@ -44,21 +11,24 @@
 
 <script>
 import Task from './TaskToAccept';
+import axios from 'axios';
 
 export default {
   name: 'Tasker',
   components: {
     Task
   }, 
-  props: ['tasker'],
+  props: ['tasks'],
   methods: {
       assignTask () {
         alert('unused')
       }
     }, 
-    //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
+        task_ids: [],
+        tasks: []
+        /*
         tasks: [
           {
           'title':'Get some money from the advertising.',
@@ -73,8 +43,28 @@ export default {
             'deadline_time':'10:00 PM'
          }
 
-        ]
+        ]*/
       }
+    },
+    mounted(){
+    var self = this; 
+    axios.get('unaccepted-tasks-get')
+    .then((res)=>{
+      console.log(res.data);
+      self.task_ids = res.data;
+    }).catch((error)=>{
+      console.log(error);
+    });
+
+    axios.get('all-tasks-get')
+    .then((res)=>{
+      console.log(res.data);
+      self.tasks = res.data;
+    }).catch((error)=>{
+      console.log(error);
+    });
+    
+      
     }
   }
 </script>

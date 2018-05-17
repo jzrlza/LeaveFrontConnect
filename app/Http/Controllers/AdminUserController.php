@@ -12,14 +12,8 @@ class AdminUserController extends Controller
 
     //IMPORTANT!! DON'T DELETE, KEEP IT
     function index(){
-    	$users = User::where('type', '=', '"Supervisor"')->orWhere('type', '=', '"Subordinate"')->get();
-
-    	//if (request()->wantsJson()) {
-        //    return $users;
-        //}
-        //return View::make('webs.admin.users')->with($users);
-        //return view('webs.admin.users', ['users' => $users]);
-        return view('webs.admin.users')->with(['users' => $users]);
+        
+        return view('webs.admin.users');//->with(['users' => $users]);
 
     }
 
