@@ -52,18 +52,18 @@ class UserController extends Controller
         if (DB::select('select * from users where type = ?',['Admin']))
         {
             $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => Hash::make($request->get('password')),
-                'fullname' => $request->get('fullname'),
-                'address' => $request->get('address'),
-                'facebook' => $request->get('facebook'),
-                'lineid' => $request->get('lineid'),
-                'ig' => $request->get('ig'),
-                'tel' => $request->get('tel'),
-                'type' => $request->get('type'),
-                'profile_image_src' => $request->get('profile_image_src')
-
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => $request['password'],
+                'fullname' => $request['fullname'],
+                'address' => $request['address'],
+                'facebook' => $request['facebook'],
+                'lineid' => $request['lineid'],
+                'ig' => $request['ig'],
+                'tel' => $request['tel'],
+                'type' => $request['type'],
+                'profile_image_src' => $request['profile_image_src'],
+                'dept_id' => $request[Department::where(['dept_id' => $request->get('dept_id')])->first()]
             ]);
             return $user;
         }
@@ -83,23 +83,9 @@ class UserController extends Controller
             $user->update($request->only('super_id'));
             return $user;
         }
-        return ['message' => 'Require admin for set the department only.'];
+        return ['message' => 'Require admin for set supervisor only.'];
     }
 
-    /**
-     * Set Department.
-     * @param Request $request
-     * @return array
-     *
-     */
-    public function setDepartment(Request $request) {
-        if (DB::select('select * from users where type = ?',[Admin])) {
-            $user = User::where(['id' => $request->get('id')])->first();
-            $user->update($request->only(Department::where(['dept_id' => $request->get('dept_id')])->first());
-            return $user;
-        }
-        return ['message' => 'Require admin for set the department only.'];
-    }
 
     /**
      * Update the user information

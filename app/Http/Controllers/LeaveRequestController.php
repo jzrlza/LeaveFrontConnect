@@ -15,19 +15,21 @@ use App\LeaveRequest;
 
 class LeaveRequestController extends Controller
 {
-	function getWaitingLeaves(){
-		//User specific maybe later
+    public function getWaitingLeaves()
+    {
+        //User specific maybe later
 
-		$reqs = LeaveRequest::where('approved', '=', '0')->get();
+        $reqs = LeaveRequest::where('approved', '=', '0')->get();
 
-		return $reqs;
-	}
+        return $reqs;
+    }
 
-	public function reject(Request $request, Leave $leave) {
+    public function reject(Request $request, Leave $leave)
+    {
         $supervisor = $request->user();
         $subordinate = $request->user()->first();
 
-        if($supervisor->id != $subordinate->super_id) {
+        if ($supervisor->id != $subordinate->super_id) {
             return false;
         }
 
@@ -37,13 +39,15 @@ class LeaveRequestController extends Controller
 
             ])
         ];
+    }
 
 
-    public function approve(Request $request, Leave $leave) {
+    public function approve(Request $request, Leave $leave)
+    {
         $supervisor = $request->user();
         $subordinate = $request->user()->first();
 
-        if($supervisor->id != $subordinate->super_id) {
+        if ($supervisor->id != $subordinate->super_id) {
             return false;
         }
 
@@ -55,11 +59,12 @@ class LeaveRequestController extends Controller
         ];
     }
 
-	function getLeaves(){
-		//User specific maybe later
+    public function getLeaves()
+    {
+        //User specific maybe later
 
-		$reqs = LeaveRequest::All();
+        $reqs = LeaveRequest::All();
 
-		return $reqs;
-	}
+        return $reqs;
+    }
 }
