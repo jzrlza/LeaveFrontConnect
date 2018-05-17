@@ -13,6 +13,10 @@ class AdminUserController extends Controller
     function index(){
     	$users = User::where('type', '=', '"Supervisor"')->orWhere('type', '=', '"Subordinate"')->get();
 
+    	//if (request()->wantsJson()) {
+        //    return $users;
+        //}
+
         return view('webs.admin.users', ['users' => $users]);
     }
 

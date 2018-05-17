@@ -19,8 +19,8 @@
 //     echo "this is home";
 // });
 
-Route::get('/login', 'Controller@login')->name('login');
-Route::get('/home/{id}', 'Controller@home')->name('homeid');
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::get('/home/{id}', 'HomeController@home')->name('homeid');
 Route::any('/', 'HomeController@index');
 Route::get('/vue/{vue_capture?}', function () {
  return view('vue.index');
