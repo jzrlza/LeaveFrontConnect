@@ -14,6 +14,11 @@ class HomeController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     function index(){
         echo 'homepage';
         //return redirect()->route('homeid', ['id' => 1]);
