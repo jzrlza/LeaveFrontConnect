@@ -38,8 +38,9 @@
         <div class='field'>
           <label class="form-inp">Department</label>
           <select v-model="useracc.department">
-            <option v-for="dept in departments" :value="dept">
-            {{ dept }}
+            <option :value=0>-None-</option>
+            <option v-for="dept in departments" :value="dept.dept_id">
+            {{ dept.dept_name }}
           </option>
           </select>
         </div>

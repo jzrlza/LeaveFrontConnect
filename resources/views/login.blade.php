@@ -13,7 +13,6 @@
 <passport-personal-access-tokens></passport-personal-access-tokens>
 
  </div>
-<script src='js/app.js'></script>
 <style lang="css">
 
 .login-wrapper {

@@ -2,14 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\User;
 
 class AdminUserController extends Controller
 {
 
 
     function index(){
-        return view('webs.admin.users');
+    	$users = User::where('type', '=', '"Supervisor"')->orWhere('type', '=', '"Subordinate"')->get();
+
+    	//if (request()->wantsJson()) {
+        //    return $users;
+        //}
+
+        return view('webs.admin.users', ['users' => $users]);
+    }
+
+    function indexTest(){
+    	//$query = User::all(); //Get all users, even admin
+    	$users = User::where('type', '=', 'Supervisor')->orWhere('type', '=', 'Subordinate')->get(); //then exclude admin.
+    	//Screw this one, it's long :> DB::select('select * from users where type = "Supervisor" or type = "Subordinate"');
+
+        return view('webs.admin.users_test', ['users' => $users]);
+    }
+
+    function addUserTest(Request $request){
+
+    	$user = User::create([
+                'name' => $request['name'],
+                'type' => $request['type'],
+                'dept_id' => $request['dept_id']
+        ]);
+
+
+    	$users = User::where('type', '=', 'Supervisor')->orWhere('type', '=', 'Subordinate')->get();
+
+
+        return view('webs.admin.users_test', ['users' => $users]);
     }
 
     function temp_print(){

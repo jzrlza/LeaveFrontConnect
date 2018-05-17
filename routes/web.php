@@ -19,8 +19,8 @@
 //     echo "this is home";
 // });
 
-Route::get('/login', 'Controller@login')->name('login');
-Route::get('/home/{id}', 'Controller@home')->name('homeid');
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::get('/home/{id}', 'HomeController@home')->name('homeid');
 Route::any('/', 'HomeController@index');
 Route::get('/vue/{vue_capture?}', function () {
  return view('vue.index');
@@ -36,3 +36,6 @@ Route::get('/sub-profile', 'AdminUserController@sub_profile')->name('sub-profile
 Route::get('/sub-accept-tasks', 'AdminUserController@sub_tasks')->name('sub-accept-tasks');
 Route::get('/sub-accept-requests', 'AdminUserController@sub_requests')->name('sub-accept-requests');
 Route::get('/sub-check', 'AdminUserController@sub_check')->name('sub-check');
+
+Route::get('/admin-users-test', 'AdminUserController@indexTest')->name('admin-users-test');
+Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin-users-add-test');
