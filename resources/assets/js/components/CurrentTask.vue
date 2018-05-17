@@ -5,11 +5,11 @@
   
     <div class="form-control" v-show="this.state == 'pre-select'">
       <div class='ui form'>
-    <div style="font-weight:bold" class='form-inp'>Task Title : {{ assignedTask.task_title }} </div>
+    <div style="font-weight:bold" class='form-inp'>Task Title : {{ assignedTask.title }} </div>
    
-      <div style="font-weight:bold" class='form-inp'>Assigned To : {{ assignedTask.user_username }} </div>
+      <div style="font-weight:bold" class='form-inp'>Assigned To : {{ assignedTask.user_id }} </div>
      
-    <div class='form-inp'>Due Date : {{ assignedTask.deadline_date }} {{ assignedTask.deadline_time }}</div>
+    <div class='form-inp'>Due Date : {{ assignedTask.deadline }}</div>
 
     <div class='ui bottom green solid button' v-on:click="markAsDone">
         Mark as Done

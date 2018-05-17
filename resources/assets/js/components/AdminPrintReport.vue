@@ -18,6 +18,7 @@
 <script>
 import Navbar from './AdminNavBar';
 import Leave from './LeaveInHistory';
+import axios from 'axios';
 
 export default {
   name: 'AdminUsers',
@@ -30,7 +31,7 @@ export default {
       var columns = [
         {
           title:"Leave Request By",
-          dataKey:'user_fullname'
+          dataKey:'main_user_id' 
         },
         {
           title:"Type",
@@ -71,6 +72,7 @@ export default {
   data () {
     return {
       msg: 'ADMIN USER PLACEHOLDER',
+      leaves:[]/*
       leaves:[
         {
             'type':'Vacation',
@@ -103,9 +105,17 @@ export default {
 
         }
 
-      ]
+      ]*/
     }
-  }
+  },
+    mounted(){
+    var self = this;
+    axios.get('reqs-get')
+    .then((res)=>{
+      self.leaves = res.data;
+    });
+    
+    }
 }
 </script>
 

@@ -9,9 +9,9 @@
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ leave.user_fullname }}</div>
-    <div class='form-inp' v-if='leave.sub_user_fullname != null'>Substitude subordinate : {{ leave.sub_user_fullname }}</div>
-    <div class='form-inp'>From task : {{ leave.task_title }}</div>
+    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ leave.main_user_id }}</div>
+    <div class='form-inp' v-if='leave.sub_user_id != null'>Substitude subordinate : {{ leave.sub_user_id }}</div>
+    <div class='form-inp'>From task : {{ leave.involved_task_id }}</div>
 
     <div class='ui bottom green solid button' v-on:click="approve">
         Approve
@@ -20,7 +20,7 @@
 
     <div class="form-control" v-show="this.state == 'approved'">
       <div class='ui form'>
-        <div style="font-weight:bold">The {{ leave.type }} Leave of {{ leave.user_fullname }} has been approved. </div>
+        <div style="font-weight:bold">The {{ leave.type }} Leave of {{ leave.main_user_id }} has been approved. </div>
                 
           <button class='ui bottom green basic button' v-on:click="dismiss">
             Dismiss

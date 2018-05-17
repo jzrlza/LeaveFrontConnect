@@ -11,16 +11,20 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\LeaveRequest;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 096d46291def94ac3345c7976974cd35a456ed0b
 class LeaveRequestController extends Controller
 {
-	function getUnapprovedRequests(){
+	function getWaitingLeaves(){
 		//User specific maybe later
 
 		$reqs = LeaveRequest::where('approved', '=', '0')->get();
+
+		return $reqs;
+	}
+
+	function getLeaves(){
+		//User specific maybe later
+
+		$reqs = LeaveRequest::All();
 
 		return $reqs;
 	}
