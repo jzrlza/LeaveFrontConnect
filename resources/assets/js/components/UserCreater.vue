@@ -16,7 +16,7 @@
       <div class='ui form'>
         <div class='field'>
           <label class="form-inp">Username</label>
-          <input v-model="useradd.username" defaultValue="">
+          <input v-model="useradd.name" defaultValue="">
         </div>
         <div class='field'>
           <label class="form-inp">Type</label>
@@ -27,18 +27,19 @@
         </div>
         <div class='field'>
           <label class="form-inp">Department</label>
-          <select v-model="useradd.department">
-          <option v-for="dept in departments" :value="dept">
-            {{ dept }}
+          <select v-model="useradd.dept_id">
+             <!-- <option :value=0>-None-</option>-->
+            <option v-for="dept in departments" :value="dept.dept_id">
+            {{ dept.name }}
           </option>
           </select>
         </div>
         <div class='field' v-if="useradd.type == 'Subordinate'">
           <label class="form-inp">Supervisor of this Subordinate</label>
-          <select v-model="useradd.supervisor">
+          <select v-model="useradd.super_id">
             <option :value=null>-None-</option>
-            <option v-for="user in users" :value="user.username" v-if="user.type == 'Supervisor'">
-            {{ user.username }}
+            <option v-for="user in users" :value="user.id" v-if="user.type == 'Supervisor'">
+            {{ user.name }}
           </option>
           </select>
         </div>
@@ -71,26 +72,22 @@ export default {
         this.state = 'editing';
       },
        initState(useradd) {
-        useradd.username = '';
-        useradd.department = 'Engineering';
+        useradd.name = '';
+        useradd.dept_id = 1;
         useradd.type = 'Supervisor';
-        useradd.supervisor = null;
+        useradd.super_id = null;
         this.state = 'init';
       },
       sendAddForm(useradd) {
-      if (useradd.username != '') {
+      if (useradd.name != '') {
         this.$emit('add-user', {
-          'username':useradd.username,
-          'department':useradd.department,
+          'name':useradd.name,
+          'dept_id':useradd.dept_id,
           'type':useradd.type,
-          'supervisor':useradd.supervisor
+          'super_id':useradd.super_id
         });
-        useradd.username = '';
-        useradd.department = 'Engineering';
-        useradd.type = 'Supervisor';
-        useradd.supervisor = null;
-        }
-        this.state = 'init';
+        this.initState(useradd);
+      }
       }
     }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 

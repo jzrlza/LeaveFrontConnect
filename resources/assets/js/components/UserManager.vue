@@ -10,7 +10,7 @@
 <script>
 import Useracc from './UserToManage.vue';
 import Useradd from './UserCreater.vue';
-
+import axios from 'axios';
 
 export default {
   name: 'Users',
@@ -30,16 +30,17 @@ methods: {
     },
     addUser(useradd) {
       this.users.push({
-        'username':useradd.username,
-        'department':useradd.department,
+        'name':useradd.name,
+        'dept_id':useradd.dept_id,
         'type':useradd.type,
-        'supervisor':useradd.supervisor
+        'super_id':useradd.super_id
       });
     }
   }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
+        users: [],
         /*
        users: [
           {
@@ -63,11 +64,12 @@ methods: {
 
         ],*/
         useradd: {
-          username: '',
-          department: 'Engineering',
+          name: '',
+          dept_id: 1,
           type: 'Supervisor',
-          supervisor: null
+          super_id: null
         },
+        departments:[],/*
         departments:[
         {
           dept_id:1,
@@ -100,8 +102,25 @@ methods: {
         {
           dept_id:8,
           dept_name:'Fishery'
-        }]
+        }]*/
       }
+    },
+    mounted(){
+    var self = this;  //LIFE SAVER!!! AXIOS !!!!
+    axios.get('admin-users-get')
+    .then((res)=>{
+      //console.log(res.data);
+      self.users = res.data;
+      //console.log(self.users);
+    });
+
+    axios.get('depts-get')
+    .then((res)=>{
+      //console.log(res.data);
+      self.departments = res.data;
+      //console.log(self.users);
+    });
+    
     }
 }
 </script>

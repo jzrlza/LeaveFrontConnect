@@ -3,10 +3,10 @@
  <div>
     <div class="form-control" v-show="this.state == 'init'">
       <div class='ui form'>
-    <div style="font-weight:bold" class='form-inp'>{{ useracc.username }} </div>
+    <div style="font-weight:bold" class='form-inp'>{{ useracc.name }} </div>
       
     <div style="font-weight:bold" class='form-inp'>Type : {{ useracc.type }}</div>
-    <div style="font-weight:bold" class='form-inp'>Department : {{ useracc.department }}</div>
+    <div style="font-weight:bold" class='form-inp'>Department : {{ departments[useracc.dept_id-1].name }}</div>
     <div style="font-weight:bold" class='form-inp' v-if="useracc.type == 'Subordinate' && useracc.supervisor != null">Supervisor : {{ useracc.supervisor }}</div>
   </div>
     <div class='ui bottom blue basic button' v-on:click="showEditForm">
@@ -21,12 +21,12 @@
     </div>
 
     <div class="form-control" v-show="this.state == 'editing'">
-      <div style="font-weight:bold" class='form-inp'>{{ useracc.username }} </div>
+      <div style="font-weight:bold" class='form-inp'>{{ useracc.name }} </div>
       <br>
       <div class='ui form'>
         <div class='field'>
           <label class="form-inp">Username</label>
-          <input v-model="useracc.username">
+          <input v-model="useracc.name">
         </div>
         <div class='field'>
           <label class="form-inp">Type</label>
@@ -37,19 +37,19 @@
         </div>
         <div class='field'>
           <label class="form-inp">Department</label>
-          <select v-model="useracc.department">
-            <option :value=0>-None-</option>
+          <select v-model="useracc.dept_id">
+           <!-- <option :value=0>-None-</option>-->
             <option v-for="dept in departments" :value="dept.dept_id">
-            {{ dept.dept_name }}
+            {{ dept.name }}
           </option>
           </select>
         </div>
          <div class='field' v-if="useracc.type == 'Subordinate'">
           <label class="form-inp">Supervisor of this Subordinate</label>
-          <select v-model="useracc.supervisor">
+          <select v-model="useracc.super_id">
             <option :value=null>-None-</option>
-            <option v-for="user in users" :value="user.username" v-if="user.type == 'Supervisor'">
-            {{ user.username }}
+            <option v-for="user in users" :value="user.id" v-if="user.type == 'Supervisor'">
+            {{ user.name }}
           </option>
           </select>
         </div>

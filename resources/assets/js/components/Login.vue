@@ -2,11 +2,11 @@
   <div class="login-wrapper border border-light">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <h2 style="text-align: center;" class="form-signin-heading">LeaveU - Simple Leave for Tasks Web Application</h2>
-    <form class="form-signin" v-on:submit.prevent="easyLogin">
+    <form class="form-signin" v-on:submit.prevent="doLogin">
       <h2 class="form-signin-heading">Please sign in</h2>
       <div class="alert alert-danger" v-if="error">{{ error }}</div>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input v-model="username" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+      <label for="inputEmail" class="sr-only">Username</label>
+      <input v-model="name" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
       <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -19,44 +19,27 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Login',
   // CONNECT THIS TO BACKEND
   data () {
     return {
-      username: '',
+      name: '',
       password: '',
       error: false,
-      users: [//REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE 
-          {
-          'username':'admin1',
-          'password':'friendship',
-          'type':'Administrator',
-          'supervisor':null
-          },
-          {
-          'username':'super1',
-          'password':'dragonborn',
-          'type':'Supervisor',
-          'supervisor':null
-          },
-          {
-          'username':'sub1',
-          'password':'casanova',
-          'type':'Subordinate',
-          'supervisor':'super1'
-          },
-          {
-          'username':'sub2',
-          'password':'harempants',
-          'type':'Subordinate',
-          'supervisor':null
-          }
-
-        ]
     }
   },
   methods: {
+    doLogin(){
+        var self = this;
+        axios.post('login-user', {'name':this.name, 'password': this.password}).then(req =>{
+            console.log(req);
+            alert(req.message);
+        });
+
+    },
     login () {
       this.$http.post('/auth', { user: this.username, password: this.password }).then(request => this.loginSuccessful(request)).catch(() => this.loginFailed())
     },

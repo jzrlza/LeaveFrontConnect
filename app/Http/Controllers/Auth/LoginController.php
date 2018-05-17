@@ -41,6 +41,8 @@ class LoginController extends Controller
     {
         $username = $request->get('name');
         $password = $request->get('password');
+        console.log($username);
+        console.log($password);
         $user = User::where('name', $username)->first();
         if ($user and Hash::check($password, $user->password)) {
             return [
