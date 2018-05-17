@@ -28,8 +28,8 @@ class TaskController extends Controller
 	}
 
 	function getAllTasks(){
-		$tasks = Task::all();
+		//$tasks = Task::all();
 
-		return $tasks;
+		//return $tasks;
 	}
 }
