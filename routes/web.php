@@ -20,6 +20,9 @@
 // });
 
 Route::get('/login', 'Auth\LoginController@index')->name('login');
+
+Route::post('/login-user', 'Auth\LoginController@login')->name('login-user');
+
 Route::get('/home/{id}', 'HomeController@home')->name('homeid');
 Route::any('/', 'HomeController@index');
 Route::get('/vue/{vue_capture?}', function () {
