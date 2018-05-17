@@ -16,4 +16,5 @@ use App\User as User;
 class UserController extends Controller
 {
 
+
 }

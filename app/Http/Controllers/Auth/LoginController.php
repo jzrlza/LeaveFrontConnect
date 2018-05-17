@@ -37,6 +37,32 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function login(Request $request)
+    {
+        $username = $request->get('name');
+        $password = $request->get('password');
+        $user = User::where('name', $username)->first();
+        if ($user and Hash::check($password, $user->password)) {
+            return [
+                'token' => $user->createToken('token')->accessToken,
+                'message' => 'Authenticated',
+                'type' => $user->type
+            ];
+        }
+        return [
+            'message' => 'Email or Password is incorrect'
+        ];
+    }
+    public function refresh(Request $request)
+    {
+        return $this->response($this->loginProxy->attemptRefresh());
+    }
+    public function logout()
+    {
+        $this->loginProxy->logout();
+        return $this->response(null, 204);
+    }
+
     public function index(){
         return view('login');
     }
