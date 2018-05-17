@@ -11,6 +11,7 @@
 
 <script>
 import AssignedTask from './CurrentTask';
+import axios from 'axios';
 
 export default {
   name: 'Tasker',
@@ -26,6 +27,7 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
+        assignedTasks:[]/*
         assignedTasks: [
           {
           'task_title':'Get some money from the advertising.',
@@ -40,8 +42,21 @@ export default {
           'deadline_time':'08:00 AM'
          }
 
-        ]
+        ]*/
       }
+    },
+    mounted(){
+    var self = this; 
+    axios.get('tasks-get')
+    .then((res)=>{
+      console.log(res.data);
+      self.assignedTasks = res.data;
+    }).catch((error)=>{
+      console.log(error);
+    });
+
+    
+      
     }
   }
 </script>

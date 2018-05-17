@@ -9,6 +9,7 @@
 
 <script>
 import Leave from './LeaveInHistory';
+import axios from 'axios';
 
 export default {
   name: 'Leaveer',
@@ -24,6 +25,7 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
+        leaves: []/*
       leaves:[
         {
             'type':'Vacation',
@@ -56,8 +58,16 @@ export default {
 
         }
 
-      ]
+      ]*/
       }
+    },
+    mounted(){
+    var self = this;
+    axios.get('reqs-get')
+    .then((res)=>{
+      self.leaves = res.data;
+    });
+    
     }
   }
 </script>

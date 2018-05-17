@@ -45,4 +45,12 @@ class TaskController extends Controller
 
 		return $tasks;
 	}
+
+	function getPendingTasks(){
+		$temp_user_id = 3; //Remove this once login is implemented
+
+		$tasks = Task::where('done', '=', '0')->get();
+
+		return $tasks;
+	}
 }

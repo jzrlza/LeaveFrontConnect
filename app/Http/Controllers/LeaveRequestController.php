@@ -15,7 +15,7 @@ use App\LeaveRequest;
 
 class LeaveRequestController extends Controller
 {
-	function getUnapprovedRequests(){
+	function getWaitingLeaves(){
 		//User specific maybe later
 
 		$reqs = LeaveRequest::where('approved', '=', '0')->get();
@@ -55,9 +55,11 @@ class LeaveRequestController extends Controller
         ];
     }
 
-    public function leaveHistory(Request $request) {
+	function getLeaves(){
+		//User specific maybe later
 
-    }
+		$reqs = LeaveRequest::All();
 
-
+		return $reqs;
+	}
 }

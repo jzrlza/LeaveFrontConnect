@@ -9,9 +9,9 @@
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ leave.user_fullname }}</div>
-    <div class='form-inp' v-if='leave.sub_user_fullname != null'>Substitude subordinate : {{ leave.sub_user_fullname }}</div>
-    <div class='form-inp'>From task : {{ leave.task_title }}</div>
+    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ leave.main_user_id }}</div>
+    <div class='form-inp' v-if='leave.sub_user_fullname != null'>Substitude subordinate : {{ leave.sub_user_id }}</div>
+    <div class='form-inp'>From task : {{ leave.involved_task_id }}</div>
     <div style="font-weight:bold" class='form-inp' v-if='leave.approved'>Approved : Yes</div>
     <div style="font-weight:bold" class='form-inp' v-if='!leave.approved'>Approved : No</div>
 
