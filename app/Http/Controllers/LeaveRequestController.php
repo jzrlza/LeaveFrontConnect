@@ -7,14 +7,12 @@
  */
 
 namespace App\Http\Controllers;
+use App\Task;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\LeaveRequest;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 096d46291def94ac3345c7976974cd35a456ed0b
 class LeaveRequestController extends Controller
 {
 	function getUnapprovedRequests(){
@@ -24,4 +22,42 @@ class LeaveRequestController extends Controller
 
 		return $reqs;
 	}
+
+	public function reject(Request $request, Leave $leave) {
+        $supervisor = $request->user();
+        $subordinate = $request->user()->first();
+
+        if($supervisor->id != $subordinate->super_id) {
+            return false;
+        }
+
+        return [
+            "success" => $leave->update([
+                'approved' => 0
+
+            ])
+        ];
+
+
+    public function approve(Request $request, Leave $leave) {
+        $supervisor = $request->user();
+        $subordinate = $request->user()->first();
+
+        if($supervisor->id != $subordinate->super_id) {
+            return false;
+        }
+
+        return [
+            "success" => $leave->update([
+                'approved' => 1
+
+            ])
+        ];
+    }
+
+    public function leaveHistory(Request $request) {
+
+    }
+
+
 }
