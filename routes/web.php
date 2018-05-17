@@ -45,7 +45,6 @@ Route::get('/depts-get', 'AdminUserController@getDepts')->name('depts-get');
 Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin-users-add-test');
 
 Route::get('/unaccepted-tasks-get', 'TaskController@getWaitingTasks')->name('unaccepted-tasks-get');
-Route::get('/all-tasks-get', 'TaskController@getAllTasks')->name('all-tasks-get');
 
 Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::post('/users-add-test', 'UserController@createUser')->name('user-add-test');

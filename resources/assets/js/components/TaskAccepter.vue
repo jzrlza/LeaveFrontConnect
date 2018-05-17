@@ -26,7 +26,6 @@ export default {
     }, 
     data () {
       return {
-        task_ids: [],
         tasks: []
         /*
         tasks: [
@@ -51,18 +50,11 @@ export default {
     axios.get('unaccepted-tasks-get')
     .then((res)=>{
       console.log(res.data);
-      self.task_ids = res.data;
-    }).catch((error)=>{
-      console.log(error);
-    });
-
-    axios.get('all-tasks-get')
-    .then((res)=>{
-      console.log(res.data);
       self.tasks = res.data;
     }).catch((error)=>{
       console.log(error);
     });
+
     
       
     }

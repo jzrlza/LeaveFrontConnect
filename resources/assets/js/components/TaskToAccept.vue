@@ -7,7 +7,7 @@
       <div class='ui form'>
     <div style="font-weight:bold" class='form-inp'>{{ task.title }} </div>
       </div>
-    <div class='form-inp'>Due Date : {{ task.deadline_date }} {{ task.deadline_time }}</div>
+    <div class='form-inp'>Due Date : {{ task.deadline }}</div>
 
     <div class='ui bottom red solid button' v-on:click="showAcceptForm">
         Accept Task

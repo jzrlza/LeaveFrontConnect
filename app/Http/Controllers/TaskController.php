@@ -10,7 +10,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Task;
-use App\AssignedTask;
 
 class TaskController extends Controller
 {
@@ -23,7 +22,8 @@ class TaskController extends Controller
             'user_id' => $request->user()->id,
             'done' => $request->get('done'),
             'priority' => $request->get('priority'),
-            'expected_date' => $request->get('expected_date')
+            'expected_date' => $request->get('expected_date'),
+            'accepted' => $request->get('accepted')
         ]);
         return $task;
     }
@@ -41,14 +41,8 @@ class TaskController extends Controller
 	function getWaitingTasks(){
 		$temp_user_id = 3; //Remove this once login is implemented
 
-		$tasks = AssignedTask::where('priority', '=', '""')->where('user_id','=',$temp_user_id)->get();
+		$tasks = Task::where('accepted', '=', '0')->get();
 
 		return $tasks;
-	}
-
-	function getAllTasks(){
-		//$tasks = Task::all();
-
-		//return $tasks;
 	}
 }
