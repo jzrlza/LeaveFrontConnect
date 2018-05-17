@@ -1,6 +1,6 @@
 <template>
  <div>
-  <admin-navbar v-bind:users="users"></admin-navbar>
+  <admin-navbar></admin-navbar>
 
   <user-manage></user-manage>
  </div>
@@ -9,7 +9,7 @@
 <script>
 import AdminNavbar from './AdminNavbar';
 import UserManage from './UserManager';
-import axios from 'axios';
+
 
 export default {
   name: 'AdminUsers',
@@ -17,22 +17,15 @@ export default {
     AdminNavbar,
     UserManage
   },
-  data () {
+  props: ['users'],
+  data: function () {
     return {
       msg: 'ADMIN USER PLACEHOLDER',
-      users: []
+      users: [],
     }
   },
-  mounted(){
-        axios.get('admin-users').then(function (resp) { //I'm stuck!! resp.data is not array
-                    console.log(resp.data);
-                    this.users = resp.data.users; //ERROR
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                    alert("Could not load users");
-                });
-    }
+  
+  
 }
 </script>
 

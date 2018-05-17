@@ -37,5 +37,9 @@ Route::get('/sub-accept-tasks', 'AdminUserController@sub_tasks')->name('sub-acce
 Route::get('/sub-accept-requests', 'AdminUserController@sub_requests')->name('sub-accept-requests');
 Route::get('/sub-check', 'AdminUserController@sub_check')->name('sub-check');
 
-Route::get('/admin-users-test', 'AdminUserController@indexTest')->name('admin-users-test');
+Route::get('/admin-users-get', 'AdminUserController@getUsers')->name('admin-users-get');
+Route::get('/depts-get', 'AdminUserController@getDepts')->name('depts-get');
 Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin-users-add-test');
+
+Route::get('/users-test', 'UserController@index')->name('user-test');
+Route::post('/users-add-test', 'UserController@createUser')->name('user-add-test');

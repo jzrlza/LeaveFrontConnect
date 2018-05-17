@@ -5,27 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
+use App\Department;
 
 class AdminUserController extends Controller
 {
 
-
+    //IMPORTANT!! DON'T DELETE, KEEP IT
     function index(){
     	$users = User::where('type', '=', '"Supervisor"')->orWhere('type', '=', '"Subordinate"')->get();
 
     	//if (request()->wantsJson()) {
         //    return $users;
         //}
+        //return View::make('webs.admin.users')->with($users);
+        //return view('webs.admin.users', ['users' => $users]);
+        return view('webs.admin.users')->with(['users' => $users]);
 
-        return view('webs.admin.users', ['users' => $users]);
     }
 
-    function indexTest(){
+    //IMPORTANT!! DON'T DELETE, KEEP IT
+    function getUsers(){
     	//$query = User::all(); //Get all users, even admin
     	$users = User::where('type', '=', 'Supervisor')->orWhere('type', '=', 'Subordinate')->get(); //then exclude admin.
     	//Screw this one, it's long :> DB::select('select * from users where type = "Supervisor" or type = "Subordinate"');
 
-        return view('webs.admin.users_test', ['users' => $users]);
+        return $users;
+    }
+
+    //IMPORTANT!! DON'T DELETE, KEEP IT
+    function getDepts(){
+        //$query = User::all(); //Get all users, even admin
+        $depts = Department::all(); //then exclude admin.
+        //Screw this one, it's long :> DB::select('select * from users where type = "Supervisor" or type = "Subordinate"');
+
+        return $depts;
     }
 
     function addUserTest(Request $request){
