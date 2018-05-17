@@ -11,13 +11,14 @@
 import Useracc from './UserToManage.vue';
 import Useradd from './UserCreater.vue';
 
+
 export default {
   name: 'Users',
   components: {
     Useracc,
     Useradd
   }, 
-  props: ['userer'],
+  props: ['users'],
 // CONNECT THIS TO BACKEND
 methods: {
     assignTask () {
@@ -39,6 +40,7 @@ methods: {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
+        /*
        users: [
           {
           'username':'super1',
@@ -59,7 +61,7 @@ methods: {
           'supervisor':null
           }
 
-        ],
+        ],*/
         useradd: {
           username: '',
           department: 'Engineering',
@@ -67,15 +69,38 @@ methods: {
           supervisor: null
         },
         departments:[
-          'Engineering',
-          'Agriculture',
-          'Science',
-          'Law and Ethics',
-          'Fashion',
-          'Zoology',
-          'Industry',
-          'Fishery'
-        ]
+        {
+          dept_id:1,
+          dept_name:'Engineering'
+        },
+        {
+          dept_id:2,
+          dept_name:'Agriculture'
+        },
+        {
+          dept_id:3,
+          dept_name:'Science'
+        },
+        {
+          dept_id:4,
+          dept_name:'Law and Ethics'
+        },
+        {
+          dept_id:5,
+          dept_name:'Fashion'
+        },
+        {
+          dept_id:6,
+          dept_name:'Zoology'
+        },
+        {
+          dept_id:7,
+          dept_name:'Industry'
+        },
+        {
+          dept_id:8,
+          dept_name:'Fishery'
+        }]
       }
     }
 }
