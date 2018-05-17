@@ -36,13 +36,16 @@ Route::get('/super-assign-tasks', 'AdminUserController@super_assign')->name('sup
 Route::get('/super-approve-leaves', 'AdminUserController@super_approve')->name('super-approve-leaves');
 Route::get('/super-check', 'AdminUserController@super_check')->name('super-check');
 Route::get('/sub-profile', 'AdminUserController@sub_profile')->name('sub-profile');
-Route::get('/sub-accept-tasks', 'AdminUserController@sub_tasks')->name('sub-accept-tasks');
+Route::get('/sub-accept-tasks', 'TaskController@accept_tasks')->name('sub-accept-tasks');
 Route::get('/sub-accept-requests', 'AdminUserController@sub_requests')->name('sub-accept-requests');
 Route::get('/sub-check', 'AdminUserController@sub_check')->name('sub-check');
 
 Route::get('/admin-users-get', 'AdminUserController@getUsers')->name('admin-users-get');
 Route::get('/depts-get', 'AdminUserController@getDepts')->name('depts-get');
 Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin-users-add-test');
+
+Route::get('/unaccepted-tasks-get', 'TaskController@getWaitingTasks')->name('unaccepted-tasks-get');
+Route::get('/all-tasks-get', 'TaskController@getAllTasks')->name('all-tasks-get');
 
 Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::post('/users-add-test', 'UserController@createUser')->name('user-add-test');
