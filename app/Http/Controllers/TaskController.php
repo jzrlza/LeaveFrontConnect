@@ -77,7 +77,7 @@ class TaskController extends Controller
         return $task;
     }
 
-    public function getUndoeTask()
+    public function getUndoneTask()
     {
         $tasks = Task::where('done','=',0)->All();
         return $tasks;

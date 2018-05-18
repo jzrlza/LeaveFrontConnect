@@ -35,3 +35,16 @@ php artisan migrate
 ```sh
 php artisan passport:install
 ```
+
+How to install passport in frontend
+
+To publish the Passport Vue components,  use the vendor:publish Artisan command:
+```sh
+php artisan vendor:publish --tag=passport-components
+```
+
+How to deploying passport
+```sh
+php artisan passport:keys
+```
+
