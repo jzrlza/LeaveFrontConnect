@@ -107,5 +107,15 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getAllUsers(){
+        $users = User::All();
+        return $users;
+    }
+
+    public function getSubUsers(){
+        $users = User::where('type','=','Subordinate')->get();
+        return $users;
+    }
+
 
 }

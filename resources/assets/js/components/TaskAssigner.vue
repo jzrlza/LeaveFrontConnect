@@ -7,18 +7,21 @@
       <div class="inputs" v-for="type in types" :key="type">
         <div class="form-control">
         <label>{{type.label}} : </label>
-          <input v-if="type.type == 'text'" class="txtinp">
-          <input v-if="type.type == 'date'" class="txtinp" type="date">
-          <input v-if="type.type == 'time'" class="txtinp" type="time">
+          <input v-if="type.type == 'title'" class="txtinp" v-model='title'>
+          <input v-if="type.type == 'details'" class="txtinp" v-model='detail'>
+          <input v-if="type.type == 'date'" class="txtinp" type="date" v-model='deadline_date'>
+          <input v-if="type.type == 'time'" class="txtinp" type="time" v-model='deadline_time'>
         </div>
         </div>
 
         <div class="form-control">
-        <label>Select Subordinates : </label><br>
-        <div v-for="sub in subs" :key="sub">
-        <input type="checkbox" v-model="sub.selected.value">
-        <label>{{sub.username}}</label><br>
-      </div>
+        <label>Select Subordinate : </label>
+        <select v-model='user_id'>
+            <option :value=null>-None-</option>
+            <option v-for="user in subs" :value="user.id" v-if="user.type == 'Subordinate'">
+            {{ user.name }}
+          </option>
+          </select>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Assign</button>
@@ -29,29 +32,73 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Task',
+  data: {//LOCAL DATA BINDIND
+    title: '',
+    detail: '',
+    deadline_date: '',
+    deadline_time: '',
+    user_id: ''
+  },
   components: {
     
   }, 
-  props: ['task'],
-// CONNECT THIS TO BACKEND
+  props: ['title'],
+
 methods: {
     assignTask () {
-      alert('unused')
+    const task = {
+      'title': this.title,
+      'detail' : this.detail,
+      'deadline' : this.deadline_date+" "+this.deadline_time+":00",
+      'user_id' : this.user_id
+    };
+    /*
+    if (this.title != ''){
+      alert(this.title);
+      alert(task['title']);
+    }
+    if (this.detail != ''){
+      alert(this.detail);
+      alert(task['detail']);
+    }
+    if (this.deadline_date != ''){
+      alert(this.deadline_date);
+      alert(task['deadline']);
+    }
+    if (this.deadline_time != ''){
+      alert(this.deadline_time);
+      alert(task['deadline']);
+    }
+    if (this.user_id != null){
+      alert(this.user_id);
+      alert(task['user_id']);
+    }*/
+    
+    
+    axios.post('assign-task', task)
+    .then(res => {
+       console.log(res);
+        return res;
+    });
+
+     // alert(this.title+'is Assigned!');
     }
     
   },
   data () {
     return {
+      
       types: [
         {
-          'type':'text',
+          'type':'title',
           'label':'Task Title'
         },
         {
-          'type':'text',
+          'type':'details',
           'label':'Task Details'
         },
         {
@@ -63,7 +110,7 @@ methods: {
           'label':'Deadline Time'
         }
         ],
-        subs : [ //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF User.super matching subs
+        subs : []/* 
           {
             'username':'sub1',
             'selected':false
@@ -76,8 +123,25 @@ methods: {
             'username':'sub3',
             'selected':false
           }
-        ]
+        ]*/
       }
+    },
+    mounted(){
+    this.title = ''; //init data variable
+    this.detail = '';
+    this.deadline_date = '';
+    this.deadline_time = '';
+    this.user_id = null;
+
+    var self = this; 
+    axios.get('users-subs')
+    .then((res)=>{
+      //console.log(res.data);
+      self.subs = res.data;
+    });
+
+    
+      
     }
   
 }

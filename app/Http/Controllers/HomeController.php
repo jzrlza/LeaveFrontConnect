@@ -24,4 +24,8 @@ class HomeController extends BaseController
         //return redirect()->route('homeid', ['id' => 1]);
         return redirect()->route('login');
     }
+
+    function home(){
+        return redirect()->route('homeid', ['id' => 1]);
+    }
 }

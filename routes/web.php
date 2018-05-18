@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,9 +46,26 @@ Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin
 
 Route::get('/unaccepted-tasks-get', 'TaskController@getWaitingTasks')->name('unaccepted-tasks-get');
 Route::get('/tasks-get', 'TaskController@getPendingTasks')->name('tasks-get');
+Route::get('/specific-task', 'TaskController@getCertainTask')->name('specific-task');
+Route::get('/assign-task', 'TaskController@assign')->name('assign-task');
+Route::post('/assign-task', 'TaskController@assign')->name('assign-task');
+
+Route::get('/testPost', function(){
+    return "Post received";
+});
+Route::post('/testPost', function(Request $request){
+    return $request;
+    //return $request->test; [value of "test"]
+});
 
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
 Route::get('/reqs-get', 'LeaveRequestController@getLeaves')->name('reqs-get');
+Route::get('/sub-reqs-get', 'LeaveRequestController@getSubReqLeaves')->name('sub-reqs-get');
+
+Route::get('/req-owner', 'LeaveRequestController@getOwner')->name('req-owner-id');
+//Route::resource('/req-owner', 'LeaveRequestController', ['except' => ['getOwner']]);
 
 Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::post('/users-add-test', 'UserController@createUser')->name('user-add-test');
+Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
+Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');

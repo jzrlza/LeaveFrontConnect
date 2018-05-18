@@ -52,7 +52,7 @@ export default {
 
       doc.text("Leave Requests Throughout System", 65, 10);
 
-      doc.autoTable(columns, this.leaves)
+      doc.autoTable(columns, this.leaves_with_names)
       //doc.text("Hello World", 1, 1);
       doc.save('report.pdf')
 /*
@@ -72,7 +72,9 @@ export default {
   data () {
     return {
       msg: 'ADMIN USER PLACEHOLDER',
-      leaves:[]/*
+      leaves:[],
+      leaves_with_names: []/*
+
       leaves:[
         {
             'type':'Vacation',
@@ -113,7 +115,22 @@ export default {
     axios.get('reqs-get')
     .then((res)=>{
       self.leaves = res.data;
+      self.leaves_with_names = self.leaves.slice();
     });
+
+    var leave = null;
+    for(leave in self.leaves_with_names){
+        var the_id = leave.main_user_id;
+        axios.get('req-owner',{
+        params: {
+          id: the_id
+          }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        leave.main_user_id = res.data.name;
+      });
+    }
     
     }
 }

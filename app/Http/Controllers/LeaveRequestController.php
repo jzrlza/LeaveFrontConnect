@@ -11,6 +11,7 @@ use App\Task;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\LeaveRequest;
+use App\User;
 
 
 class LeaveRequestController extends Controller
@@ -66,5 +67,21 @@ class LeaveRequestController extends Controller
         $reqs = LeaveRequest::All();
 
         return $reqs;
+    }
+
+    public function getSubReqLeaves()
+    {
+        //User specific maybe later
+
+        $reqs = LeaveRequest::where('sub_user_approve', '=', '0')->get();
+
+        return $reqs;
+    }
+
+    public function getOwner(Request $request)
+    {
+        $owner = User::where('id','=',$request->id)->first();
+        //alert($owner);
+        return $owner;
     }
 }

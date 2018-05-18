@@ -10,6 +10,7 @@
 
 <script>
 import SubRequest from './SubRequestToAccept';
+import axios from 'axios';
 
 export default {
   name: 'Leaveer',
@@ -25,7 +26,7 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-      leaves:[
+      leaves:[]/*
         {
             'type':'Personal Errand',
             'details':'I got some post delivery that is urgently required for my parent\'s life',
@@ -44,8 +45,16 @@ export default {
 
         }
 
-      ]
+      ]*/
       }
+    },
+    mounted(){
+    var self = this;
+    axios.get('sub-reqs-get')
+    .then((res)=>{
+      self.leaves = res.data;
+    });
+    
     }
   }
 </script>

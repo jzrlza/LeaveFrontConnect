@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2018 at 05:01 PM
+-- Generation Time: May 18, 2018 at 04:13 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.15
 
@@ -50,28 +50,29 @@ INSERT INTO `departments` (`dept_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `leaverequest`
+-- Table structure for table `leave_requests`
 --
 
-CREATE TABLE `leaverequest` (
+CREATE TABLE `leave_requests` (
   `id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL COMMENT 'Vacation_leave, Personal_Errand_leave,Sick_leave',
   `details` varchar(255) NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'true, false',
   `days_period_of_leave` float NOT NULL,
   `main_user_id` int(11) UNSIGNED NOT NULL,
-  `sub_user_id` int(11) UNSIGNED NOT NULL,
+  `sub_user_id` int(11) UNSIGNED DEFAULT NULL,
   `sub_user_approve` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'true, false',
   `involved_task_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `leaverequest`
+-- Dumping data for table `leave_requests`
 --
 
-INSERT INTO `leaverequest` (`id`, `type`, `details`, `approved`, `days_period_of_leave`, `main_user_id`, `sub_user_id`, `sub_user_approve`, `involved_task_id`) VALUES
-(1, 'Vacation', 'Yeah', 0, 5, 3, 4, 0, 1),
-(2, 'Sick', 'flu', 0, 6, 3, 4, 0, 2);
+INSERT INTO `leave_requests` (`id`, `type`, `details`, `approved`, `days_period_of_leave`, `main_user_id`, `sub_user_id`, `sub_user_approve`, `involved_task_id`) VALUES
+(1, 'Vacation', 'Yeah', 0, 5, 3, NULL, 0, 1),
+(2, 'Sick', 'flu', 0, 6, 3, 4, 1, 2),
+(3, 'Sick', 'Ohhhhhhh', 1, 9, 4, NULL, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -277,9 +278,9 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`dept_id`);
 
 --
--- Indexes for table `leaverequest`
+-- Indexes for table `leave_requests`
 --
-ALTER TABLE `leaverequest`
+ALTER TABLE `leave_requests`
   ADD PRIMARY KEY (`id`),
   ADD KEY `foreign_main_user_id` (`main_user_id`),
   ADD KEY `foreign_sub_user_id` (`sub_user_id`),
@@ -355,10 +356,10 @@ ALTER TABLE `departments`
   MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `leaverequest`
+-- AUTO_INCREMENT for table `leave_requests`
 --
-ALTER TABLE `leaverequest`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `leave_requests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`

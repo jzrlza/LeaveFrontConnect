@@ -13,12 +13,13 @@ use App\Task;
 
 class TaskController extends Controller
 {
+    /*
     public function Create(Request $request)
     {
         $task = Task::create([
             'title' => $request->get('task_name'),
             'detail' => $request->get('detail'),
-            'deadline' => $request->get('detail'),
+            'deadline' => $request->get('deadline'),
             'user_id' => $request->user()->id,
             'done' => $request->get('done'),
             'priority' => $request->get('priority'),
@@ -26,6 +27,21 @@ class TaskController extends Controller
             'accepted' => $request->get('accepted')
         ]);
         return $task;
+    }*/ 
+    //Based on the commented above
+    public function assign(Request $request)
+    {
+        $task = Task::create([
+            'title' => $request->title,
+            'detail' => $request->detail,
+            'deadline' => $request->deadline, // format : '2018-05-31 05:00:00'
+            'user_id' => $request->user_id,
+            'done' => 0,
+            'priority' => null,
+            'expected_date' => null,
+            'accepted' => 0
+        ]);
+        return $request;
     }
 
     public function delete(Task $task)
@@ -53,4 +69,11 @@ class TaskController extends Controller
 
 		return $tasks;
 	}
+
+    function getCertainTask(Request $request)
+    {
+        $task = Task::where('task_id','=',$request->id)->first();
+        //alert($owner);
+        return $task;
+    }
 }
