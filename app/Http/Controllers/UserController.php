@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
 use Hash;
 use Illuminate\Http\Request;
 use App\User as User;
