@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -57,6 +58,7 @@ class LoginController extends Controller
         }*/
         if ($user) {
             if ($pw == $user['password']){
+                var_dump($username->session()->get()->first());
                 return [
                 'token' => $user->createToken('token')->accessToken,
                 'message' => 'Authenticated',
