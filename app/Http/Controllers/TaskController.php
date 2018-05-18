@@ -76,4 +76,22 @@ class TaskController extends Controller
         //alert($owner);
         return $task;
     }
+
+    public function getUndoeTask()
+    {
+        $tasks = Task::where('done','=',0)->All();
+        return $tasks;
+    }
+
+    public function markTaskAsDone(Task $task)
+    {
+        return [
+            "success" => $task->update([
+                'done' => 1
+
+            ])
+        ];
+    }
+
+
 }

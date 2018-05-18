@@ -30,5 +30,20 @@ class HomeController extends BaseController
         return redirect()->route('homeid', ['id' => 1]);
     }
 
+<<<<<<< HEAD
     
+=======
+    function loginRedirect(Request $request) {
+        $user = $request['type'];
+        if(User::where('type','=','Administrator')) {
+            return redirect()->route('admin-users');
+        }
+        else if(User::where('type','=','Supervisor')) {
+            return redirect()->route('super-profile');
+        }
+        else {
+            return redirect()->route('sub-profile');
+        }
+    }
+>>>>>>> 3f1d136519b53e95cefb2c6d78d435fd78c5f668
 }
