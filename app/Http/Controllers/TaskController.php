@@ -53,4 +53,11 @@ class TaskController extends Controller
 
 		return $tasks;
 	}
+
+    function getCertainTask(Request $request)
+    {
+        $task = Task::where('task_id','=',$request->id)->first();
+        //alert($owner);
+        return $task;
+    }
 }

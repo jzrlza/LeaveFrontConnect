@@ -9,9 +9,9 @@
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ leave.main_user_id }}</div>
-    <div class='form-inp' v-if='leave.sub_user_id != null'>Substitude subordinate : {{ leave.sub_user_id }}</div>
-    <div class='form-inp'>From task : {{ leave.involved_task_id }}</div>
+    <div style="font-weight:bold" class='form-inp'>Subordinate who request : {{ owner }}</div>
+    <div class='form-inp' v-if='leave.sub_user_id != null'>Substitude subordinate : {{ sub_target }}</div>
+    <div class='form-inp'>From task : {{ task }}</div>
 
     <div class='ui bottom green solid button' v-on:click="approve">
         Approve
@@ -20,7 +20,7 @@
 
     <div class="form-control" v-show="this.state == 'approved'">
       <div class='ui form'>
-        <div style="font-weight:bold">The {{ leave.type }} Leave of {{ leave.main_user_id }} has been approved. </div>
+        <div style="font-weight:bold">The {{ leave.type }} Leave of {{ owner }} has been approved. </div>
                 
           <button class='ui bottom green basic button' v-on:click="dismiss">
             Dismiss
@@ -41,13 +41,15 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
+
   name: 'Leave',
   components: {
     
   }, 
-  props: ['leave'],
+  props: ['leave','owner'],
   methods: {
       approve() {
         this.state = 'approved';
@@ -59,8 +61,47 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        state: 'pre-select'
+        state: 'pre-select',
+        owner: null,
+        sub_target: null,
+        task: null
       }
+    },
+    mounted(){
+      //Match the current logon Supervisor later
+      var self = this;
+      var the_id = self.leave.main_user_id;
+      axios.get('req-owner',{
+      params: {
+        id: the_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.owner = res.data.name;
+      });
+
+      var sub_id = self.leave.sub_user_id;
+      axios.get('req-owner',{
+      params: {
+        id: sub_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.sub_target = res.data.name;
+      });
+
+      var task_id = self.leave.involved_task_id;
+      axios.get('specific-task',{
+      params: {
+        id: task_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.task = res.data.title;
+      });
     }
   }
 </script>

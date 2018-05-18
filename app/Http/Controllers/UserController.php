@@ -107,5 +107,10 @@ class UserController extends Controller
         return $user;
     }
 
+    public function getAllUsers(){
+        $users = User::All();
+        return $users;
+    }
+
 
 }

@@ -9,8 +9,8 @@
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div class='form-inp' v-if='leave.sub_user_fullname != null'>Substitude subordinate : {{ leave.sub_user_fullname }}</div>
-    <div class='form-inp'>From task : {{ leave.task_title }}</div>
+    <div class='form-inp' v-if='leave.sub_user_fullname != null'>Substitude subordinate : {{ leave.sub_user_id }}</div>
+    <div class='form-inp'>From task : {{ leave.involved_task_id }}</div>
     <div class='ui two buttons'>
     <button class='ui bottom attached green basic button' v-if='leave.approved'><i class='smile icon'></i>Approved</button>
     <button class='ui bottom attached grey basic button' v-if='!leave.approved'>Not Yet Approved</button>

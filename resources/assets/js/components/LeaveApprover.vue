@@ -26,7 +26,8 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        leaves:[]
+        leaves:[],
+        //users:[]
         /*
       leaves:[
         {
@@ -66,7 +67,12 @@ export default {
     .then((res)=>{
       self.leaves = res.data;
     });
-    
+    /*
+    axios.get('users-all')
+    .then((res)=>{
+      self.users = res.data;
+    });
+    */
     }
   }
 </script>
