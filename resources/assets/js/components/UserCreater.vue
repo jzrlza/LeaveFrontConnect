@@ -19,6 +19,10 @@
           <input v-model="useradd.name" defaultValue="">
         </div>
         <div class='field'>
+          <label class="form-inp">E-mail</label>
+          <input defaultValue="" v-model='useradd.email' >
+        </div>
+        <div class='field'>
           <label class="form-inp">Type</label>
           <select v-model="useradd.type">
           <option value="Supervisor">Supervisor</option>
@@ -28,7 +32,7 @@
         <div class='field'>
           <label class="form-inp">Department</label>
           <select v-model="useradd.dept_id">
-             <!-- <option :value=0>-None-</option>-->
+             <option :value=null>-None-</option>
             <option v-for="dept in departments" :value="dept.dept_id">
             {{ dept.name }}
           </option>
@@ -44,7 +48,7 @@
           </select>
         </div>
         <div class='ui two button attached buttons'>
-          <button class='ui bottom attached green solid button' v-on:click="sendAddForm(useradd)">
+          <button class='ui bottom attached green solid button' @click.prevent="createUser(useradd)">
             <i class='plus icon'></i> Confirm Add
           </button>
           <button class='ui bottom attached red solid button' v-on:click="initState(useradd)">
@@ -60,6 +64,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
 
 export default {
   name: 'UserAdd',
@@ -73,21 +78,47 @@ export default {
       },
        initState(useradd) {
         useradd.name = '';
+        useradd.email = '';
         useradd.dept_id = 1;
         useradd.type = 'Supervisor';
         useradd.super_id = null;
         this.state = 'init';
-      },
+      }/*,
       sendAddForm(useradd) {
       if (useradd.name != '') {
         this.$emit('add-user', {
           'name':useradd.name,
+          'email':useradd.email,
           'dept_id':useradd.dept_id,
           'type':useradd.type,
           'super_id':useradd.super_id
         });
-        this.initState(useradd);
+        //this.initState(useradd);
       }
+      }*/,
+      createUser(useradd){
+        const user = {
+      'name': useradd.name,
+      'email' : useradd.email,
+      'type' : useradd.type,
+      'dept_id' : useradd.dept_id,
+      'super_id': useradd.super_id
+        };
+        //alert(user['name']);
+         //alert(user['email']);
+         //alert(user['type']);
+         //alert(user['dept_id']);
+         //alert(user['super_id']);
+
+        axios.post('user-register', user)
+        .then(res => {
+       //console.log(res);
+          return res;
+        });
+        //vm.$forceUpdate();
+        this.$emit('add-user');
+        alert(useradd.name+" is added, please Refresh the page to see the result.");
+        this.initState(useradd);
       }
     }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 

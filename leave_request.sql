@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2018 at 04:13 AM
+-- Generation Time: May 18, 2018 at 08:20 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.15
 
@@ -70,9 +70,9 @@ CREATE TABLE `leave_requests` (
 --
 
 INSERT INTO `leave_requests` (`id`, `type`, `details`, `approved`, `days_period_of_leave`, `main_user_id`, `sub_user_id`, `sub_user_approve`, `involved_task_id`) VALUES
-(1, 'Vacation', 'Yeah', 0, 5, 3, NULL, 0, 1),
+(1, 'Vacation', 'Yeah', 0, 5, 3, 4, 0, 1),
 (2, 'Sick', 'flu', 0, 6, 3, 4, 1, 2),
-(3, 'Sick', 'Ohhhhhhh', 1, 9, 4, NULL, 0, 2);
+(3, 'Sick', 'Ohhhhhhh', 1, 9, 4, 3, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -219,16 +219,21 @@ CREATE TABLE `tasks` (
   `done` tinyint(1) NOT NULL DEFAULT '0',
   `priority` varchar(255) DEFAULT NULL COMMENT 'low,mid,hi',
   `expected_date` datetime(6) DEFAULT NULL,
-  `accepted` tinyint(1) NOT NULL DEFAULT '0'
+  `accepted` tinyint(1) NOT NULL DEFAULT '0',
+  `updated_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`task_id`, `title`, `detail`, `deadline`, `user_id`, `done`, `priority`, `expected_date`, `accepted`) VALUES
-(1, 'Get all the chicks', 'Eat some chickens', '2018-05-31 05:00:00', 3, 0, NULL, NULL, 0),
-(2, 'Ride some horses', 'There are some small horses to ride nearby.', '2018-05-30 03:00:00', 4, 0, NULL, NULL, 0);
+INSERT INTO `tasks` (`task_id`, `title`, `detail`, `deadline`, `user_id`, `done`, `priority`, `expected_date`, `accepted`, `updated_at`, `created_at`) VALUES
+(1, 'Get all the chicks', 'Eat some chickens', '2018-05-31 05:00:00', 3, 0, NULL, NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Ride some horses', 'There are some small horses to ride nearby.', '2018-05-30 03:00:00', 4, 0, NULL, NULL, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Testing Now', 'testing testing', '2018-05-31 05:00:00', 3, 0, NULL, NULL, 0, '2018-05-18 05:25:12', '2018-05-18 05:25:12'),
+(5, 'czxczxc', 'vzxczxc', '2018-05-30 13:00:00', 3, 0, NULL, NULL, 0, '2018-05-18 06:11:54', '2018-05-18 06:11:54'),
+(6, 'Error', 'Cannot display details', '2018-05-29 14:00:00', 4, 0, NULL, NULL, 0, '2018-05-18 06:16:17', '2018-05-18 06:16:17');
 
 -- --------------------------------------------------------
 
@@ -261,11 +266,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `fullname`, `address`, `facebook`, `lineid`, `tel`, `ig`, `type`, `dept_id`, `profile_image_src`, `super_id`) VALUES
-(1, 'jzrlza', 'jj@jj.com', 'abcdef', NULL, NULL, NULL, 'JJ Parinvut', 'Somewhere', 'JJParinvut', '', '', '', 'Administrator', 0, '', 0),
-(2, 'randomware', 'random@ware.com', '12222', NULL, NULL, NULL, 'Random Big', '', '', '', '', '', 'Supervisor', 1, '', 0),
+(1, 'jzrlza', 'jj@jj.com', 'abcdef', NULL, NULL, NULL, 'JJ Parinvut', 'Somewhere', 'JJParinvut', '', '', '', 'Administrator', 0, '', NULL),
+(2, 'randomware', 'random@ware.com', '12222', NULL, NULL, NULL, 'Random Big', '', '', '', '', '', 'Supervisor', 1, '', NULL),
 (3, 'Hally', 'Hall@riot.com', 'rrrroooo', NULL, NULL, NULL, 'Hallyware', '', '', '', '', '', 'Subordinate', 1, '', 2),
 (4, 'Tallfilly', 'tall@filly.com', 'footer', NULL, NULL, NULL, 'Gallop Bana', '', '', '', '', '', 'Subordinate', 1, '', 2),
-(5, 'Fricka', 'fffaaa@ka.com', 'erwfdsf', NULL, NULL, NULL, 'Ficka Fricka', '', '', '', '', '', 'Supervisor', 5, '', 0);
+(5, 'Fricka', 'fffaaa@ka.com', 'erwfdsf', NULL, NULL, NULL, 'Ficka Fricka', '', '', '', '', '', 'Supervisor', 5, '', NULL);
 
 --
 -- Indexes for dumped tables
@@ -383,7 +388,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
