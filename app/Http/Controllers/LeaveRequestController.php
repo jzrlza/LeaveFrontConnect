@@ -25,7 +25,7 @@ class LeaveRequestController extends Controller
         return $reqs;
     }
 
-    public function reject(Request $request, Leave $leave)
+    public function reject(Request $request, LeaveRequest $leave)
     {
         $supervisor = $request->user();
         $subordinate = $request->user()->first();
@@ -43,7 +43,7 @@ class LeaveRequestController extends Controller
     }
 
 
-    public function approve(Request $request, Leave $leave)
+    public function approve(Request $request, LeaveRequest $leave)
     {
         $supervisor = $request->user();
         $subordinate = $request->user()->first();
@@ -84,4 +84,6 @@ class LeaveRequestController extends Controller
         //alert($owner);
         return $owner;
     }
+
+
 }

@@ -31,14 +31,14 @@ class HomeController extends BaseController
 
     function loginRedirect(Request $request) {
         $user = $request['type'];
-        if(User::where('type','==','Administrator')) {
+        if(User::where('type','=','Administrator')) {
             return redirect()->route('admin-users');
         }
-        else if(User::where('type','==','Supervisor')) {
+        else if(User::where('type','=','Supervisor')) {
             return redirect()->route('super-profile');
         }
         else {
-            return redirect()->route('')
+            return redirect()->route('sub-profile');
         }
     }
 }
