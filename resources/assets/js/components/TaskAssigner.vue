@@ -42,7 +42,9 @@ export default {
 // CONNECT THIS TO BACKEND
 methods: {
     assignTask () {
-      alert('unused')
+
+
+      alert('Task Assigned!')
     }
     
   },

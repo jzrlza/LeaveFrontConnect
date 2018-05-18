@@ -13,6 +13,7 @@ use App\Task;
 
 class TaskController extends Controller
 {
+    /*
     public function Create(Request $request)
     {
         $task = Task::create([
@@ -26,15 +27,15 @@ class TaskController extends Controller
             'accepted' => $request->get('accepted')
         ]);
         return $task;
-    }
-
+    }*/ 
+    //Based on the commented above
     public function assign(Request $request)
     {
         $task = Task::create([
             'title' => $request->title,
-            'detail' => 'Testing',
-            'deadline' => '2018-05-31 05:00:00',
-            'user_id' => 3,
+            'detail' => $request->detail,
+            'deadline' => $request->deadline, // format : '2018-05-31 05:00:00'
+            'user_id' => $request->user_id,
             'done' => 0,
             'priority' => null,
             'expected_date' => null,

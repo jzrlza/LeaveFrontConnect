@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,8 +53,9 @@ Route::post('/assign-task', 'TaskController@assign')->name('assign-task');
 Route::get('/testPost', function(){
     return "Post received";
 });
-Route::post('/testPost', function(){
-    return "Post received";
+Route::post('/testPost', function(Request $request){
+    return $request;
+    //return $request->test; [value of "test"]
 });
 
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
