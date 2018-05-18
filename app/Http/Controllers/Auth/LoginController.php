@@ -56,15 +56,18 @@ class LoginController extends Controller
             ];
         }*/
         if ($user) {
-            $password = $user['password'];
-            return [
+            if ($pw == $user['password']){
+                return [
                 'token' => $user->createToken('token')->accessToken,
                 'message' => 'Authenticated',
                 'type' => $user->type
-            ];
+                ];
+            }
+            
         }
         return [
-            'message' => 'Email or Password is incorrect'
+            'message' => 'Email or Password is incorrect',
+            'type' => 'Error'
         ];
     }
     public function refresh(Request $request)
@@ -79,5 +82,19 @@ class LoginController extends Controller
 
     public function index(){
         return view('login');
+    }
+
+    public function loginRedirect(Request $request) {
+        $type = $request->type;
+        if($type == 'Administrator') {
+            return redirect()->route('admin-users');
+        }
+        else if($type == 'Supervisor') {
+            return redirect()->route('super-profile');
+        }
+        else {
+            return redirect()->route('sub-profile');
+        }
+
     }
 }

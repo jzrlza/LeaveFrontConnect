@@ -8,13 +8,15 @@
       <label for="inputEmail" class="sr-only">Username</label>
       <input v-model="name" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Password">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 
     </form>
+    <!-- Done thier job :)
     <a class="btn btn-lg btn-primary btn-block" type="submit" href="admin-users" >Sign in as Admin (Placeholder)</a>
     <a class="btn btn-lg btn-primary btn-block" type="submit" href="super-profile">Sign in as Supervisor (Placeholder)</a>
     <a class="btn btn-lg btn-primary btn-block" type="submit" href="sub-profile">Sign in as Subordinate (Placeholder)</a>
+  -->
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
       name: '',
       password: '',
       error: false,
+      type: null
     }
   },
   methods: {
@@ -39,13 +42,44 @@ export default {
         'name': this.name,
         'password' : this.password
       };
-      alert(input['name']);
-      alert(input['password']);
+      //alert(input['name']);
+      //alert(input['password']);
+
         axios.post('logging-in', input).then(req =>{
-            console.log(req);
+            console.log(req.data.type);
             //alert(req.message);
+            //self.type = req.data.type;
+            alert(req.data.type);
+           if (req.data.type == 'Administrator'){
+          window.location = 'admin-users';
+           } else if (req.data.type == 'Supervisor'){
+          window.location = 'super-profile';
+            } else if (req.data.type == 'Subordinate'){
+          window.location = 'sub-profile';
+           } else {
+          //Login failed
+
+
+
+
+
+          
+          }
             return req;
         });
+
+        
+
+/*
+        axios.get('redirect', {
+          params: {
+          type: type_name
+          }
+      }).then(req =>{
+            console.log(req);
+            //alert(req.message);
+            window.location = 'admin-user';
+        });*/
 
     },
     login () {
