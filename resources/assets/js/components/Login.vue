@@ -23,7 +23,7 @@ import axios from 'axios';
 
 export default {
   name: 'Login',
-  // CONNECT THIS TO BACKEND
+ 
   data () {
     return {
       name: '',
@@ -34,9 +34,17 @@ export default {
   methods: {
     doLogin(){
         var self = this;
-        axios.post('login-user', {'name':this.name, 'password': this.password}).then(req =>{
+
+        const input = {
+        'name': this.name,
+        'password' : this.password
+      };
+      alert(input['name']);
+      alert(input['password']);
+        axios.post('logging-in', input).then(req =>{
             console.log(req);
-            alert(req.message);
+            //alert(req.message);
+            return req;
         });
 
     },
