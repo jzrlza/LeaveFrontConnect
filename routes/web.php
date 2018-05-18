@@ -44,6 +44,7 @@ Route::get('/admin-users-get', 'AdminUserController@getUsers')->name('admin-user
 Route::get('/depts-get', 'AdminUserController@getDepts')->name('depts-get');
 Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin-users-add-test');
 
+
 Route::get('/unaccepted-tasks-get', 'TaskController@getWaitingTasks')->name('unaccepted-tasks-get');
 Route::get('/tasks-get', 'TaskController@getPendingTasks')->name('tasks-get');
 Route::get('/specific-task', 'TaskController@getCertainTask')->name('specific-task');
@@ -69,8 +70,12 @@ Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
 Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
 Route::post('/user-register', 'UserController@register')->name('user-register');
+Route::put('/user-edit', 'UserController@update')->name('user-edit');
+Route::delete('/user-delete', 'UserController@delete')->name('user-delete');
 
 Route::post('/logging-in', 'Auth\LoginController@login')->name('logging-in');
 Route::get('/logging-out', 'Auth\LoginController@logout')->name('logging-out');
+
+Route::get('/logged-in', 'Auth\LoginController@is_login')->name('logged-in');
 
 Route::get('/redirect', 'Auth\LoginController@loginRedirect')->name('redirect');

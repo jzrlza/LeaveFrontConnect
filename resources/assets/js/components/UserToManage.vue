@@ -7,8 +7,8 @@
       
     <div style="font-weight:bold" class='form-inp'>Type : {{ useracc.type }}</div>
     <div style="font-weight:bold" class='form-inp'>Department : {{ departments[useracc.dept_id-1].name }}</div>
-    <div style="font-weight:bold" class='form-inp' v-if="useracc.type == 'Subordinate' && useracc.supervisor != null">Supervisor : {{ useracc.supervisor }}</div>
-  </div>
+    <!--<div style="font-weight:bold" class='form-inp' v-if="useracc.type == 'Subordinate' && useracc.super_id != null">Supervisor : {{ useracc.super_id }}</div>
+  </div>-->
     <div class='ui bottom blue basic button' v-on:click="showEditForm">
        <i class='edit icon'></i> Edit User
       </div>

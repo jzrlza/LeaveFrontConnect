@@ -114,7 +114,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $user = $request->user()->update($request->only(['name','type','department']));
+        $user = $request->user()->update($request->only(['name','email','type','dept_id','super_id']));
         return response()->json($user, 200);
     }
 
@@ -139,7 +139,7 @@ class UserController extends Controller
 
     public function delete(User $user)
     {
-        $user>delete();
+        $user->delete();
         return response()->json(null, 204);
     }
 

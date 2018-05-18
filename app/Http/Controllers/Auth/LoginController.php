@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -58,7 +59,10 @@ class LoginController extends Controller
         }*/
         if ($user) {
             if ($pw == $user['password']){
-                var_dump($username->session()->get()->first());
+                session_start();
+                $_SESSION['name'] = $user['name'];
+
+                //var_dump($username->session()->get()->first());
                 return [
                 'token' => $user->createToken('token')->accessToken,
                 'message' => 'Authenticated',
@@ -98,5 +102,10 @@ class LoginController extends Controller
             return redirect()->route('sub-profile');
         }
 
+    }
+
+    public function is_login() {
+            $user = Auth::user(); 
+        return response()->json(['success' => $user], 200); 
     }
 }

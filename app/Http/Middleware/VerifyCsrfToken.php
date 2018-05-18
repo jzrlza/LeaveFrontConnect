@@ -29,6 +29,12 @@ class VerifyCsrfToken extends Middleware
 		{
 			return $next($request);
 		}
+
+
 		throw new TokenMismatchException;
+
+
 	}
+
+
 }
