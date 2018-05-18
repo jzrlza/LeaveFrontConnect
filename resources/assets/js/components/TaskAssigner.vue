@@ -14,11 +14,13 @@
         </div>
 
         <div class="form-control">
-        <label>Select Subordinates : </label><br>
-        <div v-for="sub in subs" :key="sub">
-        <input type="checkbox" v-model="sub.selected.value">
-        <label>{{sub.username}}</label><br>
-      </div>
+        <label>Select Subordinate : </label>
+        <select>
+            <option :value=null>-None-</option>
+            <option v-for="user in subs" :value="user.id" v-if="user.type == 'Subordinate'">
+            {{ user.name }}
+          </option>
+          </select>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Assign</button>
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Task',
@@ -63,7 +66,7 @@ methods: {
           'label':'Deadline Time'
         }
         ],
-        subs : [ //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF User.super matching subs
+        subs : []/* 
           {
             'username':'sub1',
             'selected':false
@@ -76,8 +79,19 @@ methods: {
             'username':'sub3',
             'selected':false
           }
-        ]
+        ]*/
       }
+    },
+    mounted(){
+    var self = this; 
+    axios.get('users-subs')
+    .then((res)=>{
+      //console.log(res.data);
+      self.subs = res.data;
+    });
+
+    
+      
     }
   
 }

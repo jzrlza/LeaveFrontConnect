@@ -112,5 +112,10 @@ class UserController extends Controller
         return $users;
     }
 
+    public function getSubUsers(){
+        $users = User::where('type','=','Subordinate')->get();
+        return $users;
+    }
+
 
 }
