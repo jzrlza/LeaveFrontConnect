@@ -115,7 +115,7 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $user = $request->user()->update($request->only(['fullname', 'address', 'facebook', 'tel', 'profile_image_src']));
+        $user = $request->user()->update($request->only(['name','type','department']));
         return response()->json($user, 200);
     }
 
