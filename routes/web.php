@@ -69,3 +69,5 @@ Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
 Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
 Route::post('/user-register', 'UserController@register')->name('user-register');
+
+Route::post('/logging-in', 'Auth\LoginController@login')->name('logging-in');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2018 at 08:20 AM
+-- Generation Time: May 18, 2018 at 11:48 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.15
 
@@ -249,14 +249,14 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `facebook` varchar(255) NOT NULL,
-  `lineid` varchar(255) NOT NULL,
-  `tel` varchar(255) NOT NULL,
-  `ig` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `dept_id` int(11) UNSIGNED NOT NULL,
+  `fullname` varchar(255) NOT NULL DEFAULT '',
+  `address` varchar(255) NOT NULL DEFAULT '',
+  `facebook` varchar(255) NOT NULL DEFAULT '',
+  `lineid` varchar(255) NOT NULL DEFAULT '',
+  `tel` varchar(255) NOT NULL DEFAULT '',
+  `ig` varchar(255) NOT NULL DEFAULT '',
+  `type` varchar(255) NOT NULL DEFAULT '',
+  `dept_id` int(11) UNSIGNED DEFAULT NULL,
   `profile_image_src` varchar(255) DEFAULT NULL,
   `super_id` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -266,11 +266,25 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `fullname`, `address`, `facebook`, `lineid`, `tel`, `ig`, `type`, `dept_id`, `profile_image_src`, `super_id`) VALUES
-(1, 'jzrlza', 'jj@jj.com', 'abcdef', NULL, NULL, NULL, 'JJ Parinvut', 'Somewhere', 'JJParinvut', '', '', '', 'Administrator', 0, '', NULL),
+(1, 'jzrlza', 'jj@jj.com', 'abcdef', NULL, NULL, NULL, 'JJ Parinvut', 'Somewhere', 'JJParinvut', '', '', '', 'Administrator', NULL, '', NULL),
 (2, 'randomware', 'random@ware.com', '12222', NULL, NULL, NULL, 'Random Big', '', '', '', '', '', 'Supervisor', 1, '', NULL),
 (3, 'Hally', 'Hall@riot.com', 'rrrroooo', NULL, NULL, NULL, 'Hallyware', '', '', '', '', '', 'Subordinate', 1, '', 2),
 (4, 'Tallfilly', 'tall@filly.com', 'footer', NULL, NULL, NULL, 'Gallop Bana', '', '', '', '', '', 'Subordinate', 1, '', 2),
-(5, 'Fricka', 'fffaaa@ka.com', 'erwfdsf', NULL, NULL, NULL, 'Ficka Fricka', '', '', '', '', '', 'Supervisor', 5, '', NULL);
+(5, 'Fricka', 'fffaaa@ka.com', 'erwfdsf', NULL, NULL, NULL, 'Ficka Fricka', '', '', '', '', '', 'Supervisor', 5, '', NULL),
+(6, 'Zapper', 'zippy@zapper.com', '', NULL, '2018-05-17 23:37:31', '2018-05-17 23:37:31', '', '', '', '', '', '', 'Supervisor', 2, '', NULL),
+(7, 'Hiho', 'hhh@hotmail.com', '', NULL, '2018-05-18 01:53:29', '2018-05-18 01:53:29', '', '', '', '', '', '', 'Supervisor', 2, '', NULL),
+(8, 'Hihon', 'hack@hotmail.com', '', NULL, '2018-05-18 01:54:12', '2018-05-18 01:54:12', '', '', '', '', '', '', 'Subordinate', 3, '', NULL),
+(9, 'Gunner', 'Gunny@gun.com', '', NULL, '2018-05-18 01:55:30', '2018-05-18 01:55:30', '', '', '', '', '', '', 'Supervisor', 4, '', 6),
+(10, 'sssssssss', 'sssssx2@ssasa.com', '', NULL, '2018-05-18 02:00:24', '2018-05-18 02:00:24', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(11, 'asdasdawe', 'zxczxczxc@casdsf.com', '', NULL, '2018-05-18 02:02:55', '2018-05-18 02:02:55', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(12, 'yaranaika', 'takakazu@kirby.com', '', NULL, '2018-05-18 02:06:41', '2018-05-18 02:06:41', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(13, 'aragrgargrgghhh', 'gfaasd@jfdf.com', '', NULL, '2018-05-18 02:12:16', '2018-05-18 02:12:16', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(14, 'asdasdasd', 'aasdasdasd@sdzhcads.com', '', NULL, '2018-05-18 02:15:37', '2018-05-18 02:15:37', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(15, 'asdasdasda', 'sdsaasdasdsdas@dasdasd.com', '', NULL, '2018-05-18 02:20:04', '2018-05-18 02:20:04', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(16, 'cxzczxczxczxcz', 'zxczxczczx@ascads.com', '', NULL, '2018-05-18 02:21:38', '2018-05-18 02:21:38', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(17, 'zxczxc', 'zxczxczxczxccz@dcac.com', '', NULL, '2018-05-18 02:23:04', '2018-05-18 02:23:04', '', '', '', '', '', '', 'Supervisor', 1, '', NULL),
+(18, 'lllllllllllllllll', 'lllllllllll@llllllll.com', '', NULL, '2018-05-18 02:25:20', '2018-05-18 02:25:20', '', '', '', '', '', '', 'Subordinate', 1, '', 14),
+(19, 'rrrrr', 'rrr@kkfdf.com', '', NULL, '2018-05-18 02:39:21', '2018-05-18 02:39:21', '', '', '', '', '', '', 'Supervisor', 1, '', NULL);
 
 --
 -- Indexes for dumped tables
@@ -394,7 +408,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
