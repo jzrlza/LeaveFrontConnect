@@ -18,7 +18,7 @@ class TaskController extends Controller
         $task = Task::create([
             'title' => $request->get('task_name'),
             'detail' => $request->get('detail'),
-            'deadline' => $request->get('detail'),
+            'deadline' => $request->get('deadline'),
             'user_id' => $request->user()->id,
             'done' => $request->get('done'),
             'priority' => $request->get('priority'),
@@ -26,6 +26,21 @@ class TaskController extends Controller
             'accepted' => $request->get('accepted')
         ]);
         return $task;
+    }
+
+    public function assign(Request $request)
+    {
+        $task = Task::create([
+            'title' => $request->title,
+            'detail' => 'Testing',
+            'deadline' => '2018-05-31 05:00:00',
+            'user_id' => 3,
+            'done' => 0,
+            'priority' => null,
+            'expected_date' => null,
+            'accepted' => 0
+        ]);
+        return $request;
     }
 
     public function delete(Task $task)

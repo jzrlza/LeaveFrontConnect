@@ -47,7 +47,15 @@ Route::post('/admin-users-test', 'AdminUserController@addUserTest')->name('admin
 Route::get('/unaccepted-tasks-get', 'TaskController@getWaitingTasks')->name('unaccepted-tasks-get');
 Route::get('/tasks-get', 'TaskController@getPendingTasks')->name('tasks-get');
 Route::get('/specific-task', 'TaskController@getCertainTask')->name('specific-task');
-Route::post('/assign-task', 'TaskController@Create')->name('assign-task');
+Route::get('/assign-task', 'TaskController@assign')->name('assign-task');
+Route::post('/assign-task', 'TaskController@assign')->name('assign-task');
+
+Route::get('/testPost', function(){
+    return "Post received";
+});
+Route::post('/testPost', function(){
+    return "Post received";
+});
 
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
 Route::get('/reqs-get', 'LeaveRequestController@getLeaves')->name('reqs-get');
