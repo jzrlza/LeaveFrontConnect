@@ -71,3 +71,4 @@ Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
 Route::post('/user-register', 'UserController@register')->name('user-register');
 
 Route::post('/logging-in', 'Auth\LoginController@login')->name('logging-in');
+Route::get('/logging-out', 'Auth\LoginController@logout')->name('logging-out');

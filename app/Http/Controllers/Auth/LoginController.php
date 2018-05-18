@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -42,11 +43,20 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $username = $request['name'];
-        $password = $request['password'];
+        $pw = $request['password'];
         //alert($username);
         //alert($password);
         $user = User::where('name', $username)->first();
+        /*
         if ($user and Hash::check($password, $user->password)) {
+            return [
+                'token' => $user->createToken('token')->accessToken,
+                'message' => 'Authenticated',
+                'type' => $user->type
+            ];
+        }*/
+        if ($user) {
+            $password = $user['password'];
             return [
                 'token' => $user->createToken('token')->accessToken,
                 'message' => 'Authenticated',
