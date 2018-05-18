@@ -46,19 +46,22 @@ export default {
       //alert(input['password']);
 
         axios.post('logging-in', input).then(req =>{
-            console.log(req.data.type);
+            console.log(req.data);
             //alert(req.message);
             //self.type = req.data.type;
-            alert(req.data.type);
+            
            if (req.data.type == 'Administrator'){
+            alert('Welcome, '+req.data.type+'! Ready to edit User?');
           window.location = 'admin-users';
            } else if (req.data.type == 'Supervisor'){
+            alert('Welcome, '+req.data.type+'!');
           window.location = 'super-profile';
             } else if (req.data.type == 'Subordinate'){
+              alert('Welcome, '+req.data.type+'!');
           window.location = 'sub-profile';
            } else {
           //Login failed
-
+            alert(req.data.message);
 
 
 
