@@ -5,12 +5,12 @@
   
     <div class="form-control" v-show="this.state == 'pre-select'">
       <div class='ui form'>
-    <div style="font-weight:bold" class='form-inp'>From : {{ leave.main_user_id }}</div>
+    <div style="font-weight:bold" class='form-inp'>From : {{ owner }}</div>
     <div style="font-weight:bold" class='form-inp'>Type: {{ leave.type }} </div>
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div class='form-inp'>From task : {{ leave.involved_task_id }}</div>
+    <div class='form-inp'>From task : {{ task }}</div>
     <div class='form-inp' v-if='leave.approved'>Approved : Yes</div>
     <div class='form-inp' v-if='!leave.approved'>Approved : No</div>
     <div class='ui bottom green solid button' v-on:click="accept">
@@ -20,7 +20,7 @@
 
     <div class="form-control" v-show="this.state == 'accepted'">
       <div class='ui form'>
-        <div style="font-weight:bold">The Request of {{ leave.main_user_id }} has been accepted. </div>
+        <div style="font-weight:bold">The Request of {{ owner }} has been accepted. </div>
                 
           <button class='ui bottom green basic button' v-on:click="dismiss">
             Dismiss
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Leave',
@@ -56,11 +57,36 @@ export default {
         this.state = 'dismissed';
       }
     }, 
-    //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        state: 'pre-select'
+        state: 'pre-select',
+        owner: null,
+        task: null
       }
+    },
+    mounted(){
+    var self = this;
+      var the_id = self.leave.main_user_id;
+      axios.get('req-owner',{
+      params: {
+        id: the_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.owner = res.data.name;
+      });
+
+      var task_id = self.leave.involved_task_id;
+      axios.get('specific-task',{
+      params: {
+        id: task_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.task = res.data.title;
+      });
     }
   }
 </script>

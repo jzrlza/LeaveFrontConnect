@@ -7,7 +7,7 @@
       <div class='ui form'>
     <div style="font-weight:bold" class='form-inp'>Task Title : {{ assignedTask.title }} </div>
    
-      <div style="font-weight:bold" class='form-inp'>Assigned To : {{ assignedTask.user_id }} </div>
+      <div style="font-weight:bold" class='form-inp'>Assigned To : {{ assignee }} </div>
      
     <div class='form-inp'>Due Date : {{ assignedTask.deadline }}</div>
 
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'AssignedTask',
@@ -38,8 +39,22 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        state: 'pre-select'
+        state: 'pre-select',
+        assignee: null
       }
+    },
+    mounted(){
+      var self = this;
+      var user_id = self.assignedTask.user_id;
+      axios.get('req-owner',{
+      params: {
+        id: user_id
+        }
+      })
+      .then((res)=>{
+        //console.log(res.data)
+        self.assignee = res.data.name;
+      });
     }
   }
 </script>

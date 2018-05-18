@@ -58,7 +58,6 @@ export default {
         this.state = 'dismissed';
       }
     }, 
-    //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
         state: 'pre-select',
