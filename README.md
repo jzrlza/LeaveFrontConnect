@@ -1,6 +1,6 @@
 # How to install this project 
 
-## For windows
+## For windows and Mac 
 
 1) Download Repo, zip or clone
 2) Put that folder in xampp/htdocs for Windows. Or Mamp folder if use Mac
