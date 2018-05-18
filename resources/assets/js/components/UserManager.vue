@@ -2,7 +2,7 @@
  <div>  
     <h2 class="form-inp-heading">Select and Create Users</h2>
     <useracc v-on:delete-useracc="deleteUseracc" v-for="useracc in users" v-bind:useracc="useracc" v-bind:users="users" :key="useracc" v-bind:departments="departments"></useracc>
-    <useradd v-on:add-user="addUser" v-bind:useradd="useradd" v-bind:users="users" v-bind:departments="departments"></useradd>
+    <useradd v-on:add-user="reloadUsers" v-bind:useradd="useradd" v-bind:users="users" v-bind:departments="departments"></useradd>
     <br>
  </div>
 </template>
@@ -30,10 +30,14 @@ methods: {
     addUser(useradd) {
       this.users.push({
         'name':useradd.name,
+        'email': useradd.email, 
         'dept_id':useradd.dept_id,
         'type':useradd.type,
         'super_id':useradd.super_id
       });
+    },
+    reloadUsers(){
+      this.$forceUpdate();
     }
   }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
@@ -43,6 +47,7 @@ methods: {
         
         useradd: {
           name: '',
+          email: '',
           dept_id: 1,
           type: 'Supervisor',
           super_id: null

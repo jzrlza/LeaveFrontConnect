@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -39,10 +41,10 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->get('name');
-        $password = $request->get('password');
-        console.log($username);
-        console.log($password);
+        $username = $request['name'];
+        $password = $request['password'];
+        //alert($username);
+        //alert($password);
         $user = User::where('name', $username)->first();
         if ($user and Hash::check($password, $user->password)) {
             return [

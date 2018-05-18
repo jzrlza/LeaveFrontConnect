@@ -29,6 +29,10 @@
           <input v-model="useracc.name">
         </div>
         <div class='field'>
+          <label class="form-inp">E-mail</label>
+          <input v-model="useracc.email">
+        </div>
+        <div class='field'>
           <label class="form-inp">Type</label>
           <select v-model="useracc.type">
           <option value="Supervisor" >Supervisor</option>
@@ -38,7 +42,7 @@
         <div class='field'>
           <label class="form-inp">Department</label>
           <select v-model="useracc.dept_id">
-           <!-- <option :value=0>-None-</option>-->
+           <option :value=null>-None-</option>
             <option v-for="dept in departments" :value="dept.dept_id">
             {{ dept.name }}
           </option>

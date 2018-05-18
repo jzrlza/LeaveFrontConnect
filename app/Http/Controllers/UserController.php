@@ -45,10 +45,14 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
-        if (User::where(['email' => $request->get('email')])->first()) {
+        if (User::where(['email' => $request['email']])->first()) {
             return ['message' => 'Email is already in the system'];
         }
 
+        if (User::where(['name' => $request['name']])->first()) {
+            return ['message' => 'Username is already in the system'];
+        }
+        /* Comment this for now, authentication system is later
         if (DB::select('select * from users where type = ?',['Admin']))
         {
             $user = User::create([
@@ -66,9 +70,26 @@ class UserController extends Controller
                 'dept_id' => $request[Department::where(['dept_id' => $request->get('dept_id')])->first()]
             ]);
             return $user;
-        }
+        }*/ 
+            $user = User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => '',
+                'fullname' => '',
+                'address' => '',
+                'facebook' => '',
+                'lineid' => '',
+                'ig' => '',
+                'tel' => '',
+                'type' => $request['type'],
+                'profile_image_src' => '',
+                'dept_id' => $request['dept_id'],
+                'super_id' => $request['super_id']
+            ]);
+            return $user;
+        
 
-        return ['message' => 'Require admin access to create a user'];
+        //return ['message' => 'Require admin access to create a user'];
 
     }
 

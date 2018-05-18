@@ -81,11 +81,19 @@ methods: {
     
     axios.post('assign-task', task)
     .then(res => {
-       console.log(res);
+       //console.log(res);
         return res;
     });
 
-     // alert(this.title+'is Assigned!');
+     alert(this.title+" "+'is Assigned!');
+     reset();
+    },
+    reset(){
+    this.title = ''; 
+    this.detail = '';
+    this.deadline_date = '';
+    this.deadline_time = '';
+    this.user_id = null;
     }
     
   },

@@ -55,7 +55,7 @@ Route::get('/testPost', function(){
 });
 Route::post('/testPost', function(Request $request){
     return $request;
-    //return $request->test; [value of "test"]
+    //return $request['test']; [value of "test"]
 });
 
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
@@ -66,6 +66,8 @@ Route::get('/req-owner', 'LeaveRequestController@getOwner')->name('req-owner-id'
 //Route::resource('/req-owner', 'LeaveRequestController', ['except' => ['getOwner']]);
 
 Route::get('/users-test', 'UserController@index')->name('user-test');
-Route::post('/users-add-test', 'UserController@createUser')->name('user-add-test');
 Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
 Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
+Route::post('/user-register', 'UserController@register')->name('user-register');
+
+Route::post('/logging-in', 'Auth\LoginController@login')->name('logging-in');
