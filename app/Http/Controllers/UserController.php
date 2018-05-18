@@ -138,5 +138,11 @@ class UserController extends Controller
         return $users;
     }
 
+    public function delete(User $user)
+    {
+        $user>delete();
+        return response()->json(null, 204);
+    }
+
 
 }
