@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2018 at 08:35 PM
+-- Generation Time: May 19, 2018 at 08:39 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.1.15
 
@@ -325,7 +325,7 @@ CREATE TABLE `tasks` (
   `user_id` int(255) NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0',
   `priority` varchar(255) DEFAULT NULL COMMENT 'low,mid,hi',
-  `expected_date` datetime(6) DEFAULT NULL,
+  `expected_date` datetime DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL DEFAULT '0',
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
@@ -336,12 +336,12 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`task_id`, `title`, `detail`, `deadline`, `user_id`, `done`, `priority`, `expected_date`, `accepted`, `updated_at`, `created_at`) VALUES
-(1, 'Get all the chicks', 'Eat some chickens', '2018-05-31 05:00:00', 3, 0, NULL, NULL, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'Ride some horses', 'There are some small horses to ride nearby.', '2018-05-30 03:00:00', 4, 0, NULL, NULL, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 'Testing Now', 'testing testing', '2018-05-31 05:00:00', 3, 0, NULL, NULL, 1, '2018-05-18 05:25:12', '2018-05-18 05:25:12'),
+(1, 'Get all the chicks', 'Eat some chickens', '2018-05-31 05:00:00', 3, 0, 'low', '2018-05-28 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'Ride some horses', 'There are some small horses to ride nearby.', '2018-05-30 03:00:00', 4, 0, 'mid', '2018-05-31 00:00:00', 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'Testing Now', 'testing testing', '2018-05-31 05:00:00', 3, 0, 'hi', '2018-05-27 00:00:00', 1, '2018-05-18 05:25:12', '2018-05-18 05:25:12'),
 (5, 'czxczxc', 'vzxczxc', '2018-05-30 13:00:00', 3, 0, NULL, NULL, 0, '2018-05-18 06:11:54', '2018-05-18 06:11:54'),
 (6, 'Error', 'Cannot display details', '2018-05-29 14:00:00', 4, 0, NULL, NULL, 0, '2018-05-18 06:16:17', '2018-05-18 06:16:17'),
-(7, 'XXXXXXXXX', 'xxxxxx', '2018-05-24 01:00:00', 8, 0, NULL, NULL, 1, '2018-05-19 18:15:26', '2018-05-19 18:15:26');
+(7, 'XXXXXXXXX', 'xxxxxx', '2018-05-24 01:00:00', 8, 0, 'mid', '2018-05-29 00:00:00', 1, '2018-05-19 18:15:26', '2018-05-19 18:15:26');
 
 -- --------------------------------------------------------
 
