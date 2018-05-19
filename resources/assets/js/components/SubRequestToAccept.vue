@@ -5,22 +5,22 @@
   
     <div class="form-control" v-show="this.state == 'pre-select'">
       <div class='ui form'>
-    <div style="font-weight:bold" class='form-inp'>From : {{ owner }}</div>
+    <div style="font-weight:bold" class='form-inp'>From : {{ owner.name }}</div>
     <div style="font-weight:bold" class='form-inp'>Type: {{ leave.type }} </div>
       </div>
     <div class='form-inp'>Details : {{ leave.details }}</div>
     <div style="font-weight:bold" class='form-inp'>Days period of leave : {{ leave.days_period_of_leave }}</div>
-    <div class='form-inp'>From task : {{ task }}</div>
+    <div class='form-inp'>From task : {{ task.title }}</div>
     <div class='form-inp' v-if='leave.approved'>Approved : Yes</div>
     <div class='form-inp' v-if='!leave.approved'>Approved : No</div>
-    <div class='ui bottom green solid button' v-on:click="accept">
+    <div class='ui bottom green solid button' v-on:click="accept(leave)">
         Accept
       </div>
     </div>
 
     <div class="form-control" v-show="this.state == 'accepted'">
       <div class='ui form'>
-        <div style="font-weight:bold">The Request of {{ owner }} has been accepted. </div>
+        <div style="font-weight:bold">The Request of {{ owner.name }} has been accepted. </div>
                 
           <button class='ui bottom green basic button' v-on:click="dismiss">
             Dismiss
@@ -50,7 +50,26 @@ export default {
   }, 
   props: ['leave'],
   methods: {
-      accept() {
+      accept(leave) {
+        var self = this;
+
+
+   //   const stateUpdate = {
+   //   'sub_user_approve': 1
+   //     };
+
+        var leave_id = leave.id;
+        axios.put('accept_sub_req',{
+        params: {
+          id: leave_id
+          }
+        })
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
+
+
         this.state = 'accepted';
       },
       dismiss() {
@@ -74,7 +93,7 @@ export default {
       })
       .then((res)=>{
         //console.log(res.data)
-        self.owner = res.data.name;
+        self.owner = res.data;
       });
 
       var task_id = self.leave.involved_task_id;
@@ -85,7 +104,7 @@ export default {
       })
       .then((res)=>{
         //console.log(res.data)
-        self.task = res.data.title;
+        self.task = res.data;
       });
     }
   }

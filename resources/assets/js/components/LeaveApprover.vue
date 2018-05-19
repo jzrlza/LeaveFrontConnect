@@ -23,42 +23,9 @@ export default {
         alert('unused')
       }
     }, 
-    //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
         leaves:[],
-        //users:[]
-        /*
-      leaves:[
-        {
-            'type':'Vacation',
-            'details':'Need to take some days off, it is getting tiring',
-            'days_period_of_leave': 20.0,
-            'user_fullname': 'Agenda Timothy',
-            'sub_user_fullname': 'Ryla Michal',
-            'task_title': 'Mine some bitcoins.'
-
-        },
-        {
-            'type':'Personal Errand',
-            'details':'I got some post delivery that is urgently required for my parent\'s life',
-            'days_period_of_leave': 4.0,
-            'user_fullname': 'Fisha Microra',
-            'sub_user_fullname': null,
-            'task_title': 'Make a security platform for our company about top secret files.'
-
-        },
-        {
-            'type':'Sick',
-            'details':'I got some flus from doing dumpster diving, I shouldn\'t have done that!',
-            'days_period_of_leave': 5.5,
-            'user_fullname': 'Bobby Willhace',
-            'sub_user_fullname': 'Alison Coverclove',
-            'task_title': 'Invent a machine in the office that will work for the product for horses\' health.'
-
-        }
-
-      ]*/
       }
     },
     mounted(){

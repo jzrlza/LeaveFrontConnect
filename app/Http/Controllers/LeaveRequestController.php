@@ -86,4 +86,24 @@ class LeaveRequestController extends Controller
     }
 
 
+    public function submit(Request $request)
+    {
+
+            $leave = LeaveRequest::create([
+                'type' => $request['type'],
+                'details' => $request['details'],
+                'approved' => '0',
+                'days_period_of_leave' => $request['days_period_of_leave'],
+                'main_user_id' => $request['main_user_id'],
+                'sub_user_id' => $request['sub_user_id'],
+                'sub_user_approve' => '0',
+                'involved_task_id' => $request['involved_task_id'],
+            ]);
+            return $leave;
+        
+
+        //return ['message' => 'Require admin access to create a user'];
+
+    }
+
 }

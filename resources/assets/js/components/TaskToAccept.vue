@@ -22,7 +22,7 @@
       <div class='ui form'>
         <div class='field'>
           <label class="form-inp">Priority</label>
-          <select name="priority">
+          <select name="priority" v-model='priority'>
           <option value="low">Low</option>
           <option value="mid">Medium</option>
           <option value="hi">High</option>
@@ -30,7 +30,11 @@
         </div>
         <div class='field'>
           <label class="form-inp">Expected Complete Date</label>
-          <input type="date">
+          <input type="date" v-model='exp_date' required>
+        </div>
+        <div class='field'>
+          <label class="form-inp">Expected Complete Time</label>
+          <input type="time" v-model='exp_time' required>
         </div>
         <div class='ui two button attached buttons'>
           <button class='ui bottom attached green solid button' v-on:click="askAboutLeave">
@@ -60,31 +64,32 @@
      <div class='ui form'>
         <div class='field'>
           <label class="form-inp">Leave Type</label>
-          <select name="priority">
-          <option value="low">Vacation</option>
-          <option value="mid">Personal Errand</option>
-          <option value="hi">Sick</option>
+          <select name="leave-type" v-model='type'>
+          <option value="Vacation">Vacation</option>
+          <option value="Personal_Errand">Personal Errand</option>
+          <option value="Sick">Sick</option>
           </select>
         </div>
         <div class='field'>
           <label class="form-inp">Details</label>
-          <input>
+          <input v-model='details'>
         </div>
         <div class='field'>
           <label class="form-inp">Days Period Of Leave</label>
-          <input type="number">
+          <input type="number" v-model='days_period_of_leave'>
         </div>
         <div class='field'>
           <label class="form-inp">Pick Substitude</label>
-          <select name="substitude">
-          <option value="none">-None-</option>
-          <option value="temp">-----LOOP INTO DATABASE OF "USER.type = SUB, USER.username not == this.username"-----</option>
+          <select name="substitude" v-model='sub_user_id'>
+          <option :value=null>-None-</option>
+          <option v-for="user in other_subs" :value="user.id">
+            {{ user.name }}</option>
           </select>
         </div>
         <br>
       </div>
      <div class='ui two button attached buttons'>
-          <button class='ui bottom attached green solid button' v-on:click="submit">
+          <button class='ui bottom attached green solid button' v-on:click="submit(task)">
             Submit
           </button>
         </div>
@@ -101,9 +106,20 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'Task',
+  data: {//LOCAL DATA BINDIND
+    priority: '',
+    exp_date: '',
+    exp_time: '',
+    type: '',
+    details: '',
+    days_period_of_leave: '',
+    sub_user_id: '',
+    current_id: ''
+  },
   components: {
     
   }, 
@@ -118,15 +134,74 @@ export default {
        showLeaveForm() {
         this.state = 'leave-form';
       },
-       submit() {
-        this.state = 'accepted'; //REMOVE THIS IF CONNECT BACK-END
+       submit(task) {
+        var self = this;
+
+
+        var update_task = {
+          'priority': this.priority,
+          'exp_date' : this.exp_date+" "+this.exp_time+":00"
+        };
+        //axios.put(url, content, config)
+        axios.put('accept-task',update_task, task)
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
+
+        var leave_req = {
+          'type': this.type,
+          'details' : this.details,
+          'days_period_of_leave' : this.days_period_of_leave,
+          'sub_user_id' : this.sub_user_id,
+          'involved_task_id': task.task_id,
+          'main_user_id': this.current_id //PlaceHolder
+        };
+
+
+        axios.post('submit-leave-req', leave_req)
+            .then(res => {
+       console.log(res);
+                return res;
+          });
+
+        this.state = 'accepted'; 
       },
     }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        state: 'pre-select'
+        state: 'pre-select',
+        other_subs : []
       }
+    },
+    mounted(){
+      this.current_id = 8; //Placeholder, get the current logged on user's id
+
+        this.priority = 'low';
+        this.exp_date = '';
+        this.exp_time = '';
+
+
+    this.type = 'Vacation'; //init data variable
+    this.details = '';
+    this.days_period_of_leave = '';
+    this.sub_user_id = null;
+
+    var self = this; 
+    var the_id = this.current_id
+    axios.get('users-other-subs',{
+      params: {
+        id: the_id
+        }
+      })
+    .then((res)=>{
+      //console.log(res.data);
+      self.other_subs = res.data;
+    });
+
+    
+      
     }
   }
 </script>

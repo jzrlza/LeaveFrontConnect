@@ -136,12 +136,14 @@ export default {
       'super_id': useracc.super_id
         };
 
+        //axios.put(url, data, config)
+
         var the_id = useracc.id;
-        axios.put('user-edit',{
+        axios.put('user-edit', userInfo,{
         params: {
           id: the_id
           }
-        }, userInfo)
+        })
         .then((res)=>{
           //console.log(res.data)
           return res;

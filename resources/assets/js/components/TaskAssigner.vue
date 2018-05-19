@@ -86,7 +86,7 @@ methods: {
     });
 
      alert(this.title+" "+'is Assigned!');
-     reset();
+     this.reset();
     },
     reset(){
     this.title = ''; 

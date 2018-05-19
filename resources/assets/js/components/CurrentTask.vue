@@ -11,7 +11,7 @@
      
     <div class='form-inp'>Due Date : {{ assignedTask.deadline }}</div>
 
-    <div class='ui bottom green solid button' v-on:click="markAsDone">
+    <div class='ui bottom green solid button' v-on:click="markAsDone(assignedTask)">
         Mark as Done
       </div>
     </div>
@@ -36,7 +36,15 @@ export default {
   }, 
   props: ['assignedTask'],
   methods: {
-      markAsDone() {
+      markAsDone(assignedTask) {
+        var self = this;
+
+        //var the_id = assignedTask.id;
+        axios.put('task-done', assignedTask)
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
         this.state = 'is-done';
       }
     }, 

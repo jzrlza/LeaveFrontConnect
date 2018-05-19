@@ -137,6 +137,11 @@ class UserController extends Controller
         return $users;
     }
 
+    public function getOtherSubUsers(Request $request){
+        $users = User::where('type','=','Subordinate')->where('id','<>',$request['id'])->get();
+        return $users;
+    }
+
     public function delete(User $user)
     {
         $user->delete();

@@ -18796,12 +18796,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'super_id': useracc.super_id
       };
 
+      //axios.put(url, data, config)
+
       var the_id = useracc.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('user-edit', {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('user-edit', userInfo, {
         params: {
           id: the_id
         }
-      }, userInfo).then(function (res) {
+      }).then(function (res) {
         //console.log(res.data)
         return res;
       });
@@ -21395,7 +21397,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
 
       alert(this.title + " " + 'is Assigned!');
-      reset();
+      this.reset();
     },
     reset: function reset() {
       this.title = '';
@@ -21879,38 +21881,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       alert('unused');
     }
   },
-  //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
   data: function data() {
     return {
       leaves: []
-      //users:[]
-      /*
-      leaves:[
-      {
-          'type':'Vacation',
-          'details':'Need to take some days off, it is getting tiring',
-          'days_period_of_leave': 20.0,
-          'user_fullname': 'Agenda Timothy',
-          'sub_user_fullname': 'Ryla Michal',
-          'task_title': 'Mine some bitcoins.'
-        },
-      {
-          'type':'Personal Errand',
-          'details':'I got some post delivery that is urgently required for my parent\'s life',
-          'days_period_of_leave': 4.0,
-          'user_fullname': 'Fisha Microra',
-          'sub_user_fullname': null,
-          'task_title': 'Make a security platform for our company about top secret files.'
-        },
-      {
-          'type':'Sick',
-          'details':'I got some flus from doing dumpster diving, I shouldn\'t have done that!',
-          'days_period_of_leave': 5.5,
-          'user_fullname': 'Bobby Willhace',
-          'sub_user_fullname': 'Alison Coverclove',
-          'task_title': 'Invent a machine in the office that will work for the product for horses\' health.'
-        }
-      ]*/
     };
   },
   mounted: function mounted() {
@@ -22077,7 +22050,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {},
   props: ['leave', 'owner'],
   methods: {
-    approve: function approve() {
+    approve: function approve(leave) {
+      var self = this;
+
+      //const super_n_sub = {
+      //'sub_user_approve': 1
+      //  };
+
+      //var main_id = owner.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('approve_leave_req', leave) //{
+      //params: {
+      //  main_user_id: main_id
+      //  }
+      //})
+
+      .then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
+
       this.state = 'approved';
     },
     dismiss: function dismiss() {
@@ -22102,7 +22093,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }).then(function (res) {
       //console.log(res.data)
-      self.owner = res.data.name;
+      self.owner = res.data;
     });
 
     var sub_id = self.leave.sub_user_id;
@@ -22112,7 +22103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }).then(function (res) {
       //console.log(res.data)
-      self.sub_target = res.data.name;
+      self.sub_target = res.data;
     });
 
     var task_id = self.leave.involved_task_id;
@@ -22122,7 +22113,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }).then(function (res) {
       //console.log(res.data)
-      self.task = res.data.title;
+      self.task = res.data;
     });
   }
 });
@@ -22175,24 +22166,28 @@ var render = function() {
         _c(
           "div",
           { staticClass: "form-inp", staticStyle: { "font-weight": "bold" } },
-          [_vm._v("Subordinate who request : " + _vm._s(_vm.owner))]
+          [_vm._v("Subordinate who request : " + _vm._s(_vm.owner.name))]
         ),
         _vm._v(" "),
         _vm.leave.sub_user_id != null
           ? _c("div", { staticClass: "form-inp" }, [
-              _vm._v("Substitude subordinate : " + _vm._s(_vm.sub_target))
+              _vm._v("Substitude subordinate : " + _vm._s(_vm.sub_target.name))
             ])
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "form-inp" }, [
-          _vm._v("From task : " + _vm._s(_vm.task))
+          _vm._v("From task : " + _vm._s(_vm.task.title))
         ]),
         _vm._v(" "),
         _c(
           "div",
           {
             staticClass: "ui bottom green solid button",
-            on: { click: _vm.approve }
+            on: {
+              click: function($event) {
+                _vm.approve(_vm.leave)
+              }
+            }
           },
           [_vm._v("\n       Approve\n     ")]
         )
@@ -22219,7 +22214,7 @@ var render = function() {
               "The " +
                 _vm._s(_vm.leave.type) +
                 " Leave of " +
-                _vm._s(_vm.owner) +
+                _vm._s(_vm.owner.name) +
                 " has been approved. "
             )
           ]),
@@ -22687,7 +22682,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {},
   props: ['assignedTask'],
   methods: {
-    markAsDone: function markAsDone() {
+    markAsDone: function markAsDone(assignedTask) {
+      var self = this;
+
+      //var the_id = assignedTask.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('task-done', assignedTask).then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
       this.state = 'is-done';
     }
   },
@@ -22756,7 +22758,11 @@ var render = function() {
             "div",
             {
               staticClass: "ui bottom green solid button",
-              on: { click: _vm.markAsDone }
+              on: {
+                click: function($event) {
+                  _vm.markAsDone(_vm.assignedTask)
+                }
+              }
             },
             [_vm._v("\n       Mark as Done\n     ")]
           )
@@ -23712,6 +23718,17 @@ exports.push([module.i, "\n.form-inp[data-v-047c7202], .form-inp-heading[data-v-
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+var _name$data$components;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23816,8 +23833,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+
+/* harmony default export */ __webpack_exports__["default"] = (_name$data$components = {
   name: 'Task',
+  data: { //LOCAL DATA BINDIND
+    priority: '',
+    exp_date: '',
+    exp_time: '',
+    type: '',
+    details: '',
+    days_period_of_leave: '',
+    sub_user_id: '',
+    current_id: ''
+  },
   components: {},
   props: ['task'],
   methods: {
@@ -23830,17 +23858,64 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     showLeaveForm: function showLeaveForm() {
       this.state = 'leave-form';
     },
-    submit: function submit() {
-      this.state = 'accepted'; //REMOVE THIS IF CONNECT BACK-END
+    submit: function submit(task) {
+      var self = this;
+
+      var update_task = {
+        'priority': this.priority,
+        'exp_date': this.exp_date + " " + this.exp_time + ":00"
+      };
+      //axios.put(url, content, config)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('accept-task', update_task, task).then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
+
+      var leave_req = {
+        'type': this.type,
+        'details': this.details,
+        'days_period_of_leave': this.days_period_of_leave,
+        'sub_user_id': this.sub_user_id,
+        'involved_task_id': task.task_id,
+        'main_user_id': this.current_id //PlaceHolder
+      };
+
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('submit-leave-req', leave_req).then(function (res) {
+        console.log(res);
+        return res;
+      });
+
+      this.state = 'accepted';
     }
-  },
-  //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
-  data: function data() {
-    return {
-      state: 'pre-select'
-    };
   }
-});
+}, _defineProperty(_name$data$components, 'data', function data() {
+  return {
+    state: 'pre-select',
+    other_subs: []
+  };
+}), _defineProperty(_name$data$components, 'mounted', function mounted() {
+  this.current_id = 8; //Placeholder, get the current logged on user's id
+
+  this.priority = 'low';
+  this.exp_date = '';
+  this.exp_time = '';
+
+  this.type = 'Vacation'; //init data variable
+  this.details = '';
+  this.days_period_of_leave = '';
+  this.sub_user_id = null;
+
+  var self = this;
+  var the_id = this.current_id;
+  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('users-other-subs', {
+    params: {
+      id: the_id
+    }
+  }).then(function (res) {
+    //console.log(res.data);
+    self.other_subs = res.data;
+  });
+}), _name$data$components);
 
 /***/ }),
 /* 178 */
@@ -23927,9 +24002,100 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _c("div", { staticClass: "ui form" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [_vm._v("Priority")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.priority,
+                    expression: "priority"
+                  }
+                ],
+                attrs: { name: "priority" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.priority = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "low" } }, [_vm._v("Low")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "mid" } }, [_vm._v("Medium")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "hi" } }, [_vm._v("High")])
+              ]
+            )
+          ]),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [
+              _vm._v("Expected Complete Date")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.exp_date,
+                  expression: "exp_date"
+                }
+              ],
+              attrs: { type: "date", required: "" },
+              domProps: { value: _vm.exp_date },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.exp_date = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [
+              _vm._v("Expected Complete Time")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.exp_time,
+                  expression: "exp_time"
+                }
+              ],
+              attrs: { type: "time", required: "" },
+              domProps: { value: _vm.exp_time },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.exp_time = $event.target.value
+                }
+              }
+            })
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "ui two button attached buttons" }, [
             _c(
@@ -24011,14 +24177,162 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm._m(2),
+        _c("div", { staticClass: "ui form" }, [
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [_vm._v("Leave Type")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.type,
+                    expression: "type"
+                  }
+                ],
+                attrs: { name: "leave-type" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.type = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "Vacation" } }, [
+                  _vm._v("Vacation")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Personal_Errand" } }, [
+                  _vm._v("Personal Errand")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "Sick" } }, [_vm._v("Sick")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [_vm._v("Details")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.details,
+                  expression: "details"
+                }
+              ],
+              domProps: { value: _vm.details },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.details = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [
+              _vm._v("Days Period Of Leave")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.days_period_of_leave,
+                  expression: "days_period_of_leave"
+                }
+              ],
+              attrs: { type: "number" },
+              domProps: { value: _vm.days_period_of_leave },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.days_period_of_leave = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("label", { staticClass: "form-inp" }, [
+              _vm._v("Pick Substitude")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.sub_user_id,
+                    expression: "sub_user_id"
+                  }
+                ],
+                attrs: { name: "substitude" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.sub_user_id = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { domProps: { value: null } }, [_vm._v("-None-")]),
+                _vm._v(" "),
+                _vm._l(_vm.other_subs, function(user) {
+                  return _c("option", { domProps: { value: user.id } }, [
+                    _vm._v("\n           " + _vm._s(user.name))
+                  ])
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c("br")
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "ui two button attached buttons" }, [
           _c(
             "button",
             {
               staticClass: "ui bottom attached green solid button",
-              on: { click: _vm.submit }
+              on: {
+                click: function($event) {
+                  _vm.submit(_vm.task)
+                }
+              }
             },
             [_vm._v("\n           Submit\n         ")]
           )
@@ -24043,86 +24357,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "form-inp" }, [_vm._v("Priority")]),
-      _vm._v(" "),
-      _c("select", { attrs: { name: "priority" } }, [
-        _c("option", { attrs: { value: "low" } }, [_vm._v("Low")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "mid" } }, [_vm._v("Medium")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "hi" } }, [_vm._v("High")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "form-inp" }, [
-        _vm._v("Expected Complete Date")
-      ]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "date" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "ui form" }, [
-      _c("div", { staticClass: "field" }, [
-        _c("label", { staticClass: "form-inp" }, [_vm._v("Leave Type")]),
-        _vm._v(" "),
-        _c("select", { attrs: { name: "priority" } }, [
-          _c("option", { attrs: { value: "low" } }, [_vm._v("Vacation")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "mid" } }, [
-            _vm._v("Personal Errand")
-          ]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "hi" } }, [_vm._v("Sick")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c("label", { staticClass: "form-inp" }, [_vm._v("Details")]),
-        _vm._v(" "),
-        _c("input")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c("label", { staticClass: "form-inp" }, [
-          _vm._v("Days Period Of Leave")
-        ]),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "number" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field" }, [
-        _c("label", { staticClass: "form-inp" }, [_vm._v("Pick Substitude")]),
-        _vm._v(" "),
-        _c("select", { attrs: { name: "substitude" } }, [
-          _c("option", { attrs: { value: "none" } }, [_vm._v("-None-")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "temp" } }, [
-            _vm._v(
-              '-----LOOP INTO DATABASE OF "USER.type = SUB, USER.username not == this.username"-----'
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("br")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -24569,7 +24804,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {},
   props: ['leave'],
   methods: {
-    accept: function accept() {
+    accept: function accept(leave) {
+      var self = this;
+
+      //   const stateUpdate = {
+      //   'sub_user_approve': 1
+      //     };
+
+      var leave_id = leave.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('accept_sub_req', {
+        params: {
+          id: leave_id
+        }
+      }).then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
+
       this.state = 'accepted';
     },
     dismiss: function dismiss() {
@@ -24592,7 +24843,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }).then(function (res) {
       //console.log(res.data)
-      self.owner = res.data.name;
+      self.owner = res.data;
     });
 
     var task_id = self.leave.involved_task_id;
@@ -24602,7 +24853,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }).then(function (res) {
       //console.log(res.data)
-      self.task = res.data.title;
+      self.task = res.data;
     });
   }
 });
@@ -24634,7 +24885,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "form-inp", staticStyle: { "font-weight": "bold" } },
-            [_vm._v("From : " + _vm._s(_vm.owner))]
+            [_vm._v("From : " + _vm._s(_vm.owner.name))]
           ),
           _vm._v(" "),
           _c(
@@ -24659,7 +24910,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "form-inp" }, [
-          _vm._v("From task : " + _vm._s(_vm.task))
+          _vm._v("From task : " + _vm._s(_vm.task.title))
         ]),
         _vm._v(" "),
         _vm.leave.approved
@@ -24674,7 +24925,11 @@ var render = function() {
           "div",
           {
             staticClass: "ui bottom green solid button",
-            on: { click: _vm.accept }
+            on: {
+              click: function($event) {
+                _vm.accept(_vm.leave)
+              }
+            }
           },
           [_vm._v("\n       Accept\n     ")]
         )
@@ -24698,7 +24953,9 @@ var render = function() {
         _c("div", { staticClass: "ui form" }, [
           _c("div", { staticStyle: { "font-weight": "bold" } }, [
             _vm._v(
-              "The Request of " + _vm._s(_vm.owner) + " has been accepted. "
+              "The Request of " +
+                _vm._s(_vm.owner.name) +
+                " has been accepted. "
             )
           ]),
           _vm._v(" "),
