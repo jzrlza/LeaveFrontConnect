@@ -1,6 +1,7 @@
 <template>
-  <div class="login-wrapper border border-light">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <div class="login-wrapper">
+    <!--<meta name="csrf-token" content="{{ csrf_token() }}">-->
+    <br><br><br>
     <h2 style="text-align: center;" class="form-signin-heading">LeaveU - Simple Leave for Tasks Web Application</h2>
     <form class="form-signin" v-on:submit.prevent="doLogin">
       <h2 class="form-signin-heading">Please sign in</h2>
@@ -47,7 +48,7 @@ export default {
 
         axios.post('logging-in', input).then(req =>{
             console.log(req.data);
-            //alert(req.message);
+            //alert(req.data.token);
             //self.type = req.data.type;
             
            if (req.data.type == 'Administrator'){

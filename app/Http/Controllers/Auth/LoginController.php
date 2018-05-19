@@ -59,12 +59,12 @@ class LoginController extends Controller
         }*/
         if ($user) {
             if ($pw == $user['password']){
-                session_start();
-                $_SESSION['name'] = $user['name'];
+                //session_start();
+                //$_SESSION['name'] = $user['name'];
 
                 //var_dump($username->session()->get()->first());
                 return [
-                'token' => $user->createToken('token')->accessToken,
+                'token' => $user->createToken($username)->accessToken,
                 'message' => 'Authenticated',
                 'type' => $user->type
                 ];

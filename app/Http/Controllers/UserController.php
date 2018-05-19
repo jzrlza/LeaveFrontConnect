@@ -143,5 +143,12 @@ class UserController extends Controller
         return response()->json(null, 204);
     }
 
+    public function getUser(Request $request)
+    {
+        $user = User::where('id','=',$request->id)->first();
+        //alert($owner);
+        return $user;
+    }
+
 
 }

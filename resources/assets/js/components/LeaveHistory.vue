@@ -12,7 +12,7 @@ import Leave from './LeaveInHistory';
 import axios from 'axios';
 
 export default {
-  name: 'Leaveer',
+  name: 'Leaver',
   components: {
     Leave
   }, 

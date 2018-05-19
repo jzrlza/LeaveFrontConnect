@@ -21,9 +21,9 @@ class HomeController extends BaseController
     }
 
     function index(){
-        echo 'homepage';
+        //echo 'homepage';
         //return redirect()->route('homeid', ['id' => 1]);
-        return redirect()->route('login');
+        //return redirect()->route('login');
     }
 
     function home(){

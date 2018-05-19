@@ -59,6 +59,11 @@ Route::post('/testPost', function(Request $request){
     //return $request['test']; [value of "test"]
 });
 
+Route::put('/testPut', function(Request $request){
+    return $request;
+    //return $request['test']; [value of "test"]
+});
+
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
 Route::get('/reqs-get', 'LeaveRequestController@getLeaves')->name('reqs-get');
 Route::get('/sub-reqs-get', 'LeaveRequestController@getSubReqLeaves')->name('sub-reqs-get');
@@ -70,6 +75,7 @@ Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
 Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
 Route::post('/user-register', 'UserController@register')->name('user-register');
+//Put and delete must already know the id, just id, but put also needs the editing datas as well
 Route::put('/user-edit', 'UserController@update')->name('user-edit');
 Route::delete('/user-delete', 'UserController@delete')->name('user-delete');
 

@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import Navbar from './Navbar'
 import NavbarItem from './NavbarItem'
 import NavbarItemDropdown from './NavbarItemDropdown'
@@ -48,6 +50,12 @@ export default {
     return {
       msg: 'ADMIN USER PLACEHOLDER'
     }
+  },
+  mounted(){
+    axios.get('oauth/clients')
+    .then(response => {
+        console.log(response.data);
+    });
   }
 }
 </script>

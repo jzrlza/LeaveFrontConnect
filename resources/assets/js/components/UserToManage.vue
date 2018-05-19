@@ -1,6 +1,6 @@
 <template>
  
- <div>
+ <div class="the-entire-object">
     <div class="form-control" v-show="this.state == 'init'">
       <div class='ui form'>
     <div style="font-weight:bold" class='form-inp'>{{ useracc.name }} </div>
@@ -13,12 +13,13 @@
        <i class='edit icon'></i> Edit User
       </div>
 
-      <span class='ui bottom red solid button' v-on:click="askDeletion">
+      <div class='ui bottom red solid button' v-on:click="askDeletion">
       <i class='trash icon'></i> Delete
-    </span>
-
+    </div>
+</div>
 
     </div>
+
 
     <div class="form-control" v-show="this.state == 'editing'">
       <div style="font-weight:bold" class='form-inp'>{{ useracc.name }} </div>
@@ -58,8 +59,11 @@
           </select>
         </div>
         <div class='ui two button attached buttons'>
-          <button class='ui bottom attached blue solid button' v-on:click="initState">
+          <button class='ui bottom attached blue solid button' v-on:click="editUser(useracc)">
             Confirm
+          </button>
+          <button class='ui bottom attached grey solid button' v-on:click="initState">
+            Cancel
           </button>
         </div>
       </div>
@@ -67,7 +71,7 @@
 
     <div class="form-control" v-show="this.state == 'deleting'">
       <div class='ui form'>
-      <label style="font-weight:bold;" class='form-inp'>Delete {{ useracc.username }}? Are you sure?</label>
+      <label style="font-weight:bold;" class='form-inp'>Delete {{ useracc.name }}? Are you sure?</label>
       <div class='ui two button attached buttons'>
       <button class='ui bottom attached red solid button' v-on:click="deleteUser(useracc)">
             Yes
@@ -79,13 +83,24 @@
         </div>
     </div>
 
+    <div class="form-control" v-show="this.state == 'edited'"> 
+      <div class='ui form'>
+      <label style="font-weight:bold;" class='form-inp'>Edited user, please refresh page.</label>
+      </div>
+    </div>
+
+    <div class="form-control" v-show="this.state == 'deleted'"> 
+      <div class='ui form'>
+      <label style="font-weight:bold;" class='form-inp'>Deleted user, please refresh page.</label>
+      </div>
+    </div>
+
   
  </div>
 
 </template>
 
 <script>
-
 export default {
   name: 'User',
   components: {
@@ -96,17 +111,30 @@ export default {
       showEditForm() {
         this.state = 'editing';
       },
-       initState() {
+      editUser(useracc){
+        
+        this.$emit('edit-useracc', useracc);
+        this.editedState();
+      },
+      editedState(){
+        this.state = 'edited';
+      },
+      deletedState(){
+        this.state = 'deleted';
+      },
+      initState() {
         this.state = 'init';
       },
       askDeletion() {
         this.state = 'deleting';
       },
       deleteUser(useracc) {
-      this.$emit('delete-useracc', useracc);
+
+        this.$emit('delete-useracc', useracc);
+        this.deletedState();
       }
     }, 
-    //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
+    
     data () {
       return {
         state: 'init'

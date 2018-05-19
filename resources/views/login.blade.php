@@ -8,10 +8,10 @@
     <a class="btn btn-lg btn-primary btn-block" type="submit" href="{{ route('super-profile') }}">Sign in as Supervisor (Placeholder)https://stackoverflow.com/questions/47734860/accessing-laravel-routes-in-vue-component-attribute</a>
     <a class="btn btn-lg btn-primary btn-block" type="submit" href="{{ route('sub-profile') }}">Sign in as Subordinate (Placeholder) https://github.com/tightenco/ziggy/issues/70</a>
 
---><passport-clients></passport-clients>
+-->
+<passport-clients></passport-clients>
 <passport-authorized-clients></passport-authorized-clients>
 <passport-personal-access-tokens></passport-personal-access-tokens>
-
  </div>
 <style lang="css">
 

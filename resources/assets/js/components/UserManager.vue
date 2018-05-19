@@ -23,9 +23,30 @@ methods: {
     assignTask () {
       alert('unused')
     },
+    editUseracc(useracc) {
+      var self = this;
+        var the_id = useracc.id;
+        axios.put('user-edit',{
+        params: {
+          id: the_id
+          }
+        })
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
+    },
     deleteUseracc(useracc) {
-      const userIndex = this.users.indexOf(useracc);
-      this.users.splice(userIndex, 1);
+
+      var the_id = useracc.id;
+        axios.delete('user-delete',useracc)
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
+        
+      //const userIndex = this.users.indexOf(useracc);
+      //this.users.splice(userIndex, 1);
     },
     addUser(useradd) {
       this.users.push({
