@@ -81,9 +81,13 @@
 </template>
 
 <script>
+  import axios from 'axios';
 
 export default {
   name: 'Profile',
+  data: {//LOCAL DATA BINDIND
+    current_id: ''
+  },
   components: {
     
   }, 
@@ -141,9 +145,26 @@ methods: {
           'type':'password',
           'label':'Enter Password Before Edit'
         }
-      ]
+      ],
+        user: null
     }
-  }
+  },
+    mounted(){
+      this.current_id = 8; //Placeholder, get the current logged on user's id
+
+    var self = this; 
+    var the_id = this.current_id
+    axios.get('users-other-subs',{
+      params: {
+        id: the_id
+        }
+      })
+    .then((res)=>{
+      //console.log(res.data);
+      self.user = res;
+    });
+      
+    }
   
 }
 </script>

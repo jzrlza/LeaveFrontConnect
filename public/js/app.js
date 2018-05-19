@@ -20897,6 +20897,12 @@ exports.push([module.i, "\n.form-inp[data-v-6d6c9b8f] {\r\n  text-align: left;\r
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+var _name$data$components;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -20981,8 +20987,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+
+/* harmony default export */ __webpack_exports__["default"] = (_name$data$components = {
   name: 'Profile',
+  data: { //LOCAL DATA BINDIND
+    current_id: ''
+  },
   components: {},
   props: ['profile'],
   // CONNECT THIS TO BACKEND
@@ -20990,46 +21000,59 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     editProfile: function editProfile() {
       alert('unused');
     }
-  },
-  data: function data() {
-    return {
-      types: [{
-        'type': 'text',
-        'label': 'Username'
-      }, {
-        'type': 'text',
-        'label': 'Full Name'
-      }, {
-        'type': 'email',
-        'label': 'Email'
-      }, {
-        'type': 'text',
-        'label': 'Address'
-      }, {
-        'type': 'text',
-        'label': 'Contact Info (Facebook)'
-      }, {
-        'type': 'text',
-        'label': 'Contact Info (Intragram)'
-      }, {
-        'type': 'text',
-        'label': 'Contact Info (LINE ID)'
-      }, {
-        'type': 'tel',
-        'label': 'Contact Info (Tel.)'
-      }, {
-        'type': 'password',
-        'label': 'Change Password'
-      }, {
-        'type': 'password',
-        'label': 'Confirm Password Change'
-      }, {
-        'type': 'password',
-        'label': 'Enter Password Before Edit'
-      }]
-    };
   }
-});
+}, _defineProperty(_name$data$components, 'data', function data() {
+  return {
+    types: [{
+      'type': 'text',
+      'label': 'Username'
+    }, {
+      'type': 'text',
+      'label': 'Full Name'
+    }, {
+      'type': 'email',
+      'label': 'Email'
+    }, {
+      'type': 'text',
+      'label': 'Address'
+    }, {
+      'type': 'text',
+      'label': 'Contact Info (Facebook)'
+    }, {
+      'type': 'text',
+      'label': 'Contact Info (Intragram)'
+    }, {
+      'type': 'text',
+      'label': 'Contact Info (LINE ID)'
+    }, {
+      'type': 'tel',
+      'label': 'Contact Info (Tel.)'
+    }, {
+      'type': 'password',
+      'label': 'Change Password'
+    }, {
+      'type': 'password',
+      'label': 'Confirm Password Change'
+    }, {
+      'type': 'password',
+      'label': 'Enter Password Before Edit'
+    }],
+    user: null
+  };
+}), _defineProperty(_name$data$components, 'mounted', function mounted() {
+  this.current_id = 8; //Placeholder, get the current logged on user's id
+
+  var self = this;
+  var the_id = this.current_id;
+  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('users-other-subs', {
+    params: {
+      id: the_id
+    }
+  }).then(function (res) {
+    //console.log(res.data);
+    self.user = res;
+  });
+}), _name$data$components);
 
 /***/ }),
 /* 115 */

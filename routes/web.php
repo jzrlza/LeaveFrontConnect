@@ -78,6 +78,7 @@ Route::get('/req-owner', 'LeaveRequestController@getOwner')->name('req-owner-id'
 
 Route::get('/users-test', 'UserController@index')->name('user-test');
 Route::get('/users-all', 'UserController@getAllUsers')->name('users-all');
+Route::get('/user-get', 'UserController@getUser')->name('user-get');
 Route::get('/users-subs', 'UserController@getSubUsers')->name('users-subs');
 Route::get('/users-other-subs', 'UserController@getOtherSubUsers')->name('users-other-subs');
 Route::post('/user-register', 'UserController@register')->name('user-register');

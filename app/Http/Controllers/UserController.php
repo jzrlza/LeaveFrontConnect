@@ -132,6 +132,11 @@ class UserController extends Controller
         return $users;
     }
 
+    public function getUser(Request $request){
+        $user = User::where('id','<>',$request['id'])->first();
+        return $user;
+    }
+
     public function getSubUsers(){
         $users = User::where('type','=','Subordinate')->get();
         return $users;
