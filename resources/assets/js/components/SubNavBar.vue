@@ -23,11 +23,11 @@
   </li>
 
   <li class="dropdown">
-    <a href="login">Logout</a>
+    <a href="login" v-on:click='logout'>Logout</a>
   </li>
 
   <li class="dropdown">
-    <a id="current_user">-username_sub-</a>
+    <a id="current_user">-{{ username }}-</a>
   </li>
 
 </nav>
@@ -36,6 +36,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
 import Navbar from './Navbar'
 import NavbarItem from './NavbarItem'
 import NavbarItemDropdown from './NavbarItemDropdown'
@@ -53,8 +55,27 @@ export default {
   },
   data () {
     return {
-      msg: 'SUB USER PLACEHOLDER'
+      username: null
     }
+  },
+  methods: {
+    logout(){
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
+    }
+  },
+  mounted(){
+      var self = this;
+
+    axios.get('oauth/clients')
+    .then(response => {
+        console.log(response.data);
+    });
+
+    this.username = 'SomeSub'; 
   }
 }
 </script>

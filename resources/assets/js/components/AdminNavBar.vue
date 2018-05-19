@@ -16,11 +16,11 @@
   </li>
 
   <li class="dropdown">
-    <a href="login">Logout</a>
+    <a href="login" v-on:click='logout'>Logout</a>
   </li>
 
   <li class="dropdown">
-    <a id="current_user">-username_admin-</a>
+    <a id="current_user">-{{ username }}-</a>
   </li>
 
 </nav>
@@ -48,14 +48,27 @@ export default {
   },
   data () {
     return {
-      msg: 'ADMIN USER PLACEHOLDER'
+      username: null
+    }
+  },
+  methods: {
+    logout(){
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
     }
   },
   mounted(){
+      var self = this;
+
     axios.get('oauth/clients')
     .then(response => {
         console.log(response.data);
     });
+
+    this.username = 'Jzrlza'; 
   }
 }
 </script>

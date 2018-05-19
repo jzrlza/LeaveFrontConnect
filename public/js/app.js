@@ -18296,13 +18296,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      msg: 'ADMIN USER PLACEHOLDER'
+      username: null
     };
   },
+
+  methods: {
+    logout: function logout() {
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
+    }
+  },
   mounted: function mounted() {
+    var self = this;
+
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('oauth/clients').then(function (response) {
       console.log(response.data);
     });
+
+    this.username = 'Jzrlza';
   }
 });
 
@@ -18332,9 +18346,17 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { href: "login" }, on: { click: _vm.logout } }, [
+          _vm._v("Logout")
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { id: "current_user" } }, [
+          _vm._v("-" + _vm._s(_vm.username) + "-")
+        ])
+      ])
     ]
   )
 }
@@ -18355,22 +18377,6 @@ var staticRenderFns = [
       _c("a", { attrs: { href: "admin-print-report" } }, [
         _vm._v("Print Statistic Report")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { href: "login" } }, [_vm._v("Logout")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { id: "current_user" } }, [_vm._v("-username_admin-")])
     ])
   }
 ]
@@ -20205,13 +20211,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      msg: 'ADMIN USER PLACEHOLDER'
+      username: null
     };
   },
+
+  methods: {
+    logout: function logout() {
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
+    }
+  },
   mounted: function mounted() {
+    var self = this;
+
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('oauth/clients').then(function (response) {
       console.log(response.data);
     });
+
+    this.username = 'Jzrlza';
   }
 });
 
@@ -20241,9 +20261,17 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _vm._m(2),
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { href: "login" }, on: { click: _vm.logout } }, [
+          _vm._v("Logout")
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { id: "current_user" } }, [
+          _vm._v("-" + _vm._s(_vm.username) + "-")
+        ])
+      ])
     ]
   )
 }
@@ -20264,22 +20292,6 @@ var staticRenderFns = [
       _c("a", { attrs: { href: "admin-print-report" } }, [
         _vm._v("Print Statistic Report")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { href: "login" } }, [_vm._v("Logout")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { id: "current_user" } }, [_vm._v("-username_admin-")])
     ])
   }
 ]
@@ -20660,11 +20672,13 @@ exports.push([module.i, "\n.navbar .dropdown-menu a[data-v-e8be7f78]:hover {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Navbar__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NavbarItem__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NavbarItemDropdown__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavbarNav__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavbarCollapse__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Navbar__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NavbarItem__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavbarItemDropdown__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavbarNav__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NavbarCollapse__ = __webpack_require__(10);
 //
 //
 //
@@ -20702,6 +20716,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -20712,16 +20728,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SuperProfile',
   components: {
-    Navbar: __WEBPACK_IMPORTED_MODULE_0__Navbar__["a" /* default */],
-    NavbarItem: __WEBPACK_IMPORTED_MODULE_1__NavbarItem__["a" /* default */],
-    NavbarItemDropdown: __WEBPACK_IMPORTED_MODULE_2__NavbarItemDropdown__["a" /* default */],
-    NavbarNav: __WEBPACK_IMPORTED_MODULE_3__NavbarNav__["a" /* default */],
-    NavbarCollapse: __WEBPACK_IMPORTED_MODULE_4__NavbarCollapse__["a" /* default */]
+    Navbar: __WEBPACK_IMPORTED_MODULE_1__Navbar__["a" /* default */],
+    NavbarItem: __WEBPACK_IMPORTED_MODULE_2__NavbarItem__["a" /* default */],
+    NavbarItemDropdown: __WEBPACK_IMPORTED_MODULE_3__NavbarItemDropdown__["a" /* default */],
+    NavbarNav: __WEBPACK_IMPORTED_MODULE_4__NavbarNav__["a" /* default */],
+    NavbarCollapse: __WEBPACK_IMPORTED_MODULE_5__NavbarCollapse__["a" /* default */]
   },
   data: function data() {
     return {
-      msg: 'SUPER USER PLACEHOLDER'
+      username: null
     };
+  },
+
+  methods: {
+    logout: function logout() {
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('oauth/clients').then(function (response) {
+      console.log(response.data);
+    });
+
+    this.username = 'SomeSupervisor';
   }
 });
 
@@ -20755,9 +20790,17 @@ var render = function() {
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
-      _vm._m(4),
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { href: "login" }, on: { click: _vm.logout } }, [
+          _vm._v("Logout")
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(5)
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { id: "current_user" } }, [
+          _vm._v("-" + _vm._s(_vm.username) + "-")
+        ])
+      ])
     ]
   )
 }
@@ -20796,22 +20839,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "dropdown" }, [
       _c("a", { attrs: { href: "super-check" } }, [_vm._v("Check")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { href: "login" } }, [_vm._v("Logout")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { id: "current_user" } }, [_vm._v("-username_super-")])
     ])
   }
 ]
@@ -23197,11 +23224,13 @@ exports.push([module.i, "\n.navbar .dropdown-menu a[data-v-95a5cdee]:hover {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Navbar__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NavbarItem__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NavbarItemDropdown__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavbarNav__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavbarCollapse__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Navbar__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__NavbarItem__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavbarItemDropdown__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavbarNav__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__NavbarCollapse__ = __webpack_require__(10);
 //
 //
 //
@@ -23239,6 +23268,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -23249,16 +23280,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SubProfile',
   components: {
-    Navbar: __WEBPACK_IMPORTED_MODULE_0__Navbar__["a" /* default */],
-    NavbarItem: __WEBPACK_IMPORTED_MODULE_1__NavbarItem__["a" /* default */],
-    NavbarItemDropdown: __WEBPACK_IMPORTED_MODULE_2__NavbarItemDropdown__["a" /* default */],
-    NavbarNav: __WEBPACK_IMPORTED_MODULE_3__NavbarNav__["a" /* default */],
-    NavbarCollapse: __WEBPACK_IMPORTED_MODULE_4__NavbarCollapse__["a" /* default */]
+    Navbar: __WEBPACK_IMPORTED_MODULE_1__Navbar__["a" /* default */],
+    NavbarItem: __WEBPACK_IMPORTED_MODULE_2__NavbarItem__["a" /* default */],
+    NavbarItemDropdown: __WEBPACK_IMPORTED_MODULE_3__NavbarItemDropdown__["a" /* default */],
+    NavbarNav: __WEBPACK_IMPORTED_MODULE_4__NavbarNav__["a" /* default */],
+    NavbarCollapse: __WEBPACK_IMPORTED_MODULE_5__NavbarCollapse__["a" /* default */]
   },
   data: function data() {
     return {
-      msg: 'SUB USER PLACEHOLDER'
+      username: null
     };
+  },
+
+  methods: {
+    logout: function logout() {
+      alert('Goodbye.');
+
+      //Unauthorization
+
+      window.location = 'login';
+    }
+  },
+  mounted: function mounted() {
+    var self = this;
+
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('oauth/clients').then(function (response) {
+      console.log(response.data);
+    });
+
+    this.username = 'SomeSub';
   }
 });
 
@@ -23292,9 +23342,17 @@ var render = function() {
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
-      _vm._m(4),
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { href: "login" }, on: { click: _vm.logout } }, [
+          _vm._v("Logout")
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(5)
+      _c("li", { staticClass: "dropdown" }, [
+        _c("a", { attrs: { id: "current_user" } }, [
+          _vm._v("-" + _vm._s(_vm.username) + "-")
+        ])
+      ])
     ]
   )
 }
@@ -23331,22 +23389,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", { staticClass: "dropdown" }, [
       _c("a", { attrs: { href: "sub-check" } }, [_vm._v("Check")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { href: "login" } }, [_vm._v("Logout")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "dropdown" }, [
-      _c("a", { attrs: { id: "current_user" } }, [_vm._v("-username_sub-")])
     ])
   }
 ]
