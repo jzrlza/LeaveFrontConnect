@@ -17,6 +17,10 @@
     </div>
 
   </div>
+
+  <div class="form-control" v-show="this.state == 'is-done'">
+      Task {{ assignedTask.title }} is now considered Done.
+  </div>
    
  </div>
 
@@ -33,7 +37,7 @@ export default {
   props: ['assignedTask'],
   methods: {
       markAsDone() {
-        alert('unused');
+        this.state = 'is-done';
       }
     }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 

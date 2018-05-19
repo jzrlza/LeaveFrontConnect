@@ -90,9 +90,13 @@
         </div>
     </div>
 
+    <div class="form-control" v-show="this.state == 'accepted'">
+        Task {{ task.title }} Accepted.
+    </div>
+
   </div>
    
- </div>
+
 
 </template>
 
@@ -115,7 +119,7 @@ export default {
         this.state = 'leave-form';
       },
        submit() {
-        this.state = 'pre-select'; //REMOVE THIS IF CONNECT BACK-END
+        this.state = 'accepted'; //REMOVE THIS IF CONNECT BACK-END
       },
     }, 
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 

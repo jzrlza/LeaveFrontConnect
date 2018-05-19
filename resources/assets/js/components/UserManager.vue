@@ -1,7 +1,7 @@
 <template>
  <div>  
     <h2 class="form-inp-heading">Select and Create Users</h2>
-    <useracc v-on:delete-useracc="deleteUseracc" v-for="useracc in users" v-bind:useracc="useracc" v-bind:users="users" :key="useracc" v-bind:departments="departments"></useracc>
+    <useracc v-for="useracc in users" v-bind:useracc="useracc" v-bind:users="users" :key="useracc" v-bind:departments="departments"></useracc>
     <useradd v-on:add-user="reloadUsers" v-bind:useradd="useradd" v-bind:users="users" v-bind:departments="departments"></useradd>
     <br>
  </div>
@@ -23,28 +23,8 @@ methods: {
     assignTask () {
       alert('unused')
     },
-    editUseracc(useracc) {
-      var self = this;
-        var the_id = useracc.id;
-        axios.put('user-edit',{
-        params: {
-          id: the_id
-          }
-        })
-        .then((res)=>{
-          //console.log(res.data)
-          return res;
-        });
-    },
     deleteUseracc(useracc) {
-
-      var the_id = useracc.id;
-        axios.delete('user-delete',useracc)
-        .then((res)=>{
-          //console.log(res.data)
-          return res;
-        });
-        
+ 
       //const userIndex = this.users.indexOf(useracc);
       //this.users.splice(userIndex, 1);
     },

@@ -18511,25 +18511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     assignTask: function assignTask() {
       alert('unused');
     },
-    editUseracc: function editUseracc(useracc) {
-      var self = this;
-      var the_id = useracc.id;
-      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.put('user-edit', {
-        params: {
-          id: the_id
-        }
-      }).then(function (res) {
-        //console.log(res.data)
-        return res;
-      });
-    },
     deleteUseracc: function deleteUseracc(useracc) {
-
-      var the_id = useracc.id;
-      __WEBPACK_IMPORTED_MODULE_2_axios___default.a.delete('user-delete', useracc).then(function (res) {
-        //console.log(res.data)
-        return res;
-      });
 
       //const userIndex = this.users.indexOf(useracc);
       //this.users.splice(userIndex, 1);
@@ -18676,6 +18658,8 @@ exports.push([module.i, "\n.form-inp[data-v-3a02b622], .form-inp-heading[data-v-
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
 //
@@ -18778,6 +18762,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'User',
@@ -18786,11 +18772,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     showEditForm: function showEditForm() {
       this.state = 'editing';
-    },
-    editUser: function editUser(useracc) {
-
-      this.$emit('edit-useracc', useracc);
-      this.editedState();
     },
     editedState: function editedState() {
       this.state = 'edited';
@@ -18804,9 +18785,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     askDeletion: function askDeletion() {
       this.state = 'deleting';
     },
+    editUser: function editUser(useracc) {
+      var self = this;
+
+      var userInfo = {
+        'name': useracc.name,
+        'email': useracc.email,
+        'type': useracc.type,
+        'dept_id': useracc.dept_id,
+        'super_id': useracc.super_id
+      };
+
+      var the_id = useracc.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('user-edit', {
+        params: {
+          id: the_id
+        }
+      }, userInfo).then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
+
+      this.editedState();
+    },
     deleteUser: function deleteUser(useracc) {
 
-      this.$emit('delete-useracc', useracc);
+      var the_id = useracc.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('user-delete', useracc).then(function (res) {
+        //console.log(res.data)
+        return res;
+      });
       this.deletedState();
     }
   },
@@ -19818,8 +19826,7 @@ var render = function() {
             useracc: useracc,
             users: _vm.users,
             departments: _vm.departments
-          },
-          on: { "delete-useracc": _vm.deleteUseracc }
+          }
         })
       }),
       _vm._v(" "),
@@ -22668,6 +22675,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -22677,7 +22688,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['assignedTask'],
   methods: {
     markAsDone: function markAsDone() {
-      alert('unused');
+      this.state = 'is-done';
     }
   },
   //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
@@ -22750,6 +22761,28 @@ var render = function() {
             [_vm._v("\n       Mark as Done\n     ")]
           )
         ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: this.state == "is-done",
+            expression: "this.state == 'is-done'"
+          }
+        ],
+        staticClass: "form-control"
+      },
+      [
+        _vm._v(
+          "\n     Task " +
+            _vm._s(_vm.assignedTask.title) +
+            " is now considered Done.\n "
+        )
       ]
     )
   ])
@@ -23777,6 +23810,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -23794,7 +23831,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.state = 'leave-form';
     },
     submit: function submit() {
-      this.state = 'pre-select'; //REMOVE THIS IF CONNECT BACK-END
+      this.state = 'accepted'; //REMOVE THIS IF CONNECT BACK-END
     }
   },
   //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
@@ -23987,6 +24024,22 @@ var render = function() {
           )
         ])
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: this.state == "accepted",
+            expression: "this.state == 'accepted'"
+          }
+        ],
+        staticClass: "form-control"
+      },
+      [_vm._v("\n       Task " + _vm._s(_vm.task.title) + " Accepted.\n   ")]
     )
   ])
 }

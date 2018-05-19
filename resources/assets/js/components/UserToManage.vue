@@ -101,6 +101,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
 export default {
   name: 'User',
   components: {
@@ -110,11 +112,6 @@ export default {
   methods: {
       showEditForm() {
         this.state = 'editing';
-      },
-      editUser(useracc){
-        
-        this.$emit('edit-useracc', useracc);
-        this.editedState();
       },
       editedState(){
         this.state = 'edited';
@@ -128,9 +125,38 @@ export default {
       askDeletion() {
         this.state = 'deleting';
       },
+      editUser(useracc) {
+      var self = this;
+
+      const userInfo = {
+      'name': useracc.name,
+      'email' : useracc.email,
+      'type' : useracc.type,
+      'dept_id' : useracc.dept_id,
+      'super_id': useracc.super_id
+        };
+
+        var the_id = useracc.id;
+        axios.put('user-edit',{
+        params: {
+          id: the_id
+          }
+        }, userInfo)
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
+
+        this.editedState();
+    },
       deleteUser(useracc) {
 
-        this.$emit('delete-useracc', useracc);
+        var the_id = useracc.id;
+        axios.delete('user-delete',useracc)
+        .then((res)=>{
+          //console.log(res.data)
+          return res;
+        });
         this.deletedState();
       }
     }, 
