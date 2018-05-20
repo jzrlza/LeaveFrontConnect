@@ -72,7 +72,7 @@ class TaskController extends Controller
 
     function getCertainTask(Request $request)
     {
-        $task = Task::where('task_id','=',$request->id)->first();
+        $task = Task::where('id','=',$request->id)->first();
         //alert($owner);
         return $task;
     }
@@ -83,14 +83,19 @@ class TaskController extends Controller
         return $tasks;
     }
 
-    public function markTaskAsDone(Task $task)
+    public function markTaskAsDone(Request $request)
     {
-        return [
-            "success" => $task->update([
-                'done' => 1
 
-            ])
-        ];
+        $task = Task::where('id','=',$request->id)->first();
+        $task->update(['done' => 1]);
+        return response()->json($task, 200);
+    }
+
+    public function acceptTask(Request $request)
+    {
+        $task = Task::where('id','=',$request['id'])->first();
+        $task->update($request->only(['priority','exp_date','accepted']));
+        return response()->json($task, 200);
     }
 
 

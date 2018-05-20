@@ -39,8 +39,11 @@ export default {
       markAsDone(assignedTask) {
         var self = this;
 
-        //var the_id = assignedTask.id;
-        axios.put('task-done', assignedTask)
+        var update_task = {
+          'id': assignedTask.id,
+          'done': 1
+        };
+        axios.post('task-done', update_task)
         .then((res)=>{
           //console.log(res.data)
           return res;

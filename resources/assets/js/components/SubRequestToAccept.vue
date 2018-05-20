@@ -13,7 +13,7 @@
     <div class='form-inp'>From task : {{ task.title }}</div>
     <div class='form-inp' v-if='leave.approved'>Approved : Yes</div>
     <div class='form-inp' v-if='!leave.approved'>Approved : No</div>
-    <div class='ui bottom green solid button' v-on:click="accept(leave)">
+    <div class='ui bottom green solid button' v-on:click="acceptReq(leave)">
         Accept
       </div>
     </div>
@@ -50,7 +50,7 @@ export default {
   }, 
   props: ['leave'],
   methods: {
-      accept(leave) {
+      acceptReq(leave) {
         var self = this;
 
 
@@ -58,12 +58,11 @@ export default {
    //   'sub_user_approve': 1
    //     };
 
-        var leave_id = leave.id;
-        axios.put('accept_sub_req',{
-        params: {
-          id: leave_id
-          }
-        })
+        var update_leave = {
+          'id': leave.id,
+          'sub_user_approve': 1
+        };
+        axios.post('accept_sub_req',update_leave)
         .then((res)=>{
           //console.log(res.data)
           return res;

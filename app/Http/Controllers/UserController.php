@@ -8,9 +8,9 @@
 
 namespace App\Http\Controllers;
 
-use Hash;
+//use Hash;
 use Illuminate\Http\Request;
-use App\User as User;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 
@@ -112,9 +112,12 @@ class UserController extends Controller
      * @param Request $request
      * @return array
      */
-    public function update(Request $request)
+    public function updateUser(Request $request)
     {
-        $user = $request->user()->update($request->only(['name','email','type','dept_id','super_id']));
+        //$user = $request->user()->update($request->only(['name','email','type','dept_id','super_id']));
+        //return response()->json($user, 200);
+        $user = User::where('id','=',$request->id)->first();
+        $user->update($request->only(['name','email','type','dept_id','super_id']));
         return response()->json($user, 200);
     }
 
@@ -147,18 +150,13 @@ class UserController extends Controller
         return $users;
     }
 
-    public function delete(User $user)
+    public function deleteUser(Request $request)
     {
+        $user = User::where('id','=',$request->id)->first();
         $user->delete();
         return response()->json(null, 204);
     }
 
-    public function getUser(Request $request)
-    {
-        $user = User::where('id','=',$request->id)->first();
-        //alert($owner);
-        return $user;
-    }
 
 
 }

@@ -58,16 +58,14 @@ export default {
       //const super_n_sub = {
       //'sub_user_approve': 1
       //  };
-
+        var update_leave = {
+          'id': leave.id,
+          'approved': 1
+        };
         //var main_id = owner.id;
-        axios.put('approve_leave_req',leave)//{
-        //params: {
-        //  main_user_id: main_id
-        //  }
-        //})
-        
+        axios.post('approve_leave_req',update_leave)
         .then((res)=>{
-          //console.log(res.data)
+          console.log(res)
           return res;
         });
 

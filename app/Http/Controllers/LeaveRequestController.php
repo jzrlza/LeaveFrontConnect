@@ -43,8 +43,9 @@ class LeaveRequestController extends Controller
     }
 
 
-    public function approve(Request $request, LeaveRequest $leave)
+    public function approve(Request $request)
     {
+        /*
         $supervisor = $request->user();
         $subordinate = $request->user()->first();
 
@@ -57,7 +58,12 @@ class LeaveRequestController extends Controller
                 'approved' => 1
 
             ])
-        ];
+        ];*/
+
+        $req = LeaveRequest::where('id', '=', $request['id'])->first();
+        $req->update($request->only(['approved']));
+        return response()->json($req, 200);
+
     }
 
     public function getLeaves()
@@ -103,6 +109,14 @@ class LeaveRequestController extends Controller
         
 
         //return ['message' => 'Require admin access to create a user'];
+
+    }
+
+    public function acceptSubRequest(Request $request)
+    {
+        $req = LeaveRequest::where('id', '=', $request['id'])->first();
+        $req->update(['sub_user_approve' => 1]);
+        return response()->json($req, 200);
 
     }
 

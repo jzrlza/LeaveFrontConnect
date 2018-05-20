@@ -2,7 +2,7 @@
  
  <div>
 <h2 class="form-inp-heading">Select Assigned Tasks</h2>
-  <task  v-for="task in tasks" v-bind:task="task" :key="task"></task>
+  <task  v-for="taskAssigned in tasks" v-bind:taskAssigned="taskAssigned" :key="taskAssigned"></task>
 
    <br>
  </div>

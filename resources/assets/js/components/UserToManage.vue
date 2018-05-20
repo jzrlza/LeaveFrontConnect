@@ -62,9 +62,6 @@
           <button class='ui bottom attached blue solid button' v-on:click="editUser(useracc)">
             Confirm
           </button>
-          <button class='ui bottom attached grey solid button' v-on:click="initState">
-            Cancel
-          </button>
         </div>
       </div>
     </div>
@@ -129,6 +126,7 @@ export default {
       var self = this;
 
       const userInfo = {
+      'id': useracc.id,
       'name': useracc.name,
       'email' : useracc.email,
       'type' : useracc.type,
@@ -138,12 +136,12 @@ export default {
 
         //axios.put(url, data, config)
 
-        var the_id = useracc.id;
-        axios.put('user-edit', userInfo,{
-        params: {
-          id: the_id
-          }
-        })
+        //var the_id = useracc.id;
+        axios.post('user-edit', userInfo)//,//{
+       // params: {
+        //  id: the_id
+        //  }
+        //})
         .then((res)=>{
           //console.log(res.data)
           return res;
@@ -153,10 +151,15 @@ export default {
     },
       deleteUser(useracc) {
 
-        var the_id = useracc.id;
-        axios.delete('user-delete',useracc)
+        var user_id = useracc.id;
+        axios.get('user-delete',{
+        params: {
+        id: user_id
+        }
+      })
         .then((res)=>{
-          //console.log(res.data)
+          console.log(res);
+          console.log(res.data);
           return res;
         });
         this.deletedState();

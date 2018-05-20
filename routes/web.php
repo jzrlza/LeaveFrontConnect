@@ -50,8 +50,8 @@ Route::get('/tasks-get', 'TaskController@getPendingTasks')->name('tasks-get');
 Route::get('/specific-task', 'TaskController@getCertainTask')->name('specific-task');
 Route::get('/assign-task', 'TaskController@assign')->name('assign-task');
 Route::post('/assign-task', 'TaskController@assign')->name('assign-task');
-Route::put('/task-done', 'TaskController@markTaskAsDone')->name('task-done');  //TEST ME
-Route::put('/accept-task', 'TaskController@accept')->name('accept-task');  //ADD ME
+Route::post('/task-done', 'TaskController@markTaskAsDone')->name('task-done');  //TEST ME
+Route::post('/accept-task', 'TaskController@acceptTask')->name('accept-task');  //ADD ME
 
 Route::get('/testPost', function(){
     return "Post received";
@@ -70,8 +70,8 @@ Route::post('/submit-leave-req', 'LeaveRequestController@submit')->name('submit-
 Route::get('/unapproved-reqs-get', 'LeaveRequestController@getWaitingLeaves')->name('unapproved-reqs-get');
 Route::get('/reqs-get', 'LeaveRequestController@getLeaves')->name('reqs-get');
 Route::get('/sub-reqs-get', 'LeaveRequestController@getSubReqLeaves')->name('sub-reqs-get');
-Route::put('/accept_sub_req', 'LeaveRequestController@acceptSubRequest')->name('accept_sub_req');  //ADD ME
-Route::put('/approve_leave_req', 'LeaveRequestController@approve')->name('approve_leave_req');  //TEST ME
+Route::post('/accept_sub_req', 'LeaveRequestController@acceptSubRequest')->name('accept_sub_req');  //ADD ME
+Route::post('/approve_leave_req', 'LeaveRequestController@approve')->name('approve_leave_req');  //TEST ME
 
 Route::get('/req-owner', 'LeaveRequestController@getOwner')->name('req-owner-id');
 //Route::resource('/req-owner', 'LeaveRequestController', ['except' => ['getOwner']]);
@@ -84,8 +84,8 @@ Route::get('/users-other-subs', 'UserController@getOtherSubUsers')->name('users-
 Route::post('/user-register', 'UserController@register')->name('user-register');
 
 //Put and delete must already know the id, just id, but put also needs the editing datas as well
-Route::put('/user-edit', 'UserController@update')->name('user-edit');   //FIX ME
-Route::delete('/user-delete', 'UserController@delete')->name('user-delete');   //FIX ME
+Route::post('/user-edit', 'UserController@updateUser')->name('user-edit');   //FIX ME
+Route::get('/user-delete', 'UserController@deleteUser')->name('user-delete');   //FIX ME
 
 Route::post('/logging-in', 'Auth\LoginController@login')->name('logging-in');   //FIX ME
 Route::get('/logging-out', 'Auth\LoginController@logout')->name('logging-out');  //ADD ME

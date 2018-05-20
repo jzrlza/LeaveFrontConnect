@@ -18775,9 +18775,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -18805,6 +18802,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var self = this;
 
       var userInfo = {
+        'id': useracc.id,
         'name': useracc.name,
         'email': useracc.email,
         'type': useracc.type,
@@ -18814,12 +18812,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       //axios.put(url, data, config)
 
-      var the_id = useracc.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('user-edit', userInfo, {
-        params: {
-          id: the_id
-        }
-      }).then(function (res) {
+      //var the_id = useracc.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('user-edit', userInfo) //,//{
+      // params: {
+      //  id: the_id
+      //  }
+      //})
+      .then(function (res) {
         //console.log(res.data)
         return res;
       });
@@ -18828,9 +18827,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     deleteUser: function deleteUser(useracc) {
 
-      var the_id = useracc.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete('user-delete', useracc).then(function (res) {
-        //console.log(res.data)
+      var user_id = useracc.id;
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('user-delete', {
+        params: {
+          id: user_id
+        }
+      }).then(function (res) {
+        console.log(res);
+        console.log(res.data);
         return res;
       });
       this.deletedState();
@@ -19148,15 +19152,6 @@ var render = function() {
                 }
               },
               [_vm._v("\n            Confirm\n          ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "ui bottom attached grey solid button",
-                on: { click: _vm.initState }
-              },
-              [_vm._v("\n            Cancel\n          ")]
             )
           ])
         ])
@@ -22413,16 +22408,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       //const super_n_sub = {
       //'sub_user_approve': 1
       //  };
-
+      var update_leave = {
+        'id': leave.id,
+        'approved': 1
+      };
       //var main_id = owner.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('approve_leave_req', leave) //{
-      //params: {
-      //  main_user_id: main_id
-      //  }
-      //})
-
-      .then(function (res) {
-        //console.log(res.data)
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('approve_leave_req', update_leave).then(function (res) {
+        console.log(res);
         return res;
       });
 
@@ -23042,8 +23034,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     markAsDone: function markAsDone(assignedTask) {
       var self = this;
 
-      //var the_id = assignedTask.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('task-done', assignedTask).then(function (res) {
+      var update_task = {
+        'id': assignedTask.id,
+        'done': 1
+      };
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('task-done', update_task).then(function (res) {
         //console.log(res.data)
         return res;
       });
@@ -24247,7 +24242,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     current_id: ''
   },
   components: {},
-  props: ['task'],
+  props: ['taskAssigned'],
   methods: {
     showAcceptForm: function showAcceptForm() {
       this.state = 'accept-form';
@@ -24256,34 +24251,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.state = 'ask';
     },
     showLeaveForm: function showLeaveForm() {
+      this.doLeave = true;
       this.state = 'leave-form';
     },
-    submit: function submit(task) {
+    acceptTask: function acceptTask(taskAssigned) {
       var self = this;
 
+      console.log(taskAssigned);
       var update_task = {
+        'id': taskAssigned.id,
         'priority': this.priority,
-        'exp_date': this.exp_date + " " + this.exp_time + ":00"
+        'exp_date': this.exp_date + " " + this.exp_time + ":00",
+        'accepted': 1
       };
       //axios.put(url, content, config)
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('accept-task', update_task, task).then(function (res) {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('accept-task', update_task).then(function (res) {
         //console.log(res.data)
         return res;
       });
 
-      var leave_req = {
-        'type': this.type,
-        'details': this.details,
-        'days_period_of_leave': this.days_period_of_leave,
-        'sub_user_id': this.sub_user_id,
-        'involved_task_id': task.task_id,
-        'main_user_id': this.current_id //PlaceHolder
-      };
+      if (this.doLeave) {
+        var leave_req = {
+          'type': this.type,
+          'details': this.details,
+          'days_period_of_leave': this.days_period_of_leave,
+          'sub_user_id': this.sub_user_id,
+          'involved_task_id': taskAssigned.id,
+          'main_user_id': this.current_id //PlaceHolder
+        };
 
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('submit-leave-req', leave_req).then(function (res) {
-        console.log(res);
-        return res;
-      });
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('submit-leave-req', leave_req).then(function (res) {
+          console.log(res);
+          return res;
+        });
+      }
 
       this.state = 'accepted';
     }
@@ -24291,7 +24292,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 }, _defineProperty(_name$data$components, 'data', function data() {
   return {
     state: 'pre-select',
-    other_subs: []
+    other_subs: [],
+    doLeave: false
   };
 }), _defineProperty(_name$data$components, 'mounted', function mounted() {
   this.current_id = 8; //Placeholder, get the current logged on user's id
@@ -24344,16 +24346,16 @@ var render = function() {
           _c(
             "div",
             { staticClass: "form-inp", staticStyle: { "font-weight": "bold" } },
-            [_vm._v(_vm._s(_vm.task.title) + " ")]
+            [_vm._v(_vm._s(_vm.taskAssigned.title) + " ")]
           )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-inp" }, [
-          _vm._v("Details : " + _vm._s(_vm.task.detail))
+          _vm._v("Details : " + _vm._s(_vm.taskAssigned.detail))
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-inp" }, [
-          _vm._v("Due Date : " + _vm._s(_vm.task.deadline))
+          _vm._v("Due Date : " + _vm._s(_vm.taskAssigned.deadline))
         ]),
         _vm._v(" "),
         _c(
@@ -24384,7 +24386,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "form-inp", staticStyle: { "font-weight": "bold" } },
-          [_vm._v(_vm._s(_vm.task.title) + " ")]
+          [_vm._v(_vm._s(_vm.taskAssigned.title) + " ")]
         ),
         _vm._v(" "),
         _c(
@@ -24396,7 +24398,7 @@ var render = function() {
               "padding-left": "5mm"
             }
           },
-          [_vm._v(" " + _vm._s(_vm.task.details) + " ")]
+          [_vm._v(" " + _vm._s(_vm.taskAssigned.details) + " ")]
         ),
         _vm._v(" "),
         _c("br"),
@@ -24546,7 +24548,11 @@ var render = function() {
               "button",
               {
                 staticClass: "ui bottom attached red solid button",
-                on: { click: _vm.submit }
+                on: {
+                  click: function($event) {
+                    _vm.acceptTask(_vm.taskAssigned)
+                  }
+                }
               },
               [_vm._v("\n           No\n         ")]
             )
@@ -24730,7 +24736,7 @@ var render = function() {
               staticClass: "ui bottom attached green solid button",
               on: {
                 click: function($event) {
-                  _vm.submit(_vm.task)
+                  _vm.acceptTask(_vm.taskAssigned)
                 }
               }
             },
@@ -24753,7 +24759,11 @@ var render = function() {
         ],
         staticClass: "form-control"
       },
-      [_vm._v("\n       Task " + _vm._s(_vm.task.title) + " Accepted.\n   ")]
+      [
+        _vm._v(
+          "\n       Task " + _vm._s(_vm.taskAssigned.title) + " Accepted.\n   "
+        )
+      ]
     )
   ])
 }
@@ -24782,8 +24792,11 @@ var render = function() {
         _vm._v("Select Assigned Tasks")
       ]),
       _vm._v(" "),
-      _vm._l(_vm.tasks, function(task) {
-        return _c("task", { key: task, attrs: { task: task } })
+      _vm._l(_vm.tasks, function(taskAssigned) {
+        return _c("task", {
+          key: taskAssigned,
+          attrs: { taskAssigned: taskAssigned }
+        })
       }),
       _vm._v(" "),
       _c("br")
@@ -25204,19 +25217,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {},
   props: ['leave'],
   methods: {
-    accept: function accept(leave) {
+    acceptReq: function acceptReq(leave) {
       var self = this;
 
       //   const stateUpdate = {
       //   'sub_user_approve': 1
       //     };
 
-      var leave_id = leave.id;
-      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('accept_sub_req', {
-        params: {
-          id: leave_id
-        }
-      }).then(function (res) {
+      var update_leave = {
+        'id': leave.id,
+        'sub_user_approve': 1
+      };
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('accept_sub_req', update_leave).then(function (res) {
         //console.log(res.data)
         return res;
       });
@@ -25327,7 +25339,7 @@ var render = function() {
             staticClass: "ui bottom green solid button",
             on: {
               click: function($event) {
-                _vm.accept(_vm.leave)
+                _vm.acceptReq(_vm.leave)
               }
             }
           },

@@ -5,10 +5,10 @@
   
     <div class="form-control" v-show="this.state == 'pre-select'">
       <div class='ui form'>
-    <div style="font-weight:bold" class='form-inp'>{{ task.title }} </div>
+    <div style="font-weight:bold" class='form-inp'>{{ taskAssigned.title }} </div>
       </div>
-    <div class='form-inp'>Details : {{ task.detail }}</div>
-    <div class='form-inp'>Due Date : {{ task.deadline }}</div>
+    <div class='form-inp'>Details : {{ taskAssigned.detail }}</div>
+    <div class='form-inp'>Due Date : {{ taskAssigned.deadline }}</div>
 
     <div class='ui bottom red solid button' v-on:click="showAcceptForm">
         Accept Task
@@ -16,8 +16,8 @@
     </div>
 
     <div class="form-control" v-show="this.state == 'accept-form'">
-      <div style="font-weight:bold" class='form-inp'>{{ task.title }} </div>
-      <div style="font: italic 15px arial, sans-serif; padding-left:5mm;" class='form-inp'> {{ task.details }} </div>
+      <div style="font-weight:bold" class='form-inp'>{{ taskAssigned.title }} </div>
+      <div style="font: italic 15px arial, sans-serif; padding-left:5mm;" class='form-inp'> {{ taskAssigned.details }} </div>
       <br>
       <div class='ui form'>
         <div class='field'>
@@ -51,7 +51,7 @@
       <button class='ui bottom attached green solid button' v-on:click="showLeaveForm">
             Yes
           </button>
-          <button class='ui bottom attached red solid button' v-on:click="submit">
+          <button class='ui bottom attached red solid button' v-on:click="acceptTask(taskAssigned)">
             No
           </button>
         </div>
@@ -89,14 +89,14 @@
         <br>
       </div>
      <div class='ui two button attached buttons'>
-          <button class='ui bottom attached green solid button' v-on:click="submit(task)">
+          <button class='ui bottom attached green solid button' v-on:click="acceptTask(taskAssigned)">
             Submit
           </button>
         </div>
     </div>
 
     <div class="form-control" v-show="this.state == 'accepted'">
-        Task {{ task.title }} Accepted.
+        Task {{ taskAssigned.title }} Accepted.
     </div>
 
   </div>
@@ -123,7 +123,7 @@ export default {
   components: {
     
   }, 
-  props: ['task'],
+  props: ['taskAssigned'],
   methods: {
       showAcceptForm() {
         this.state = 'accept-form';
@@ -132,38 +132,45 @@ export default {
         this.state = 'ask';
       },
        showLeaveForm() {
+        this.doLeave = true;
         this.state = 'leave-form';
       },
-       submit(task) {
+       acceptTask(taskAssigned) {
         var self = this;
 
-
+        console.log(taskAssigned);
         var update_task = {
+          'id': taskAssigned.id,
           'priority': this.priority,
-          'exp_date' : this.exp_date+" "+this.exp_time+":00"
+          'exp_date' : this.exp_date+" "+this.exp_time+":00",
+          'accepted': 1
         };
         //axios.put(url, content, config)
-        axios.put('accept-task',update_task, task)
+        axios.post('accept-task',update_task)
         .then((res)=>{
           //console.log(res.data)
           return res;
         });
 
-        var leave_req = {
+        if (this.doLeave){
+          var leave_req = {
           'type': this.type,
           'details' : this.details,
           'days_period_of_leave' : this.days_period_of_leave,
           'sub_user_id' : this.sub_user_id,
-          'involved_task_id': task.task_id,
+          'involved_task_id': taskAssigned.id,
           'main_user_id': this.current_id //PlaceHolder
-        };
+         };
 
 
-        axios.post('submit-leave-req', leave_req)
+          axios.post('submit-leave-req', leave_req)
             .then(res => {
-       console.log(res);
+          console.log(res);
                 return res;
           });
+        }
+
+        
 
         this.state = 'accepted'; 
       },
@@ -172,7 +179,8 @@ export default {
     data () {
       return {
         state: 'pre-select',
-        other_subs : []
+        other_subs : [],
+        doLeave: false
       }
     },
     mounted(){
