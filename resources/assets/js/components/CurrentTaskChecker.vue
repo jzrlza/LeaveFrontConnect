@@ -27,7 +27,7 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-        assignedTasks:[]/*
+        assignedTasks:[],/*
         assignedTasks: [
           {
           'task_title':'Get some money from the advertising.',
@@ -43,11 +43,19 @@ export default {
          }
 
         ]*/
+        current_super: 0
       }
     },
     mounted(){
-    var self = this; 
-    axios.get('tasks-get')
+    var self = this;
+
+    this.current_super = 2; //Placeholder
+
+    axios.get('tasks-get',{
+      params: {
+        id: this.current_super
+        }
+      })
     .then((res)=>{
       console.log(res.data);
       self.assignedTasks = res.data;

@@ -54,7 +54,8 @@ methods: {
       'title': this.title,
       'detail' : this.detail,
       'deadline' : this.deadline_date+" "+this.deadline_time+":00",
-      'user_id' : this.user_id
+      'user_id' : this.user_id,
+      'super_id' : this.current_super
     };
     /*
     if (this.title != ''){
@@ -118,7 +119,7 @@ methods: {
           'label':'Deadline Time'
         }
         ],
-        subs : []/* 
+        subs : [],/* 
           {
             'username':'sub1',
             'selected':false
@@ -132,6 +133,7 @@ methods: {
             'selected':false
           }
         ]*/
+        current_super: 0
       }
     },
     mounted(){
@@ -141,8 +143,14 @@ methods: {
     this.deadline_time = '';
     this.user_id = null;
 
+    this.current_super = 2; //Placeholder
+
     var self = this; 
-    axios.get('users-subs')
+    axios.get('users-subs',{
+      params: {
+        id: this.current_super
+        }
+      })
     .then((res)=>{
       //console.log(res.data);
       self.subs = res.data;

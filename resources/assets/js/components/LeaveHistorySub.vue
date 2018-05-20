@@ -24,7 +24,8 @@ export default {
     }, 
     data () {
       return {
-      leaves:[]/*
+      leaves:[],
+      current_sub: 0/*
         {
             'type':'Vacation',
             'details':'Need to take some days off, it is getting tiring',
@@ -48,8 +49,14 @@ export default {
       }
     },
     mounted(){
+      this.current_sub = 3 //Placeholder
+
     var self = this;
-    axios.get('reqs-get')
+    axios.get('reqs-get-for-sub',{
+      params: {
+        id: this.current_sub
+        }
+      })
     .then((res)=>{
       self.leaves = res.data;
     });

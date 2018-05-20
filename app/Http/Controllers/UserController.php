@@ -112,12 +112,21 @@ class UserController extends Controller
      * @param Request $request
      * @return array
      */
-    public function updateUser(Request $request)
+    public function updateUser(Request $request) //Admin only
     {
         //$user = $request->user()->update($request->only(['name','email','type','dept_id','super_id']));
         //return response()->json($user, 200);
         $user = User::where('id','=',$request->id)->first();
         $user->update($request->only(['name','email','type','dept_id','super_id']));
+        return response()->json($user, 200);
+    }
+
+    public function updateUserFromProfile(Request $request)
+    {
+        //$user = $request->user()->update($request->only(['name','email','type','dept_id','super_id']));
+        //return response()->json($user, 200);
+        $user = User::where('id','=',$request->id)->first();
+        $user->update($request->only(['name','fullname','email','address','facebook','ig','lineid','tel','password']));
         return response()->json($user, 200);
     }
 
@@ -140,8 +149,8 @@ class UserController extends Controller
         return $user;
     }
 
-    public function getSubUsers(){
-        $users = User::where('type','=','Subordinate')->get();
+    public function getSubUsers(Request $request){
+        $users = User::where('super_id','=',$request->id)->where('type','=','Subordinate')->get();
         return $users;
     }
 

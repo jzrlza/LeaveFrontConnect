@@ -16,10 +16,18 @@ use App\User;
 
 class LeaveRequestController extends Controller
 {
-    public function getWaitingLeaves()
+    public function getWaitingLeaves(Request $request)
     {
-        //User specific maybe later
+        //User specific : find all requests with unapproved first
+        //Then detect the user_id that has super_id of matched request
 
+        $reqs = LeaveRequest::where('approved', '=', '0')->get();
+
+        return $reqs;
+    }
+
+    public function getWaitingLeavesAll()
+    {
         $reqs = LeaveRequest::where('approved', '=', '0')->get();
 
         return $reqs;
@@ -75,11 +83,19 @@ class LeaveRequestController extends Controller
         return $reqs;
     }
 
-    public function getSubReqLeaves()
+    public function getLeavesSub(Request $request)
     {
         //User specific maybe later
 
-        $reqs = LeaveRequest::where('sub_user_approve', '=', '0')->get();
+        $reqs = LeaveRequest::where('main_user_id', '=', $request->id)->get();
+
+        return $reqs;
+    }
+
+    public function getSubReqLeaves(Request $request)
+    {
+        //User specific maybe later
+        $reqs = LeaveRequest::where('sub_user_id', '=', $request->id)->where('sub_user_approve', '=', '0')->get();
 
         return $reqs;
     }

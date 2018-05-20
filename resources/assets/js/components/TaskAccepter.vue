@@ -26,7 +26,8 @@ export default {
     }, 
     data () {
       return {
-        tasks: []
+        tasks: [],
+      current_sub: 0
         /*
         tasks: [
           {
@@ -46,8 +47,14 @@ export default {
       }
     },
     mounted(){
+      this.current_sub = 3 //Placeholder
+      
     var self = this; 
-    axios.get('unaccepted-tasks-get')
+    axios.get('unaccepted-tasks-get',{
+      params: {
+        id: this.current_sub
+        }
+      })
     .then((res)=>{
       console.log(res.data);
       self.tasks = res.data;

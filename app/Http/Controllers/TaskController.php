@@ -39,7 +39,8 @@ class TaskController extends Controller
             'done' => 0,
             'priority' => null,
             'expected_date' => null,
-            'accepted' => 0
+            'accepted' => 0,
+            'super_id' => $request->super_id,
         ]);
         return $request;
     }
@@ -54,21 +55,24 @@ class TaskController extends Controller
         return view('webs.sub.accept_tasks');
     }
 
-	function getWaitingTasks(){
-		$temp_user_id = 3; //Remove this once login is implemented
-
-		$tasks = Task::where('accepted', '=', '0')->get();
+	function getWaitingTasks(Request $request){ //Sub
+		$tasks = Task::where('user_id','=',$request->id)->where('accepted', '=', '0')->get();
 
 		return $tasks;
 	}
 
-	function getPendingTasks(){
-		$temp_user_id = 3; //Remove this once login is implemented
-
-		$tasks = Task::where('done', '=', '0')->get();
+	function getPendingTasks(Request $request){ //Super
+		$tasks = Task::where('super_id','=',$request->id)->where('done', '=', '0')->get();
 
 		return $tasks;
 	}
+
+    function getPendingAll(){
+
+        $tasks = Task::where('done', '=', '0')->get();
+
+        return $tasks;
+    }
 
     function getCertainTask(Request $request)
     {

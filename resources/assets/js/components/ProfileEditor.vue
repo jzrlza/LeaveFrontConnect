@@ -1,82 +1,30 @@
 <template>
  
  <div >
-  <!--
-  <ul>
-        <li> {{ profile.username }} </li> 
-        <li> Todo B </li> 
-        <li> Todo C </li> 
-        </ul> -->
         
-    <form class="form-inp" @submit.prevent="editProfile">
+    <form class="form-inp" >
       <h2 class="form-inp-heading">Edit your profile</h2>
-      <!-- OLD WAY, hard to fix, loop is better
-        <div class="form-control">
-          <label >Username</label>
-          <input class="txtinp" v-model="profile.username" >
-        </div>
-        <div class="form-control">
-          <label>Full Name</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label>Email</label>
-          <input class="txtinp" type="email" >
-        </div>
-        <div class="form-control">
-        <label>Address</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label>Contact Info (Facebook)</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label>Contact Info (Intragram)</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label>Contact Info (LINE ID)</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label>Contact Info (Tel.)</label>
-          <input class="txtinp" >
-        </div>
-        <div class="form-control">
-        <label >Change Password</label>
-          <input class="txtinp" type="password" placeholder="Password">
-        </div>
-        <div class="form-control">
-        <label>Confirm Password Change</label>
-          <input class="txtinp" type="password" placeholder="Password">
-        </div>
-        <div class="form-control">
-        <label>Enter Password Before Edit</label>
-          <input class="txtinp" type="password" placeholder="Password">
-        </div>
-        
--->   
+
 
         <div class="inputs" v-for="type in types" :key="type">
         <div class="form-control">
         <label>{{type.label}} : </label>
-          <input v-if="type.type == 'text' && type.label == 'Username'" class="txtinp" v-model="profile.name">
-          <input v-if="type.type == 'text' && type.label == 'Full Name'" class="txtinp" v-model="profile.fullname">
-          <input v-if="type.type == 'email'" class="txtinp" type="email" v-model="profile.email">
-          <input v-if="type.type == 'text' && type.label == 'Address'" class="txtinp" v-model="profile.address">
-          <input v-if="type.type == 'text' && type.label == 'Contact Info (Facebook)'" class="txtinp" v-model="profile.facebook">
-          <input v-if="type.type == 'text' && type.label == 'Contact Info (Intragram)'" class="txtinp" v-model="profile.ig">
-          <input v-if="type.type == 'text' && type.label == 'Contact Info (LINE ID)'" class="txtinp" v-model="profile.lineid">
-          <input v-if="type.type == 'tel'" class="txtinp" type="tel" v-model="profile.tel">
-          <input v-if="type.type == 'password' && type.label == 'Change Password'" class="txtinp" type="password" placeholder="Password" v-model="profile.password_input">
-          <input v-if="type.type == 'password' && type.label == 'Confirm Password Change'" class="txtinp" type="password" placeholder="Password" v-model="profile.password_confirm">
-          <input v-if="type.type == 'password' && type.label == 'Enter Password Before Edit'" class="txtinp" type="password" placeholder="Password" v-model="profile.password_verify">
+          <input v-if="type.type == 'text' && type.label == 'Username'" class="txtinp" v-model="name" :placeholder=profile.name>
+          <input v-if="type.type == 'text' && type.label == 'Full Name'" class="txtinp" v-model="fullname" :placeholder=profile.fullname>
+          <input v-if="type.type == 'email'" class="txtinp" type="email" v-model="email" :placeholder=profile.email>
+          <input v-if="type.type == 'text' && type.label == 'Address'" class="txtinp" v-model="address" :placeholder=profile.address>
+          <input v-if="type.type == 'text' && type.label == 'Contact Info (Facebook)'" class="txtinp" v-model="facebook" :placeholder=profile.facebook>
+          <input v-if="type.type == 'text' && type.label == 'Contact Info (Intragram)'" class="txtinp" v-model="ig" :placeholder=profile.ig>
+          <input v-if="type.type == 'text' && type.label == 'Contact Info (LINE ID)'" class="txtinp" v-model="lineid" :placeholder=profile.lineid>
+          <input v-if="type.type == 'tel'" class="txtinp" type="tel" v-model="tel" :placeholder=profile.tel>
+          <input v-if="type.type == 'password' && type.label == 'Change Password'" class="txtinp" type="password" placeholder="New Password" v-model="password_new">
+          <input v-if="type.type == 'password' && type.label == 'Confirm Password Change'" class="txtinp" type="password" placeholder="Password Confirm" v-model="password_confirm">
+          <input v-if="type.type == 'password' && type.label == 'Enter Password Before Edit'" class="txtinp" type="password" placeholder="Current Password" v-model="password_verify">
         </div>
         </div>
 
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" v-on:click="editProfile(profile)">Submit</button>
         <br>
         </form>
 
@@ -93,7 +41,6 @@ export default {
   data: {//LOCAL DATA BINDIND
     name: '',
     email: '',
-    password: '',
     fullname: '',
     address: '',
     facebook: '',
@@ -102,6 +49,7 @@ export default {
     ig: '',
     type: '',
     profile_image_src: '',
+    password_new: '',
     password_confirm: '',
     password_verify: ''
   },
@@ -111,8 +59,40 @@ export default {
   props: ['profile'],
 // CONNECT THIS TO BACKEND
 methods: {
-    editProfile () {
-      alert('unused')
+    editProfile (profile) {
+      alert(profile.password);
+      var password_token = null;
+      if (profile.password == this.password_verify){
+        password_token = this.user.password;
+      
+      if (this.password_new == this.password_confirm){
+        password_token = this.password_new;
+      }
+
+
+      var update_user = {
+          'id': profile.id,
+          'name': this.name,
+          'fullname' : this.fullname,
+          'email': this.email,
+          'address': this.address,
+          'facebook': this.facebook,
+          'ig': this.ig,
+          'lineid': this.lineid,
+          'tel': this.tel,
+          'password': password_token
+        };
+
+    axios.post('user-edit-profile', update_user)
+    .then((res)=>{
+      console.log(res.data);
+      return res;
+
+        });
+      } else {
+        alert('Invalid Current Password');
+      }
+      
     }
   },
   data () {
@@ -163,40 +143,28 @@ methods: {
           'label':'Enter Password Before Edit'
         }
       ]
+      
     }
   },
     mounted(){
-      /*
-      this.current_id = 8; //Placeholder, get the current logged on user's id
 
-    var self = this; 
-    var the_id = this.current_id;
-    axios.get('req-owner',{
-      params: {
-        id: the_id
-        }
-      })
-    .then((res)=>{
-      console.log(res.data);
-      self.user = res.data;
 
-      console.log(self.user.name);
-    self.name =  self.user.name;
-    self.email =  Object.assign({}, self.user.email);
-    self.password =  'xxxx';
-    self.fullname =  Object.assign({}, self.user.fullname); 
-    self.address =  Object.assign({}, self.user.address); 
-    self.facebook = Object.assign({}, self.user.facebook); 
-    self.lineid = Object.assign({}, self.user.lineid); 
-    self.tel = Object.assign({}, self.user.tel);
-    self.ig = Object.assign({}, self.user.ig); 
-    self.type = Object.assign({}, self.user.type); 
-    self.profile_image_src = Object.assign({}, self.user.profile_image_src); 
-    self.password_confirm =  '';
-    self.password_verify =  '';
-    8
+    //var self = this; 
 
-    });*/
+   // self.name =  profile.name+'';
+   // self.email =  Object.assign({}, profile.email);
+    //self.password =  '';
+   // self.fullname =  Object.assign({}, profile.fullname); 
+   // self.address =  Object.assign({}, profile.address); 
+   // self.facebook = Object.assign({}, profile.facebook); 
+   // self.lineid = Object.assign({}, profile.lineid); 
+   // self.tel = Object.assign({}, profile.tel);
+   // self.ig = Object.assign({}, profile.ig); 
+   // self.type = Object.assign({}, profile.type); 
+   // self.profile_image_src = Object.assign({}, profile.profile_image_src); 
+   // self.password_confirm =  '';
+   // self.password_verify =  '';
+
 
 
       

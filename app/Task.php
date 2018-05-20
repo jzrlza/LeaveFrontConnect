@@ -15,7 +15,7 @@ class Task extends Model
 
 {
     protected $fillable = [
-        'title','detail','deadline','user_id','done','priority','expected_date','accepted'
+        'title','detail','deadline','user_id','done','priority','expected_date','accepted','super_id'
     ];
 
 }

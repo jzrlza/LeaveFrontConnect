@@ -26,7 +26,8 @@ export default {
     //REMOVE THIS WHEN CONECT TO BACKEND WITH DATABASE OF Task matching 
     data () {
       return {
-      leaves:[]/*
+      leaves:[],
+      current_sub: 0/*
         {
             'type':'Personal Errand',
             'details':'I got some post delivery that is urgently required for my parent\'s life',
@@ -49,8 +50,14 @@ export default {
       }
     },
     mounted(){
+      this.current_sub = 3 //Placeholder
+      
     var self = this;
-    axios.get('sub-reqs-get')
+    axios.get('sub-reqs-get',{
+      params: {
+        id: this.current_sub
+        }
+      })
     .then((res)=>{
       self.leaves = res.data;
     });
