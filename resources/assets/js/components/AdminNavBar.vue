@@ -68,7 +68,19 @@ export default {
         console.log(response.data);
     });
 
-    this.username = 'Jzrlza'; 
+    this.current_id = 1; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    axios.get('req-owner',{
+      params: {
+        id: the_id
+        }
+      })
+    .then((res)=>{
+      console.log(res.data);
+      self.username = res.data.name;
+
+    });
   }
 }
 </script>

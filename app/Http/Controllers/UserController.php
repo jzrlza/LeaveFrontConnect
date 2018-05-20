@@ -133,7 +133,7 @@ class UserController extends Controller
     }
 
     public function getUser(Request $request){
-        $user = User::where('id','<>',$request['id'])->first();
+        $user = User::where('id','=',$request->id)->first();
         return $user;
     }
 

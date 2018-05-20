@@ -18316,7 +18316,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(response.data);
     });
 
-    this.username = 'Jzrlza';
+    this.current_id = 1; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.username = res.data.name;
+    });
   }
 });
 
@@ -20231,7 +20241,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(response.data);
     });
 
-    this.username = 'Jzrlza';
+    this.current_id = 1; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.username = res.data.name;
+    });
   }
 });
 
@@ -20582,7 +20602,7 @@ exports = module.exports = __webpack_require__(0)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -20593,10 +20613,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SuperNavbar__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SuperNavbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SuperNavbar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileEditor__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileEditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProfileEditor__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SuperNavbar__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SuperNavbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SuperNavbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ProfileEditor__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ProfileEditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ProfileEditor__);
 //
 //
 //
@@ -20606,6 +20628,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -20613,16 +20637,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SuperProfile',
   components: {
-    Navbar: __WEBPACK_IMPORTED_MODULE_0__SuperNavbar___default.a,
-    ProfileEdit: __WEBPACK_IMPORTED_MODULE_1__ProfileEditor___default.a
+    Navbar: __WEBPACK_IMPORTED_MODULE_1__SuperNavbar___default.a,
+    ProfileEdit: __WEBPACK_IMPORTED_MODULE_2__ProfileEditor___default.a
   },
   data: function data() {
     return {
       msg: 'SUPER USER PLACEHOLDER',
-      profile: {
-        username: 'super-user'
-      }
+      profile: null,
+      current_id: 0
     };
+  },
+  mounted: function mounted() {
+    this.current_id = 2; //Placeholder, get the current logged on user's id
+
+    var self = this;
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.profile = res.data;
+    });
   }
 });
 
@@ -20736,7 +20773,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      username: null
+      username: null,
+      current_id: 0
     };
   },
 
@@ -20756,7 +20794,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(response.data);
     });
 
-    this.username = 'SomeSupervisor';
+    this.current_id = 2; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.username = res.data.name;
+    });
   }
 });
 
@@ -20985,13 +21033,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_name$data$components = {
   name: 'Profile',
   data: { //LOCAL DATA BINDIND
-    current_id: ''
+    name: '',
+    email: '',
+    password: '',
+    fullname: '',
+    address: '',
+    facebook: '',
+    lineid: '',
+    tel: '',
+    ig: '',
+    type: '',
+    profile_image_src: '',
+    password_confirm: '',
+    password_verify: ''
   },
   components: {},
   props: ['profile'],
@@ -21036,22 +21101,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, {
       'type': 'password',
       'label': 'Enter Password Before Edit'
-    }],
-    user: null
+    }]
   };
 }), _defineProperty(_name$data$components, 'mounted', function mounted() {
+  /*
   this.current_id = 8; //Placeholder, get the current logged on user's id
-
-  var self = this;
+  var self = this; 
   var the_id = this.current_id;
-  __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('users-other-subs', {
-    params: {
-      id: the_id
+  axios.get('req-owner',{
+  params: {
+    id: the_id
     }
-  }).then(function (res) {
-    //console.log(res.data);
-    self.user = res;
-  });
+  })
+  .then((res)=>{
+  console.log(res.data);
+  self.user = res.data;
+   console.log(self.user.name);
+  self.name =  self.user.name;
+  self.email =  Object.assign({}, self.user.email);
+  self.password =  'xxxx';
+  self.fullname =  Object.assign({}, self.user.fullname); 
+  self.address =  Object.assign({}, self.user.address); 
+  self.facebook = Object.assign({}, self.user.facebook); 
+  self.lineid = Object.assign({}, self.user.lineid); 
+  self.tel = Object.assign({}, self.user.tel);
+  self.ig = Object.assign({}, self.user.ig); 
+  self.type = Object.assign({}, self.user.type); 
+  self.profile_image_src = Object.assign({}, self.user.profile_image_src); 
+  self.password_confirm =  '';
+  self.password_verify =  '';
+  8
+  });*/
+
 }), _name$data$components);
 
 /***/ }),
@@ -21084,28 +21165,47 @@ var render = function() {
             _c("div", { staticClass: "form-control" }, [
               _c("label", [_vm._v(_vm._s(type.label) + " : ")]),
               _vm._v(" "),
-              type.type == "text" && type.label != "Username"
-                ? _c("input", { staticClass: "txtinp" })
-                : _vm._e(),
-              _vm._v(" "),
               type.type == "text" && type.label == "Username"
                 ? _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.profile.username,
-                        expression: "profile.username"
+                        value: _vm.profile.name,
+                        expression: "profile.name"
                       }
                     ],
                     staticClass: "txtinp",
-                    domProps: { value: _vm.profile.username },
+                    domProps: { value: _vm.profile.name },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.profile, "username", $event.target.value)
+                        _vm.$set(_vm.profile, "name", $event.target.value)
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "text" && type.label == "Full Name"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.fullname,
+                        expression: "profile.fullname"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    domProps: { value: _vm.profile.fullname },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "fullname", $event.target.value)
                       }
                     }
                   })
@@ -21113,19 +21213,226 @@ var render = function() {
               _vm._v(" "),
               type.type == "email"
                 ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.email,
+                        expression: "profile.email"
+                      }
+                    ],
                     staticClass: "txtinp",
-                    attrs: { type: "email" }
+                    attrs: { type: "email" },
+                    domProps: { value: _vm.profile.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "email", $event.target.value)
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "text" && type.label == "Address"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.address,
+                        expression: "profile.address"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    domProps: { value: _vm.profile.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "address", $event.target.value)
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "text" && type.label == "Contact Info (Facebook)"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.facebook,
+                        expression: "profile.facebook"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    domProps: { value: _vm.profile.facebook },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "facebook", $event.target.value)
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "text" && type.label == "Contact Info (Intragram)"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.ig,
+                        expression: "profile.ig"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    domProps: { value: _vm.profile.ig },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "ig", $event.target.value)
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "text" && type.label == "Contact Info (LINE ID)"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.lineid,
+                        expression: "profile.lineid"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    domProps: { value: _vm.profile.lineid },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "lineid", $event.target.value)
+                      }
+                    }
                   })
                 : _vm._e(),
               _vm._v(" "),
               type.type == "tel"
-                ? _c("input", { staticClass: "txtinp", attrs: { type: "tel" } })
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.tel,
+                        expression: "profile.tel"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    attrs: { type: "tel" },
+                    domProps: { value: _vm.profile.tel },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.profile, "tel", $event.target.value)
+                      }
+                    }
+                  })
                 : _vm._e(),
               _vm._v(" "),
-              type.type == "password"
+              type.type == "password" && type.label == "Change Password"
                 ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.password_input,
+                        expression: "profile.password_input"
+                      }
+                    ],
                     staticClass: "txtinp",
-                    attrs: { type: "password", placeholder: "Password" }
+                    attrs: { type: "password", placeholder: "Password" },
+                    domProps: { value: _vm.profile.password_input },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.profile,
+                          "password_input",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "password" && type.label == "Confirm Password Change"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.password_confirm,
+                        expression: "profile.password_confirm"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    attrs: { type: "password", placeholder: "Password" },
+                    domProps: { value: _vm.profile.password_confirm },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.profile,
+                          "password_confirm",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              type.type == "password" &&
+              type.label == "Enter Password Before Edit"
+                ? _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.profile.password_verify,
+                        expression: "profile.password_verify"
+                      }
+                    ],
+                    staticClass: "txtinp",
+                    attrs: { type: "password", placeholder: "Password" },
+                    domProps: { value: _vm.profile.password_verify },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.profile,
+                          "password_verify",
+                          $event.target.value
+                        )
+                      }
+                    }
                   })
                 : _vm._e()
             ])
@@ -23166,10 +23473,12 @@ exports.push([module.i, "\n.navbar .dropdown-menu a[data-v-f6be8d00]:hover {\n  
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SubNavbar__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SubNavbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SubNavbar__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileEditor__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileEditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProfileEditor__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SubNavbar__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SubNavbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SubNavbar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ProfileEditor__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ProfileEditor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ProfileEditor__);
 //
 //
 //
@@ -23181,6 +23490,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -23188,16 +23499,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SubProfile',
   components: {
-    Navbar: __WEBPACK_IMPORTED_MODULE_0__SubNavbar___default.a,
-    ProfileEdit: __WEBPACK_IMPORTED_MODULE_1__ProfileEditor___default.a
+    Navbar: __WEBPACK_IMPORTED_MODULE_1__SubNavbar___default.a,
+    ProfileEdit: __WEBPACK_IMPORTED_MODULE_2__ProfileEditor___default.a
   },
   data: function data() {
     return {
       msg: 'SUB USER PLACEHOLDER',
-      profile: {
-        username: 'sub-user'
-      }
+      profile: null,
+      current_id: 0
     };
+  },
+  mounted: function mounted() {
+    this.current_id = 3; //Placeholder, get the current logged on user's id
+
+    var self = this;
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.profile = res.data;
+    });
   }
 });
 
@@ -23311,7 +23635,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      username: null
+      username: null,
+      current_id: 0
     };
   },
 
@@ -23331,7 +23656,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       console.log(response.data);
     });
 
-    this.username = 'SomeSub';
+    this.current_id = 3; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('req-owner', {
+      params: {
+        id: the_id
+      }
+    }).then(function (res) {
+      console.log(res.data);
+      self.username = res.data.name;
+    });
   }
 });
 

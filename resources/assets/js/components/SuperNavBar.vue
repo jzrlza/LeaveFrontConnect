@@ -55,7 +55,8 @@ export default {
   },
   data () {
     return {
-      username: null
+      username: null,
+      current_id: 0
     }
   },
   methods: {
@@ -75,7 +76,19 @@ export default {
         console.log(response.data);
     });
 
-    this.username = 'SomeSupervisor'; 
+    this.current_id = 2; //Placeholder, get the current logged on user's id
+
+    var the_id = this.current_id;
+    axios.get('req-owner',{
+      params: {
+        id: the_id
+        }
+      })
+    .then((res)=>{
+      console.log(res.data);
+      self.username = res.data.name;
+
+    });
   }
 }
 </script>

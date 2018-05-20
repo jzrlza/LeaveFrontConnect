@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+  
 import Navbar from './SubNavbar';
 import ProfileEdit from './ProfileEditor';
 
@@ -22,10 +24,25 @@ export default {
   data () {
     return {
       msg: 'SUB USER PLACEHOLDER',
-      profile: {
-        username: 'sub-user'
-      }
+      profile: null,
+      current_id: 0
     }
+  },
+  mounted(){
+    this.current_id = 3; //Placeholder, get the current logged on user's id
+
+    var self = this; 
+    var the_id = this.current_id;
+    axios.get('req-owner',{
+      params: {
+        id: the_id
+        }
+      })
+    .then((res)=>{
+      console.log(res.data);
+      self.profile = res.data;
+
+    });
   }
 }
 </script>
