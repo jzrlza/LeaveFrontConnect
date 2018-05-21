@@ -17,7 +17,7 @@
 10) run 'composer install'
 11) run 'npm install' (then 'npm run dev' if you want to commit any Updates from the Vue components)
 12) generate security key, run 'php artisan key:generate'
-13) visit 'localhost/<folder project name>/public'
+13) visit 'localhost/leave_front_connection/public'
 
 How to install passport
 
